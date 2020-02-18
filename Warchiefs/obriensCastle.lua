@@ -25,60 +25,31 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == "will") then
+        -- Create the widget
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/background.png", 1280, 720)
+        local background = display.newImageRect("images/obrienscastle.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
         local widget = require("widget")
 
         -- Function to handle button events
-        local function goToOrigin(event)
+        local function goToWorldMap(event)
             if ("ended" == event.phase) then
-                composer.gotoScene("origin", {effect = "crossFade", time = 500})
+                composer.gotoScene("menu")
             end
         end
-
-        -- Create the widget
-        local newGame =
+        local exitOBriensCastle =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 400,
-                id = "newGame",
-                label = "New Game",
-                onEvent = goToOrigin,
-                font = "Castellar",
-                fontSize = 70
-            }
-        )
-
-        local resume =
-            widget.newButton(
-            {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 500,
-                id = "resume",
-                label = "Resume Game",
-                onEvent = handleButtonEvent,
-                font = "Castellar",
-                fontSize = 70
-            }
-        )
-
-        local options =
-            widget.newButton(
-            {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
+                labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
+                left = 750,
                 top = 600,
-                id = "options",
-                label = "Options",
-                onEvent = handleButtonEvent,
+                id = "exitOBriensCastle",
+                label = "EXIT TO",
+                onEvent = goToWorldMap,
                 font = "Castellar",
-                fontSize = 70
+                fontSize = 40
             }
         )
     elseif (phase == "did") then

@@ -105,6 +105,7 @@ function scene:show(event)
                 attributeLabel.text = attributePoints
             end
         end
+
         attributeLabel = display.newText(attributePoints, 340, 245, "Castellar", 30)
 
         strengthLabel = display.newText(strength, 340, 300, "Castellar", 30)
@@ -119,8 +120,14 @@ function scene:show(event)
             --     composer.gotoScene("origin", {effect = "crossFade", time = 500})
             end
         end
-
+        local nameInput
         -- Create the widget
+        local function goToWorldMap(event)
+            if ("ended" == event.phase) then
+                nameInput:removeSelf()
+                composer.gotoScene("worldmap")
+            end
+        end
 
         local startGame =
             widget.newButton(
@@ -130,7 +137,7 @@ function scene:show(event)
                 top = 600,
                 id = "startGame",
                 label = "Start Game",
-                onEvent = handleButtonEvent,
+                onEvent = goToWorldMap,
                 font = "Castellar",
                 fontSize = 70
             }
@@ -266,8 +273,6 @@ function scene:show(event)
                 fontSize = 30
             }
         )
-
-        local nameInput
 
         local function textListener(event)
             if (event.phase == "began") then
