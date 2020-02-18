@@ -26,59 +26,120 @@ function scene:show(event)
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/background.png", 1280, 720)
+        local clanInfo = ""
+
+        local background = display.newImageRect("images/origin.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
+        local clanText = display.newText(clanInfo, 950, 200, "Castellar", 40)
+        clanText:setFillColor(0, 0, 0)
         local widget = require("widget")
 
         -- Function to handle button events
         local function handleButtonEvent(event)
             if ("ended" == event.phase) then
-                composer.gotoScene("origin", {effect = "crossFade", time = 500})
+                print("Button was pressed and released")
+            end
+        end
+
+        local function ryanText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about the ryan clan....."
+            end
+        end
+
+        local function createCharFunc(event)
+            if ("ended" == event.phase) then
+                composer.gotoScene("characterCreator", {effect = "crossFade", time = 500})
+            end
+        end
+
+        local function obrienText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about Obriens"
             end
         end
 
         -- Create the widget
-        local newGame =
+        local ryan =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 400,
-                id = "newGame",
-                label = "New Game",
-                onEvent = handleButtonEvent,
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 160,
+                top = 165,
+                id = "ryan",
+                label = "Ryan",
+                onEvent = ryanText,
                 font = "Castellar",
                 fontSize = 70
             }
         )
 
-        local resume =
+        local obrien =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 500,
-                id = "resume",
-                label = "Resume Game",
-                onEvent = handleButtonEvent,
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 160,
+                top = 265,
+                id = "obrien",
+                label = "O'Brien",
+                onEvent = obrienText,
                 font = "Castellar",
                 fontSize = 70
             }
         )
 
-        local options =
+        local singh =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 600,
-                id = "options",
-                label = "Options",
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 160,
+                top = 375,
+                id = "singh",
+                label = "Singh",
                 onEvent = handleButtonEvent,
                 font = "Castellar",
                 fontSize = 70
+            }
+        )
+        local shazad =
+            widget.newButton(
+            {
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 160,
+                top = 475,
+                id = "shazad",
+                label = "Shazad",
+                onEvent = handleButtonEvent,
+                font = "Castellar",
+                fontSize = 70
+            }
+        )
+        local oConnellMcGrath =
+            widget.newButton(
+            {
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 160,
+                top = 585,
+                id = "oConnellMcGrath",
+                label = "O'Connell Mc Grath",
+                onEvent = handleButtonEvent,
+                font = "Castellar",
+                fontSize = 70
+            }
+        )
+        local createCharacter =
+            widget.newButton(
+            {
+                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 740,
+                top = 30,
+                id = "createCharacter",
+                label = "Create Character",
+                onEvent = createCharFunc,
+                font = "Castellar",
+                fontSize = 45
             }
         )
     elseif (phase == "did") then
