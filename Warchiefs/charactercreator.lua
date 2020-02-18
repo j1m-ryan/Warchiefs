@@ -1,17 +1,5 @@
---copy above
-
 local composer = require("composer")
-
 local scene = composer.newScene()
-
--- -----------------------------------------------------------------------------------
--- Code outside of the scene event functions below will only be executed ONCE unless
--- the scene is removed entirely (not recycled) via "composer.removeScene()"
--- -----------------------------------------------------------------------------------
-
--- -----------------------------------------------------------------------------------
--- Scene event functions
--- -----------------------------------------------------------------------------------
 
 -- create()
 function scene:create(event)
@@ -25,23 +13,29 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == "will") then
+        -- Code here runs when the scene is still off screen (but is about to come on screen)
+        local widget = require("widget")
+
+        -- Initialize variables, note that these should read from the SQL database
         local attributePoints = 10
         local strength = 8
         local charisma = 10
         local dexterity = 8
         local agility = 8
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/characterCreator.png", 1280, 720)
-        background.x = display.contentCenterX
-        background.y = display.contentCenterY
 
-        local widget = require("widget")
+        -- Initialize variable labels
         local attributeLabel
         local strengthLabel
         local charismaLabel
         local dexterityLabel
         local agilityLabel
 
+        -- Set background
+        local background = display.newImageRect("images/characterCreator.png", 1280, 720)
+        background.x = display.contentCenterX
+        background.y = display.contentCenterY
+
+        -- Function to not allow attribute points go below zero
         local function attributePointsAvailable()
             if (attributePoints > 0) then
                 return true
@@ -50,6 +44,7 @@ function scene:show(event)
             end
         end
 
+        -- Function to increment strength variable
         local function addStr(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
@@ -60,6 +55,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to decrement strength variable, note the minimum value should be read from the sql database
         local function minStr(event)
             if ("ended" == event.phase) then
                 if (strength >= 1) then
@@ -70,6 +67,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to increment dexterity variable
         local function addDex(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
@@ -80,6 +79,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to decrement dexterity variable, note the minimum value should be read from the sql database
         local function minDex(event)
             if ("ended" == event.phase) then
                 if (dexterity >= 1) then
@@ -90,6 +91,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to increment agility variable
         local function addAgi(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
@@ -100,6 +103,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to decrement agility variable, note the minimum value should be read from the sql database
         local function minAgi(event)
             if ("ended" == event.phase) then
                 if (agility >= 1) then
@@ -110,6 +115,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to increment charisma variable
         local function addChr(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
@@ -120,6 +127,8 @@ function scene:show(event)
                 end
             end
         end
+
+        -- Function to decrement charisma variable, note the minimum value should be read from the sql database
         local function minCha(event)
             if ("ended" == event.phase) then
                 if (charisma >= 1) then
@@ -131,22 +140,14 @@ function scene:show(event)
             end
         end
 
+        -- create labels visable to the user for the variables
         attributeLabel = display.newText(attributePoints, 340, 245, "Castellar", 30)
-
         strengthLabel = display.newText(strength, 340, 300, "Castellar", 30)
         charismaLabel = display.newText(charisma, 340, 350, "Castellar", 30)
-
         dexterityLabel = display.newText(dexterity, 340, 410, "Castellar", 30)
-
         agilityLabel = display.newText(agility, 340, 460, "Castellar", 30)
-        -- Function to handle button events
-        local function handleButtonEvent(event)
-            if ("ended" == event.phase) then
-            --     composer.gotoScene("origin", {effect = "crossFade", time = 500})
-            end
-        end
-        local nameInput
-        -- Create the widget
+
+        -- Function to go to the worldmap
         local function goToWorldMap(event)
             if ("ended" == event.phase) then
                 nameInput:removeSelf()
@@ -299,6 +300,7 @@ function scene:show(event)
             }
         )
 
+        local nameInput
         local function textListener(event)
             if (event.phase == "began") then
                 -- User begins editing "nameInput"

@@ -1,22 +1,10 @@
---copy above
-
 local composer = require("composer")
-
 local scene = composer.newScene()
-
--- -----------------------------------------------------------------------------------
--- Code outside of the scene event functions below will only be executed ONCE unless
--- the scene is removed entirely (not recycled) via "composer.removeScene()"
--- -----------------------------------------------------------------------------------
-
--- -----------------------------------------------------------------------------------
--- Scene event functions
--- -----------------------------------------------------------------------------------
 
 -- create()
 function scene:create(event)
-    local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+    local sceneGroup = self.view
 end
 
 -- show()
@@ -26,20 +14,21 @@ function scene:show(event)
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        local widget = require("widget")
+
+        -- Set background image
         local background = display.newImageRect("images/background.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
-        local widget = require("widget")
-
-        -- Function to handle button events
+        -- Function to go to the origin scene
         local function goToOrigin(event)
             if ("ended" == event.phase) then
                 composer.gotoScene("origin", {effect = "crossFade", time = 500})
             end
         end
 
-        -- Create the widget
+        -- Create the Buttons
         local newGame =
             widget.newButton(
             {

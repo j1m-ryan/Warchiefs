@@ -1,22 +1,10 @@
---copy above
-
 local composer = require("composer")
-
 local scene = composer.newScene()
-
--- -----------------------------------------------------------------------------------
--- Code outside of the scene event functions below will only be executed ONCE unless
--- the scene is removed entirely (not recycled) via "composer.removeScene()"
--- -----------------------------------------------------------------------------------
-
--- -----------------------------------------------------------------------------------
--- Scene event functions
--- -----------------------------------------------------------------------------------
 
 -- create()
 function scene:create(event)
-    local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+    local sceneGroup = self.view
 end
 
 -- show()
@@ -26,23 +14,19 @@ function scene:show(event)
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+        local widget = require("widget")
         local clanInfo = ""
 
+        -- Set Background image
         local background = display.newImageRect("images/origin.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
+        -- Display information about each clan in a label
         local clanText = display.newText(clanInfo, 940, 260, "Castellar", 30)
         clanText:setFillColor(0, 0, 0)
-        local widget = require("widget")
 
-        -- Function to handle button events
-        local function handleButtonEvent(event)
-            if ("ended" == event.phase) then
-                print("Button was pressed and released")
-            end
-        end
-
+        -- Update the clan information for the Ryan clan
         local function ryanText(event)
             if ("ended" == event.phase) then
                 clanText.text =
@@ -50,34 +34,42 @@ function scene:show(event)
             end
         end
 
-        local function createCharFunc(event)
-            if ("ended" == event.phase) then
-                composer.gotoScene("characterCreator", {effect = "crossFade", time = 500})
-            end
-        end
-
+        -- Update the clan information for the O'Brien clan
         local function obrienText(event)
             if ("ended" == event.phase) then
                 clanText.text = "Info about O'Brien's"
             end
         end
-        local function oConnellMcGrathText(event)
-            if ("ended" == event.phase) then
-                clanText.text = "Info about O'Connel lMcGraths"
-            end
-        end
+
+        -- Update the clan information for the Shazad clan
         local function shazadText(event)
             if ("ended" == event.phase) then
                 clanText.text = "Info about Shazads"
             end
         end
+
+        -- Update the clan information for the Singh clan
         local function singhText(event)
             if ("ended" == event.phase) then
                 clanText.text = "Info about Singh's"
             end
         end
 
-        -- Create the widget
+        -- Update the clan information for the O'Connell McGrath clan
+        local function oConnellMcGrathText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about O'Connell McGraths"
+            end
+        end
+
+        -- Function to go to character creator scene
+        local function createCharFunc(event)
+            if ("ended" == event.phase) then
+                composer.gotoScene("characterCreator", {effect = "crossFade", time = 500})
+            end
+        end
+
+        -- Create the buttons
         local ryan =
             widget.newButton(
             {
