@@ -32,7 +32,7 @@ function scene:show(event)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
-        local clanText = display.newText(clanInfo, 950, 200, "Castellar", 40)
+        local clanText = display.newText(clanInfo, 940, 260, "Castellar", 30)
         clanText:setFillColor(0, 0, 0)
         local widget = require("widget")
 
@@ -45,7 +45,8 @@ function scene:show(event)
 
         local function ryanText(event)
             if ("ended" == event.phase) then
-                clanText.text = "Info about the ryan clan....."
+                clanText.text =
+                    "The Ryans are a strong and \nagile people originitating \nfrom the mid-west of the land \nStrength +1\nAgility +1\n"
             end
         end
 
@@ -57,7 +58,22 @@ function scene:show(event)
 
         local function obrienText(event)
             if ("ended" == event.phase) then
-                clanText.text = "Info about Obriens"
+                clanText.text = "Info about O'Brien's"
+            end
+        end
+        local function oConnellMcGrathText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about O'Connel lMcGraths"
+            end
+        end
+        local function shazadText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about Shazads"
+            end
+        end
+        local function singhText(event)
+            if ("ended" == event.phase) then
+                clanText.text = "Info about Singh's"
             end
         end
 
@@ -98,7 +114,7 @@ function scene:show(event)
                 top = 375,
                 id = "singh",
                 label = "Singh",
-                onEvent = handleButtonEvent,
+                onEvent = singhText,
                 font = "Castellar",
                 fontSize = 70
             }
@@ -111,7 +127,7 @@ function scene:show(event)
                 top = 475,
                 id = "shazad",
                 label = "Shazad",
-                onEvent = handleButtonEvent,
+                onEvent = shazadText,
                 font = "Castellar",
                 fontSize = 70
             }
@@ -124,7 +140,7 @@ function scene:show(event)
                 top = 585,
                 id = "oConnellMcGrath",
                 label = "O'Connell Mc Grath",
-                onEvent = handleButtonEvent,
+                onEvent = oConnellMcGrathText,
                 font = "Castellar",
                 fontSize = 70
             }

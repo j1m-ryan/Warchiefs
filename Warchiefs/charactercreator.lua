@@ -41,68 +41,93 @@ function scene:show(event)
         local charismaLabel
         local dexterityLabel
         local agilityLabel
+
+        local function attributePointsAvailable()
+            if (attributePoints > 0) then
+                return true
+            else
+                return false
+            end
+        end
+
         local function addStr(event)
             if ("ended" == event.phase) then
-                strength = strength + 1
-                strengthLabel.text = strength
-                attributePoints = attributePoints - 1
-                attributeLabel.text = attributePoints
+                if (attributePointsAvailable()) then
+                    strength = strength + 1
+                    strengthLabel.text = strength
+                    attributePoints = attributePoints - 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function minStr(event)
             if ("ended" == event.phase) then
-                strength = strength - 1
-                strengthLabel.text = strength
-                attributePoints = attributePoints + 1
-                attributeLabel.text = attributePoints
+                if (strength >= 1) then
+                    strength = strength - 1
+                    strengthLabel.text = strength
+                    attributePoints = attributePoints + 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function addDex(event)
             if ("ended" == event.phase) then
-                dexterity = dexterity + 1
-                dexterityLabel.text = dexterity
-                attributePoints = attributePoints - 1
-                attributeLabel.text = attributePoints
+                if (attributePointsAvailable()) then
+                    dexterity = dexterity + 1
+                    dexterityLabel.text = dexterity
+                    attributePoints = attributePoints - 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function minDex(event)
             if ("ended" == event.phase) then
-                dexterity = dexterity - 1
-                dexterityLabel.text = dexterity
-                attributePoints = attributePoints + 1
-                attributeLabel.text = attributePoints
+                if (dexterity >= 1) then
+                    dexterity = dexterity - 1
+                    dexterityLabel.text = dexterity
+                    attributePoints = attributePoints + 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function addAgi(event)
             if ("ended" == event.phase) then
-                agility = agility + 1
-                agilityLabel.text = agility
-                attributePoints = attributePoints - 1
-                attributeLabel.text = attributePoints
+                if (attributePointsAvailable()) then
+                    agility = agility + 1
+                    agilityLabel.text = agility
+                    attributePoints = attributePoints - 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function minAgi(event)
             if ("ended" == event.phase) then
-                agility = agility - 1
-                agilityLabel.text = agility
-                attributePoints = attributePoints + 1
-                attributeLabel.text = attributePoints
+                if (agility >= 1) then
+                    agility = agility - 1
+                    agilityLabel.text = agility
+                    attributePoints = attributePoints + 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function addChr(event)
             if ("ended" == event.phase) then
-                charisma = charisma + 1
-                charismaLabel.text = charisma
-                attributePoints = attributePoints - 1
-                attributeLabel.text = attributePoints
+                if (attributePointsAvailable()) then
+                    charisma = charisma + 1
+                    charismaLabel.text = charisma
+                    attributePoints = attributePoints - 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
         local function minCha(event)
             if ("ended" == event.phase) then
-                charisma = charisma - 1
-                charismaLabel.text = charisma
-                attributePoints = attributePoints + 1
-                attributeLabel.text = attributePoints
+                if (charisma >= 1) then
+                    charisma = charisma - 1
+                    charismaLabel.text = charisma
+                    attributePoints = attributePoints + 1
+                    attributeLabel.text = attributePoints
+                end
             end
         end
 
