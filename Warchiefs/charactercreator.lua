@@ -147,6 +147,8 @@ function scene:show(event)
         dexterityLabel = display.newText(dexterity, 340, 410, "Castellar", 30)
         agilityLabel = display.newText(agility, 340, 460, "Castellar", 30)
 
+        -- initalize nameInput
+        local nameInput
         -- Function to go to the worldmap
         local function goToWorldMap(event)
             if ("ended" == event.phase) then
@@ -300,7 +302,6 @@ function scene:show(event)
             }
         )
 
-        local nameInput
         local function textListener(event)
             if (event.phase == "began") then
                 -- User begins editing "nameInput"
