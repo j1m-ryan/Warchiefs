@@ -35,8 +35,10 @@ function scene:show(event)
 
         -- Function to handle button events
         local function goToWorldMap(event)
+            scene:destroy(event)
+            print("it happed")
             if ("ended" == event.phase) then
-                composer.gotoScene("menu")
+                composer.gotoScene("worldmap")
             end
         end
         local exitOBriensCastle =

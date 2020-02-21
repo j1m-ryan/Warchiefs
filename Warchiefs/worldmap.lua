@@ -39,7 +39,7 @@ function scene:show(event)
         character.y = 100
         physics.addBody(character, {radius = 30, isSensor = true})
         physics.addBody(obriensCastle, {radius = 30, isSensor = true})
-        character.myName = "character"
+        character.myName = _G.name
         obriensCastle.myName = "obriensCastle"
 
         local widget = require("widget")
