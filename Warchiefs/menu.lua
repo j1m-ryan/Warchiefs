@@ -33,7 +33,7 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 400,
+                left = 450,
                 top = 300,
                  width = 400,
         height = 200,
@@ -51,7 +51,7 @@ function scene:show(event)
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
                       width = 400,
         height = 200,
-                left = 400,
+                left = 450,
                 top = 410,
                 id = "resume",
                 defaultFile = "images/btnresumegame.png",
@@ -67,7 +67,7 @@ function scene:show(event)
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
                       width = 400,
         height = 200,
-                left = 400,
+                left = 450,
                 top = 520,
                 id = "options",
                  defaultFile = "images/btnoptions.png",
