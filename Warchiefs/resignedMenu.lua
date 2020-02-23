@@ -14,7 +14,7 @@ local widget = require("widget")
     
 -- background image
 
-local background = display.newImage("images/gameposter.png")
+local background = display.newImage("images/background.png")
 
     background.x=295
     background.y=625
