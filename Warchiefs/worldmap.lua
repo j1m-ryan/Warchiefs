@@ -23,7 +23,8 @@ end
 function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
-    local obriensCastle = display.newText("O'Brien's Castle", 220, 240, "Castellar", 20)
+    local obriensCastle = display.newText("O'Brien's Castle", 220, 190, "Castellar", 20)
+    local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
 
     if (phase == "will") then
         local physics = require("physics")
@@ -31,7 +32,7 @@ function scene:show(event)
         physics.setGravity(0, 0)
         -- Create the widget
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/worldmap.png", 1280, 720)
+        local background = display.newImageRect("images/worldmap2.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
         local character = display.newImageRect("images/basicman.png", 100, 100)
@@ -39,8 +40,10 @@ function scene:show(event)
         character.y = 100
         physics.addBody(character, {radius = 30, isSensor = true})
         physics.addBody(obriensCastle, {radius = 30, isSensor = true})
+        physics.addBody(ryanstown, {radius = 30, isSensor = true})
         character.myName = _G.name
         obriensCastle.myName = "obriensCastle"
+        ryanstown.myName = "ryanstown"
 
         local widget = require("widget")
 
@@ -77,7 +80,13 @@ function scene:show(event)
         local function onLocalCollision(self, event)
             if (event.phase == "began") then
                 print(self.myName .. ": collision began with " .. event.other.myName)
-                composer.gotoScene("obriensCastle")
+                if (event.other.myName == "obriensCastle") then
+                    composer.gotoScene("obriensCastle")
+                elseif  (event.other.myName == "ryanstown") then
+                    composer.gotoScene("ryanstown")
+                end
+
+                
             elseif (event.phase == "ended") then
                 print(self.myName .. ": collision ended with " .. event.other.myName)
             end
@@ -85,12 +94,7 @@ function scene:show(event)
         character.collision = onLocalCollision
         character:addEventListener("collision")
 
-        -- Function to handle button events
-        local function goToOrigin(event)
-            if ("ended" == event.phase) then
-                composer.gotoScene("origin", {effect = "crossFade", time = 500})
-            end
-        end
+  
     elseif (phase == "did") then
         Runtime:addEventListener("key", onKeyEvent)
     -- Code here runs when the scene is entirely on screen
