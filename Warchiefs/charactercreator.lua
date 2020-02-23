@@ -202,7 +202,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 218,
+                width = 10,
+                left = 300,
                 top = 275,
                 id = "minusStrength",
                 label = "<",
@@ -215,7 +216,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 285,
+                width = 10,
+                left = 367,
                 top = 275,
                 id = "addStrength",
                 label = ">",
@@ -228,7 +230,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 218,
+                width = 10,
+                left = 300,
                 top = 435,
                 id = "minusAgility",
                 label = "<",
@@ -241,7 +244,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 285,
+                width = 10,
+                left = 367,
                 top = 435,
                 id = "addAgility",
                 label = ">",
@@ -254,7 +258,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 218,
+                width = 10,
+                left = 300,
                 top = 385,
                 id = "minusDexterity",
                 label = "<",
@@ -267,7 +272,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 285,
+                width = 10,
+                left = 367,
                 top = 385,
                 id = "addDexterity",
                 label = ">",
@@ -280,7 +286,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 218,
+                width = 10,
+                left = 300,
                 top = 325,
                 id = "minusCharisma",
                 label = "<",
@@ -293,7 +300,8 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 285,
+                width = 10,
+                left = 367,
                 top = 325,
                 id = "addCharisma",
                 label = ">",
