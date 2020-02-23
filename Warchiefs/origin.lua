@@ -75,7 +75,7 @@ function scene:show(event)
                 return true
             end
             if ("ended" == event.phase) then
-                composer.gotoScene("characterCreator", {effect = "crossFade", time = 500})
+                composer.gotoScene("charactercreator", {effect = "crossFade", time = 500})
             end
         end
 

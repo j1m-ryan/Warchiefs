@@ -32,7 +32,7 @@ function scene:show(event)
         local agilityLabel
 
         -- Set background
-        local background = display.newImageRect("images/characterCreator.png", 1280, 720)
+        local background = display.newImageRect("images/charactercreator.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
