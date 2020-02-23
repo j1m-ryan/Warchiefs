@@ -202,9 +202,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 218,
-                top = 280,
+                top = 275,
                 id = "minusStrength",
-                label = "-",
+                label = "<",
                 onEvent = minStr,
                 font = "Castellar",
                 fontSize = 30
@@ -215,9 +215,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 285,
-                top = 280,
+                top = 275,
                 id = "addStrength",
-                label = "+",
+                label = ">",
                 onEvent = addStr,
                 font = "Castellar",
                 fontSize = 30
@@ -228,9 +228,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 218,
-                top = 440,
+                top = 435,
                 id = "minusAgility",
-                label = "-",
+                label = "<",
                 onEvent = minAgi,
                 font = "Castellar",
                 fontSize = 30
@@ -241,9 +241,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 285,
-                top = 440,
+                top = 435,
                 id = "addAgility",
-                label = "+",
+                label = ">",
                 onEvent = addAgi,
                 font = "Castellar",
                 fontSize = 30
@@ -254,9 +254,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 218,
-                top = 390,
+                top = 385,
                 id = "minusDexterity",
-                label = "-",
+                label = "<",
                 onEvent = minDex,
                 font = "Castellar",
                 fontSize = 30
@@ -267,9 +267,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 285,
-                top = 390,
+                top = 385,
                 id = "addDexterity",
-                label = "+",
+                label = ">",
                 onEvent = addDex,
                 font = "Castellar",
                 fontSize = 30
@@ -280,9 +280,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 218,
-                top = 330,
+                top = 325,
                 id = "minusCharisma",
-                label = "-",
+                label = "<",
                 onEvent = minCha,
                 font = "Castellar",
                 fontSize = 30
@@ -293,9 +293,9 @@ function scene:show(event)
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 285,
-                top = 330,
+                top = 325,
                 id = "addCharisma",
-                label = "+",
+                label = ">",
                 onEvent = addChr,
                 font = "Castellar",
                 fontSize = 30
