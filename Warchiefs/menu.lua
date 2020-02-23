@@ -33,10 +33,12 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 400,
+                left = 400,
+                top = 300,
+                 width = 400,
+        height = 200,
                 id = "newGame",
-                label = "New Game",
+                defaultFile = "images/btnnewgame.png",
                 onEvent = goToOrigin,
                 font = "Castellar",
                 fontSize = 70
@@ -47,13 +49,15 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 500,
+                      width = 400,
+        height = 200,
+                left = 400,
+                top = 410,
                 id = "resume",
-                label = "Resume Game",
+                defaultFile = "images/btnresumegame.png",
                 onEvent = handleButtonEvent,
                 font = "Castellar",
-                fontSize = 70
+             
             }
         )
 
@@ -61,10 +65,12 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 600,
+                      width = 400,
+        height = 200,
+                left = 400,
+                top = 520,
                 id = "options",
-                label = "Options",
+                 defaultFile = "images/btnoptions.png",
                 onEvent = handleButtonEvent,
                 font = "Castellar",
                 fontSize = 70
