@@ -29,6 +29,8 @@ function scene:show(event)
         -- Update the clan information for the Ryan clan
         local function ryanText(event)
             if ("ended" == event.phase) then
+                _G.clan = "ryan"
+                _G.strength = 6
                 clanText.text =
                     "The Ryans are a strong and \nagile people originitating \nfrom the mid-west of the land \nStrength +1\nAgility +1\n"
             end
@@ -36,6 +38,7 @@ function scene:show(event)
 
         -- Update the clan information for the O'Brien clan
         local function obrienText(event)
+            _G.clan = "obrien"
             if ("ended" == event.phase) then
                 clanText.text = "Info about O'Brien's"
             end
@@ -44,6 +47,7 @@ function scene:show(event)
         -- Update the clan information for the Shazad clan
         local function shazadText(event)
             if ("ended" == event.phase) then
+                _G.clan = "shazad"
                 clanText.text = "Info about Shazads"
             end
         end
@@ -51,6 +55,7 @@ function scene:show(event)
         -- Update the clan information for the Singh clan
         local function singhText(event)
             if ("ended" == event.phase) then
+                _G.clan = "singh"
                 clanText.text = "Info about Singh's"
             end
         end
@@ -58,12 +63,17 @@ function scene:show(event)
         -- Update the clan information for the O'Connell McGrath clan
         local function oConnellMcGrathText(event)
             if ("ended" == event.phase) then
+                _G.clan = "oConnellMcGrath"
                 clanText.text = "Info about O'Connell McGraths"
             end
         end
 
         -- Function to go to character creator scene
         local function createCharFunc(event)
+            if (_G.clan == "") then
+                print("you must pick a clan!")
+                return true
+            end
             if ("ended" == event.phase) then
                 composer.gotoScene("characterCreator", {effect = "crossFade", time = 500})
             end

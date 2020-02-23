@@ -18,7 +18,8 @@ function scene:show(event)
 
         -- Initialize variables, note that these should read from the SQL database
         local attributePoints = 10
-        local strength = 8
+        local strength = _G.strength
+        local minimumStrength = _G.strength
         local charisma = 10
         local dexterity = 8
         local agility = 8
@@ -59,7 +60,7 @@ function scene:show(event)
         -- Function to decrement strength variable, note the minimum value should be read from the sql database
         local function minStr(event)
             if ("ended" == event.phase) then
-                if (strength >= 1) then
+                if (strength > minimumStrength) then
                     strength = strength - 1
                     strengthLabel.text = strength
                     attributePoints = attributePoints + 1
@@ -307,12 +308,14 @@ function scene:show(event)
                 -- User begins editing "nameInput"
             elseif (event.phase == "ended" or event.phase == "submitted") then
                 -- Output resulting text from "nameInput"
+
                 print(event.target.text)
             elseif (event.phase == "editing") then
                 print(event.newCharacters)
                 print(event.oldText)
                 print(event.startPosition)
                 print(event.text)
+                _G.name = event.text
             end
         end
 
