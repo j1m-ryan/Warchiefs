@@ -16,7 +16,11 @@ function scene:show(event)
         -- Code here runs when the scene is still off screen (but is about to come on screen)
         local widget = require("widget")
         local clanInfo = ""
-
+        local ryan
+        local obrien
+        local singh
+        local shazad
+        local oConnellMcGrath
         -- Set Background image
         local background = display.newImageRect("images/origin.png", 1280, 720)
         background.x = display.contentCenterX
@@ -31,6 +35,11 @@ function scene:show(event)
             if ("ended" == event.phase) then
                 _G.clan = "ryan"
                 _G.strength = 6
+                ryan._view._label:setFillColor(1, 0, 0, 0.5)
+                obrien._view._label:setFillColor(0.3, 0.3, 0.3)
+                singh._view._label:setFillColor(0.3, 0.3, 0.3)
+                shazad._view._label:setFillColor(0.3, 0.3, 0.3)
+                oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
                 clanText.text =
                     "The Ryans are a strong and \nagile people originitating \nfrom the mid-west of the land \nStrength +1\nAgility +1\n"
             end
@@ -40,6 +49,14 @@ function scene:show(event)
         local function obrienText(event)
             _G.clan = "obrien"
             if ("ended" == event.phase) then
+                _G.clan = "obrien"
+                _G.strength = 6
+                ryan._view._label:setFillColor(0.3, 0.3, 0.3)
+                obrien._view._label:setFillColor(1, 0, 0, 0.5)
+                singh._view._label:setFillColor(0.3, 0.3, 0.3)
+                shazad._view._label:setFillColor(0.3, 0.3, 0.3)
+                oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
+
                 clanText.text = "Info about O'Brien's"
             end
         end
@@ -48,6 +65,12 @@ function scene:show(event)
         local function shazadText(event)
             if ("ended" == event.phase) then
                 _G.clan = "shazad"
+                _G.strength = 6
+                ryan._view._label:setFillColor(0.3, 0.3, 0.3)
+                obrien._view._label:setFillColor(0.3, 0.3, 0.3)
+                singh._view._label:setFillColor(0.3, 0.3, 0.3)
+                shazad._view._label:setFillColor(1, 0, 0, 0.5)
+                oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
                 clanText.text = "Info about Shazads"
             end
         end
@@ -56,6 +79,12 @@ function scene:show(event)
         local function singhText(event)
             if ("ended" == event.phase) then
                 _G.clan = "singh"
+                _G.strength = 6
+                ryan._view._label:setFillColor(0.3, 0.3, 0.3)
+                obrien._view._label:setFillColor(0.3, 0.3, 0.3)
+                singh._view._label:setFillColor(1, 0, 0, 0.5)
+                shazad._view._label:setFillColor(0.3, 0.3, 0.3)
+                oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
                 clanText.text = "Info about Singh's"
             end
         end
@@ -64,6 +93,12 @@ function scene:show(event)
         local function oConnellMcGrathText(event)
             if ("ended" == event.phase) then
                 _G.clan = "oConnellMcGrath"
+                _G.strength = 6
+                ryan._view._label:setFillColor(0.3, 0.3, 0.3)
+                obrien._view._label:setFillColor(0.3, 0.3, 0.3)
+                singh._view._label:setFillColor(0.3, 0.3, 0.3)
+                shazad._view._label:setFillColor(0.3, 0.3, 0.3)
+                oConnellMcGrath._view._label:setFillColor(1, 0, 0, 0.5)
                 clanText.text = "Info about O'Connell McGraths"
             end
         end
@@ -80,7 +115,7 @@ function scene:show(event)
         end
 
         -- Create the buttons
-        local ryan =
+        ryan =
             widget.newButton(
             {
                 labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
@@ -94,7 +129,7 @@ function scene:show(event)
             }
         )
 
-        local obrien =
+        obrien =
             widget.newButton(
             {
                 labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
@@ -108,7 +143,7 @@ function scene:show(event)
             }
         )
 
-        local singh =
+        singh =
             widget.newButton(
             {
                 labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
@@ -121,7 +156,7 @@ function scene:show(event)
                 fontSize = 70
             }
         )
-        local shazad =
+        shazad =
             widget.newButton(
             {
                 labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
@@ -134,7 +169,7 @@ function scene:show(event)
                 fontSize = 70
             }
         )
-        local oConnellMcGrath =
+        oConnellMcGrath =
             widget.newButton(
             {
                 labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
