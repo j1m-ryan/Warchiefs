@@ -15,10 +15,12 @@ function scene:show(event)
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
         local widget = require("widget")
+        local warningText = display.newText("", 1010, 95, native.systemFont, 35)
 
         -- Initialize variables, note that these should read from the SQL database
         local attributePoints = 10
         local strength = _G.strength
+
         local minimumStrength = _G.strength
         local charisma = 10
         local dexterity = 8
@@ -35,6 +37,20 @@ function scene:show(event)
         local background = display.newImageRect("images/charactercreator.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
+
+        --Functions to make warning texts
+        local function warningName()
+            warningText.text = display.newText("You must pick a name", 1010, 120, native.systemFont, 35)
+        end
+
+        local function warningGender()
+            warningText.text = display.newText("You must pick a gender", 1010, 120, native.systemFont, 35)
+            warningText:setFillColor(1, 0, 0)
+        end
+        local function warningAttribute()
+            warningText.text = display.newText("You must spend all attribute points", 1010, 120, native.systemFont, 35)
+            warningText:setFillColor(1, 0, 0)
+        end
 
         --Function to choose Male character
         local function chooseMale()
@@ -165,12 +181,15 @@ function scene:show(event)
             if ("ended" == event.phase) then
                 if (_G.name == "") then
                     print("you must pick a name")
+                    warningName()
                     return
                 elseif (_G.gender == "") then
                     print("you must pick a gender")
+                    warningGender()
                     return
                 elseif (attributePoints > 0) then
                     print("you must spend attribute points")
+                    warningAttribute()
                     return
                 end
                 nameInput:removeSelf()
@@ -182,13 +201,13 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 50,
-                top = 600,
+                left = 900,
+                top = 50,
                 id = "startGame",
                 label = "Start Game",
                 onEvent = goToWorldMap,
                 font = "Castellar",
-                fontSize = 70
+                fontSize = 50
             }
         )
         local male =

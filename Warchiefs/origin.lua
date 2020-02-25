@@ -21,6 +21,10 @@ function scene:show(event)
         local singh
         local shazad
         local oConnellMcGrath
+
+        --clan warning intialized
+        local clanWarning
+        local clanWarningText = display.newText("", 1010, 95, native.systemFont, 35)
         -- Set Background image
         local background = display.newImageRect("images/origin.png", 1280, 720)
         background.x = display.contentCenterX
@@ -30,10 +34,19 @@ function scene:show(event)
         local clanText = display.newText(clanInfo, 940, 260, "Castellar", 30)
         clanText:setFillColor(0, 0, 0)
 
+        --ask player to choose a clan
+        function clanWarning()
+            if (clanInfo == "") then
+                clanWarningText = display.newText("You must pick a clan", 1010, 95, native.systemFont, 35)
+                clanWarningText:setFillColor(1, 0, 0)
+            end
+        end
         -- Update the clan information for the Ryan clan
         local function ryanText(event)
             if ("ended" == event.phase) then
-                _G.clan = "ryan"
+                display.remove(clanWarningText)
+
+                _G.clan = "Ryan"
                 _G.strength = 6
                 ryan._view._label:setFillColor(1, 0, 0, 0.5)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -47,9 +60,9 @@ function scene:show(event)
 
         -- Update the clan information for the O'Brien clan
         local function obrienText(event)
-            _G.clan = "obrien"
+            _G.clan = "O'Brien"
             if ("ended" == event.phase) then
-                _G.clan = "obrien"
+                clanWarningText.text = ""
                 _G.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(1, 0, 0, 0.5)
@@ -64,7 +77,8 @@ function scene:show(event)
         -- Update the clan information for the Shazad clan
         local function shazadText(event)
             if ("ended" == event.phase) then
-                _G.clan = "shazad"
+                clanWarningText.text = ""
+                _G.clan = "Shazad"
                 _G.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -78,7 +92,8 @@ function scene:show(event)
         -- Update the clan information for the Singh clan
         local function singhText(event)
             if ("ended" == event.phase) then
-                _G.clan = "singh"
+                clanWarningText.text = ""
+                _G.clan = "Singh"
                 _G.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -92,7 +107,8 @@ function scene:show(event)
         -- Update the clan information for the O'Connell McGrath clan
         local function oConnellMcGrathText(event)
             if ("ended" == event.phase) then
-                _G.clan = "oConnellMcGrath"
+                clanWarningText.text = ""
+                _G.clan = "O'Connell McGrath"
                 _G.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -106,7 +122,7 @@ function scene:show(event)
         -- Function to go to character creator scene
         local function createCharFunc(event)
             if (_G.clan == "") then
-                print("you must pick a clan!")
+                clanWarning()
                 return true
             end
             if ("ended" == event.phase) then

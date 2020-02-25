@@ -20,5 +20,10 @@ _G.dexterity = 5
 _G.spirit = 5
 
 _G.town = ""
+_G.gold = 10000
+_G.largeHealthPotions = 0
+_G.smallHealthPotions = 0
+_G.x = 30
+_G.y = 30
 -- Go to the menu screen
 composer.gotoScene("menu")

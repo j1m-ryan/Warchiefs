@@ -45,6 +45,11 @@ function scene:show(event)
                 composer.showOverlay("level")
             end
         end
+        local function goToMage(event)
+            if ("ended" == event.phase) then
+                composer.showOverlay("mage")
+            end
+        end
         local exitRyansTown =
             widget.newButton(
             {
@@ -67,6 +72,19 @@ function scene:show(event)
                 id = "lvlScreen",
                 label = "LVL",
                 onEvent = goToLvl,
+                font = "Castellar",
+                fontSize = 40
+            }
+        )
+        local mageBtn =
+            widget.newButton(
+            {
+                labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
+                left = 220,
+                top = 450,
+                id = "magebtn",
+                label = "MAGE",
+                onEvent = goToMage,
                 font = "Castellar",
                 fontSize = 40
             }

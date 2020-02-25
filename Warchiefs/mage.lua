@@ -21,7 +21,7 @@ end
 function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
-    local background = display.newImageRect("images/skill.png", 1280, 720)
+    local background = display.newImageRect("images/mage.png", 1280, 720)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
     local widget = require("widget")
@@ -44,8 +44,32 @@ function scene:show(event)
             fontSize = 40
         }
     )
-    local myName = display.newText(_G.name, 1010, 75, native.systemFont, 35)
-    local myClan = display.newText(_G.clan, 1010, 100, native.systemFont, 35)
+    local buyLarge =
+        widget.newButton(
+        {
+            labelColor = {default = {.4, .6, .4}, over = {0, 0, 0, 0.5}},
+            left = 370,
+            top = 250,
+            id = "buyLarge",
+            label = "BUY",
+            onEvent = buyLargePotion,
+            font = "Castellar",
+            fontSize = 40
+        }
+    )
+    local buySmall =
+        widget.newButton(
+        {
+            labelColor = {default = {.4, .6, .4}, over = {0, 0, 0, 0.5}},
+            left = 370,
+            top = 650,
+            id = "buySmall",
+            label = "BUY",
+            onEvent = buySmallPotion,
+            font = "Castellar",
+            fontSize = 40
+        }
+    )
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
