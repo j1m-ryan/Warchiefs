@@ -36,8 +36,8 @@ function scene:show(event)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
         local character = display.newImageRect("images/basicman.png", 100, 100)
-        character.x = 100
-        character.y = 100
+        character.x = _G.x
+        character.y = _G.y
         physics.addBody(character, {radius = 30, isSensor = true})
         physics.addBody(obriensCastle, {radius = 30, isSensor = true})
         physics.addBody(ryanstown, {radius = 30, isSensor = true})
@@ -48,6 +48,10 @@ function scene:show(event)
         local widget = require("widget")
 
         function onKeyEvent(event)
+            print("x")
+            print(character.x)
+            print("Y")
+            print(character.y)
             if event.keyName == "a" then
                 if event.phase == "down" then
                     transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
@@ -81,20 +85,22 @@ function scene:show(event)
             if (event.phase == "began") then
                 print(self.myName .. ": collision began with " .. event.other.myName)
                 if (event.other.myName == "obriensCastle") then
+                    character:removeEventListener("collision", character)
+                    _G.x = 196
+                    _G.y = 247
                     composer.gotoScene("obriensCastle")
-                elseif  (event.other.myName == "ryanstown") then
+                elseif (event.other.myName == "ryanstown") then
+                    character:removeEventListener("collision", character)
+                    _G.x = 774
+                    _G.y = 190
                     composer.gotoScene("ryanstown")
                 end
-
-                
             elseif (event.phase == "ended") then
                 print(self.myName .. ": collision ended with " .. event.other.myName)
             end
         end
         character.collision = onLocalCollision
         character:addEventListener("collision")
-
-  
     elseif (phase == "did") then
         Runtime:addEventListener("key", onKeyEvent)
     -- Code here runs when the scene is entirely on screen
