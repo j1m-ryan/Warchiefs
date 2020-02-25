@@ -43,6 +43,10 @@ function scene:show(event)
             fontSize = 40
         }
     )
+    local myName = display.newText(_G.name, 0, 0, native.systemFont, 40)
+    myName.x = 1000
+    myName.y = 70
+    myName.anchorX = 0
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
     elseif (phase == "did") then
