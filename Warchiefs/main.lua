@@ -19,5 +19,6 @@ _G.agility = 5
 _G.dexterity = 5
 _G.spirit = 5
 
+_G.town = ""
 -- Go to the menu screen
 composer.gotoScene("menu")

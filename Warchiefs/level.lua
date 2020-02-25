@@ -28,6 +28,7 @@ function scene:show(event)
     local function goBack(event)
         if ("ended" == event.phase) then
             composer.hideOverlay("level")
+            composer.gotoScene(_G.town)
         end
     end
     local backBTN =

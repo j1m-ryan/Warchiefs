@@ -21,6 +21,7 @@ end
 
 -- show()
 function scene:show(event)
+    _G.town = "ryanstown"
     local sceneGroup = self.view
     local phase = event.phase
 
@@ -61,7 +62,7 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 940,
+                left = 920,
                 top = 650,
                 id = "lvlScreen",
                 label = "LVL",
