@@ -87,7 +87,7 @@ function scene:show(event)
                 if (event.other.myName == "obriensCastle") then
                     character:removeEventListener("collision", character)
                     _G.x = 196
-                    _G.y = 247
+                    _G.y = 250
                     composer.gotoScene("obriensCastle")
                 elseif (event.other.myName == "ryanstown") then
                     character:removeEventListener("collision", character)
