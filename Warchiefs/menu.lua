@@ -32,32 +32,29 @@ function scene:show(event)
         local newGame =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
+                width = 400,
+                height = 200,
                 left = 450,
                 top = 300,
-                 width = 400,
-        height = 200,
                 id = "newGame",
                 defaultFile = "images/btnnewgame.png",
-                onEvent = goToOrigin,
-                font = "Castellar",
-                fontSize = 70
+                overFile = "images/btn1hover.png",
+                onEvent = goToOrigin
             }
         )
 
         local resume =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                      width = 400,
-        height = 200,
+                width = 400,
+                height = 200,
                 left = 450,
                 top = 410,
                 id = "resume",
                 defaultFile = "images/btnresumegame.png",
+                overFile = "images/btn4hover.png",
                 onEvent = handleButtonEvent,
-                font = "Castellar",
-             
+                font = "Castellar"
             }
         )
 
@@ -65,12 +62,13 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                      width = 400,
-        height = 200,
+                width = 400,
+                height = 200,
                 left = 450,
                 top = 520,
                 id = "options",
-                 defaultFile = "images/btnoptions.png",
+                defaultFile = "images/btnoptions.png",
+                overFile = "images/btn2hover.png",
                 onEvent = handleButtonEvent,
                 font = "Castellar",
                 fontSize = 70
