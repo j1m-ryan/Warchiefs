@@ -36,6 +36,16 @@ function scene:show(event)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
+        --Function to choose Male character
+        local function chooseMale()
+            _G.gender = "Male"
+        end
+
+        --Function to choose Female character
+        local function chooseFemale()
+            _G.gender = "Female"
+        end
+
         -- Function to not allow attribute points go below zero
         local function attributePointsAvailable()
             if (attributePoints > 0) then
@@ -153,6 +163,16 @@ function scene:show(event)
         -- Function to go to the worldmap
         local function goToWorldMap(event)
             if ("ended" == event.phase) then
+                if (_G.name == "") then
+                    print("you must pick a name")
+                    return
+                elseif (_G.gender == "") then
+                    print("you must pick a gender")
+                    return
+                elseif (attributePoints > 0) then
+                    print("you must spend attribute points")
+                    return
+                end
                 nameInput:removeSelf()
                 composer.gotoScene("worldmap")
             end
@@ -179,7 +199,7 @@ function scene:show(event)
                 top = 150,
                 id = "male",
                 label = "male",
-                onEvent = handleButtonEvent,
+                onEvent = chooseMale,
                 font = "Castellar",
                 fontSize = 20
             }
@@ -192,7 +212,7 @@ function scene:show(event)
                 top = 150,
                 id = "female",
                 label = "female",
-                onEvent = handleButtonEvent,
+                onEvent = chooseFemale,
                 font = "Castellar",
                 fontSize = 20
             }
