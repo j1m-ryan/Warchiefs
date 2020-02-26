@@ -21,7 +21,7 @@ end
 
 -- show()
 function scene:show(event)
-    _G.town = "ryanstown"
+    player.location = "ryanstown"
     local sceneGroup = self.view
     local phase = event.phase
 

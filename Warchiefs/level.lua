@@ -1,5 +1,5 @@
 local composer = require("composer")
-
+local player = require("playerData")
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ function scene:show(event)
     local function goBack(event)
         if ("ended" == event.phase) then
             composer.hideOverlay("level")
-            composer.gotoScene(_G.town)
+            composer.gotoScene(player.location)
         end
     end
     local backBTN =
@@ -44,8 +44,8 @@ function scene:show(event)
             fontSize = 40
         }
     )
-    local myName = display.newText(_G.name, 1010, 75, native.systemFont, 35)
-    local myClan = display.newText(_G.clan, 1010, 100, native.systemFont, 35)
+    local myName = display.newText(player.name, 1010, 75, native.systemFont, 35)
+    local myClan = display.newText(player.clan, 1010, 100, native.systemFont, 35)
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)

@@ -15,6 +15,6 @@ player.largeHealthPotions = 0
 player.smallHealthPotions = 0
 player.x = 30
 player.y = 30
-
+player.location = ""
 player.health = 50 --default
 return player
