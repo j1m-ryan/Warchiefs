@@ -1,5 +1,6 @@
 local composer = require("composer")
 local scene = composer.newScene()
+local player  = require("playerData")
 
 -- create()
 function scene:create(event)
@@ -46,8 +47,8 @@ function scene:show(event)
             if ("ended" == event.phase) then
                 display.remove(clanWarningText)
 
-                _G.clan = "Ryan"
-                _G.strength = 6
+                player.clan = "Ryan"
+                player.strength = 6
                 ryan._view._label:setFillColor(1, 0, 0, 0.5)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -60,10 +61,10 @@ function scene:show(event)
 
         -- Update the clan information for the O'Brien clan
         local function obrienText(event)
-            _G.clan = "O'Brien"
+            player.clan = "O'Brien"
             if ("ended" == event.phase) then
                 clanWarningText.text = ""
-                _G.strength = 6
+                player.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(1, 0, 0, 0.5)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -78,8 +79,8 @@ function scene:show(event)
         local function shazadText(event)
             if ("ended" == event.phase) then
                 clanWarningText.text = ""
-                _G.clan = "Shazad"
-                _G.strength = 6
+                player.clan = "Shazad"
+                player.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -93,8 +94,8 @@ function scene:show(event)
         local function singhText(event)
             if ("ended" == event.phase) then
                 clanWarningText.text = ""
-                _G.clan = "Singh"
-                _G.strength = 6
+                player.clan = "Singh"
+                player.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
                 singh._view._label:setFillColor(1, 0, 0, 0.5)
@@ -108,8 +109,8 @@ function scene:show(event)
         local function oConnellMcGrathText(event)
             if ("ended" == event.phase) then
                 clanWarningText.text = ""
-                _G.clan = "O'Connell McGrath"
-                _G.strength = 6
+                player.clan = "O'Connell McGrath"
+                player.strength = 6
                 ryan._view._label:setFillColor(0.3, 0.3, 0.3)
                 obrien._view._label:setFillColor(0.3, 0.3, 0.3)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -121,7 +122,7 @@ function scene:show(event)
 
         -- Function to go to character creator scene
         local function createCharFunc(event)
-            if (_G.clan == "") then
+            if (player.clan == "") then
                 clanWarning()
                 return true
             end

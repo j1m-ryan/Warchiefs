@@ -1,7 +1,7 @@
 --copy above
 
 local composer = require("composer")
-
+local player  = require("playerData")
 local scene = composer.newScene()
 local screenW, screenH, halfW = display.actualContentWidth, display.actualContentHeight, display.contentCenterX
 -- -----------------------------------------------------------------------------------
@@ -36,12 +36,12 @@ function scene:show(event)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
         local character = display.newImageRect("images/basicman.png", 100, 100)
-        character.x = _G.x
-        character.y = _G.y
+        character.x = player.x
+        character.y = player.y
         physics.addBody(character, {radius = 30, isSensor = true})
         physics.addBody(obriensCastle, {radius = 30, isSensor = true})
         physics.addBody(ryanstown, {radius = 30, isSensor = true})
-        character.myName = _G.name
+        character.myName = player.name
         obriensCastle.myName = "obriensCastle"
         ryanstown.myName = "ryanstown"
 
@@ -86,13 +86,13 @@ function scene:show(event)
                 print(self.myName .. ": collision began with " .. event.other.myName)
                 if (event.other.myName == "obriensCastle") then
                     character:removeEventListener("collision", character)
-                    _G.x = 196
-                    _G.y = 250
+                    player.x = 196
+                    player.y = 250
                     composer.gotoScene("obriensCastle")
                 elseif (event.other.myName == "ryanstown") then
                     character:removeEventListener("collision", character)
-                    _G.x = 774
-                    _G.y = 190
+                    player.x = 774
+                    player.y = 190
                     composer.gotoScene("ryanstown")
                 end
             elseif (event.phase == "ended") then

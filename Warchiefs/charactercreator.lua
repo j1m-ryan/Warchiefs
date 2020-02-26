@@ -1,5 +1,6 @@
 local composer = require("composer")
 local scene = composer.newScene()
+local player  = require("playerData")
 
 -- create()
 function scene:create(event)
@@ -18,13 +19,8 @@ function scene:show(event)
         local warningText = display.newText("", 1010, 95, native.systemFont, 35)
 
         -- Initialize variables, note that these should read from the SQL database
-        local attributePoints = 10
-        local strength = _G.strength
 
-        local minimumStrength = _G.strength
-        local charisma = 10
-        local dexterity = 8
-        local agility = 8
+        local minimumStrength = player.strength
 
         -- Initialize variable labels
         local attributeLabel
@@ -54,17 +50,17 @@ function scene:show(event)
 
         --Function to choose Male character
         local function chooseMale()
-            _G.gender = "Male"
+            player.gender = "Male"
         end
 
         --Function to choose Female character
         local function chooseFemale()
-            _G.gender = "Female"
+            player.gender = "Female"
         end
 
         -- Function to not allow attribute points go below zero
         local function attributePointsAvailable()
-            if (attributePoints > 0) then
+            if (player.attributePoints > 0) then
                 return true
             else
                 return false
@@ -75,10 +71,10 @@ function scene:show(event)
         local function addStr(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
-                    strength = strength + 1
-                    strengthLabel.text = strength
-                    attributePoints = attributePoints - 1
-                    attributeLabel.text = attributePoints
+                    player.strength = player.strength + 1
+                    strengthLabel.text = player.strength
+                    player.attributePoints = player.attributePoints - 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -86,11 +82,11 @@ function scene:show(event)
         -- Function to decrement strength variable, note the minimum value should be read from the sql database
         local function minStr(event)
             if ("ended" == event.phase) then
-                if (strength > minimumStrength) then
-                    strength = strength - 1
-                    strengthLabel.text = strength
-                    attributePoints = attributePoints + 1
-                    attributeLabel.text = attributePoints
+                if (player.strength > minimumStrength) then
+                    player.strength = player.strength - 1
+                    strengthLabel.text = player.strength
+                    player.attributePoints = player.attributePoints + 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -99,10 +95,10 @@ function scene:show(event)
         local function addDex(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
-                    dexterity = dexterity + 1
-                    dexterityLabel.text = dexterity
-                    attributePoints = attributePoints - 1
-                    attributeLabel.text = attributePoints
+                    player.dexterity = player.dexterity + 1
+                    dexterityLabel.text = player.dexterity
+                    player.attributePoints = player.attributePoints - 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -110,11 +106,11 @@ function scene:show(event)
         -- Function to decrement dexterity variable, note the minimum value should be read from the sql database
         local function minDex(event)
             if ("ended" == event.phase) then
-                if (dexterity >= 1) then
-                    dexterity = dexterity - 1
-                    dexterityLabel.text = dexterity
-                    attributePoints = attributePoints + 1
-                    attributeLabel.text = attributePoints
+                if (player.dexterity >= 1) then
+                    player.dexterity = player.dexterity - 1
+                    dexterityLabel.text = player.dexterity
+                    player.attributePoints = player.attributePoints + 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -123,10 +119,10 @@ function scene:show(event)
         local function addAgi(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
-                    agility = agility + 1
-                    agilityLabel.text = agility
-                    attributePoints = attributePoints - 1
-                    attributeLabel.text = attributePoints
+                    player.agility = player.agility + 1
+                    agilityLabel.text = player.agility
+                    player.attributePoints = player.attributePoints - 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -134,11 +130,11 @@ function scene:show(event)
         -- Function to decrement agility variable, note the minimum value should be read from the sql database
         local function minAgi(event)
             if ("ended" == event.phase) then
-                if (agility >= 1) then
-                    agility = agility - 1
-                    agilityLabel.text = agility
-                    attributePoints = attributePoints + 1
-                    attributeLabel.text = attributePoints
+                if (player.agility >= 1) then
+                    player.agility = player.agility - 1
+                    agilityLabel.text = player.agility
+                    player.attributePoints = player.attributePoints + 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -147,10 +143,10 @@ function scene:show(event)
         local function addChr(event)
             if ("ended" == event.phase) then
                 if (attributePointsAvailable()) then
-                    charisma = charisma + 1
-                    charismaLabel.text = charisma
-                    attributePoints = attributePoints - 1
-                    attributeLabel.text = attributePoints
+                    player.charisma = player.charisma + 1
+                    charismaLabel.text = player.charisma
+                    player.attributePoints = player.attributePoints - 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
@@ -158,36 +154,36 @@ function scene:show(event)
         -- Function to decrement charisma variable, note the minimum value should be read from the sql database
         local function minCha(event)
             if ("ended" == event.phase) then
-                if (charisma >= 1) then
-                    charisma = charisma - 1
-                    charismaLabel.text = charisma
-                    attributePoints = attributePoints + 1
-                    attributeLabel.text = attributePoints
+                if (player.charisma >= 1) then
+                    player.charisma = player.charisma - 1
+                    charismaLabel.text = player.charisma
+                    player.attributePoints = player.attributePoints + 1
+                    attributeLabel.text = player.attributePoints
                 end
             end
         end
 
         -- create labels visable to the user for the variables
-        attributeLabel = display.newText(attributePoints, 340, 245, "Castellar", 30)
-        strengthLabel = display.newText(strength, 340, 300, "Castellar", 30)
-        charismaLabel = display.newText(charisma, 340, 350, "Castellar", 30)
-        dexterityLabel = display.newText(dexterity, 340, 410, "Castellar", 30)
-        agilityLabel = display.newText(agility, 340, 460, "Castellar", 30)
+        attributeLabel = display.newText(player.attributePoints, 340, 245, "Castellar", 30)
+        strengthLabel = display.newText(player.strength, 340, 300, "Castellar", 30)
+        charismaLabel = display.newText(player.charisma, 340, 350, "Castellar", 30)
+        dexterityLabel = display.newText(player.dexterity, 340, 410, "Castellar", 30)
+        agilityLabel = display.newText(player.agility, 340, 460, "Castellar", 30)
 
         -- initalize nameInput
         local nameInput
         -- Function to go to the worldmap
         local function goToWorldMap(event)
             if ("ended" == event.phase) then
-                if (_G.name == "") then
+                if (player.name == "") then
                     print("you must pick a name")
                     warningName()
                     return
-                elseif (_G.gender == "") then
+                elseif (player.gender == "") then
                     print("you must pick a gender")
                     warningGender()
                     return
-                elseif (attributePoints > 0) then
+                elseif (player.attributePoints > 0) then
                     print("you must spend attribute points")
                     warningAttribute()
                     return
@@ -362,7 +358,7 @@ function scene:show(event)
                 print(event.oldText)
                 print(event.startPosition)
                 print(event.text)
-                _G.name = event.text
+                player.name = event.text
             end
         end
 
