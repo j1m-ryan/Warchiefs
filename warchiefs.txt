@@ -1,6 +1,6 @@
 Warchiefs, an rpg for windows pc
  Warchiefs is a role playing game where your goal is to capture all the cities in the land
- You take control of cities by attacking the their castle.
+ You take control of cities by attacking their castle.
 There are 5 clans who control the land, the players goal is to unite them under one banner
 
 
