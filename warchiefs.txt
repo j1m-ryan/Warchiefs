@@ -1,0 +1,36 @@
+Warchiefs, an rpg for windows pc
+ Warchiefs is a role playing game where your goal is to capture all the cities in the land
+ You take control of cities by attacking the their castle.
+There are 5 clans who control the land, the players goal is to unite them under one banner
+
+
+ As fans of the genre can expect, warchiefs has an indepth character creator, a skill tree, attributes,
+ an inventory system and merchants who you can visit
+
+ From the mage the player can buy small or large health potions.
+ At the blacksmith the player can upgrade their weapons
+
+  When you create a character you must chose one of 5 clans, your choice will give you a bonus to one of the 5
+ attributes, stregth, dexterity, endurance, agility and spirit. Proficiency in these skills will aid the player
+ on the battlefield
+ The game is also accessible in the sense that it offers two difficulty modes, on easy mode the player
+ starts with more gold and more attribute points. Hard mode, is for experienced rpg players who want more of a challenge
+
+
+
+ As the player controls more cities they gain experience points to level up,
+ when the player levels up they unlock attribute points and skill points. These can spent in unique
+ ways so every game feels different every time. Examples of skills include haggling, which reduces the
+ price of items in the shops and Marksman which increases critical hit chances.
+
+ The battles are turn based and the player has to use their build to gain an advantage over their foes
+ As the battles are turn based the player is offered a lot of written feedback so they can make an educated decision
+ on where they should spend their attributes and skill points.
+ 
+ When a city is owned the player can visit the cities castle and the cities label appears green on the world map
+
+The core gameplay loop involves attacking cities, upgrading and upskilling the character, and then attacking more cities
+A game which has a similar gameplay loop is Mount and Blade Warband. What makes Warchiefs different is that
+it has a magic component.
+
+The player can also perform sidequests for a city's guild to earn extra gold and experience.
