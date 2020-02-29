@@ -1,7 +1,7 @@
 --copy above
 
 local composer = require("composer")
-
+local player = require("playerData")
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------

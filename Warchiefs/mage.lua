@@ -1,5 +1,5 @@
 local composer = require("composer")
-
+local player = require("playerData")
 local scene = composer.newScene()
 
 function scene:create(event)
@@ -17,7 +17,7 @@ function scene:show(event)
     local function goBack(event)
         if ("ended" == event.phase) then
             composer.hideOverlay("level")
-            composer.gotoScene(_G.town)
+            composer.gotoScene(player.location)
         end
     end
     local backBTN =
