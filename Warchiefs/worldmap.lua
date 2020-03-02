@@ -35,7 +35,7 @@ function scene:show(event)
         local background = display.newImageRect("images/worldmap2.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
-        local character = display.newImageRect("images/basicman.png", 100, 100)
+        local character = display.newImageRect("images/hero1.png", 100, 100)
         character.x = player.x
         character.y = player.y
         physics.addBody(character, {radius = 30, isSensor = true})
