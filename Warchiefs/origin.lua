@@ -40,6 +40,7 @@ function scene:show(event)
             if (clanInfo == "") then
                 clanWarningText = display.newText("You must pick a clan", 1010, 95, native.systemFont, 35)
                 clanWarningText:setFillColor(1, 0, 0)
+                transition.fadeOut( clanWarningText, { time=3000 } )
             end
         end
         -- Update the clan information for the Ryan clan
