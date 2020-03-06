@@ -32,10 +32,10 @@ function scene:show(event)
         physics.setGravity(0, 0)
         -- Create the widget
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/worldmap2.png", 1280, 720)
+        local background = display.newImageRect("images/worldmap.jpg", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
-        local character = display.newImageRect("images/hero1.png", 100, 100)
+        local character = display.newImageRect("images/hero1.png", 130, 130)
         character.x = player.x
         character.y = player.y
         physics.addBody(character, {radius = 30, isSensor = true})
