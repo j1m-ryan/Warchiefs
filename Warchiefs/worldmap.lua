@@ -27,7 +27,10 @@ function scene:show(event)
     obriensCastle.x = 300
     obriensCastle.y = 130
     
-    local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
+    --local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
+    local ryanstown = display.newImageRect("images/ryancity.png", 180, 180)
+    ryanstown.x = 970
+    ryanstown.y = 200
 
     if (phase == "will") then
         local physics = require("physics")
