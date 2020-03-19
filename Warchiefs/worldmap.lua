@@ -23,7 +23,10 @@ end
 function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
-    local obriensCastle = display.newText("O'Brien's Castle", 220, 190, "Castellar", 20)
+    local obriensCastle = display.newImageRect("images/obriencity.png", 180, 180)
+    obriensCastle.x = 300
+    obriensCastle.y = 130
+    
     local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
 
     if (phase == "will") then
