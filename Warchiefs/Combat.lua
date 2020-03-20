@@ -1,7 +1,6 @@
     local composer = require("composer")
-    local player = require("TestData")
     local enemy = require("TestData2")
-    local player2 = require("playerData")
+    local player = require("playerData")
     local widget = require("widget")
     local scene = composer.newScene()
         
@@ -99,7 +98,7 @@
                     id = player.id
                     health = player.health
                     level = player.level
-                    damage = player.weapon
+                    damage = enemy.weapon
             else 
                     id = enemy.id
                     health = enemy.health
@@ -110,6 +109,7 @@
                 print(level)
 
             print(health)
+            print("below is damage")
             print(damage)
         -- getting max and min for probabilty of hit chance depending on player/enemy Level
 
@@ -166,7 +166,21 @@
                     if (Bar.xScale < 0.11)then
                         -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
                     else
-                        Bar.xScale = Bar.xScale -0.09
+                        local barDamage = damage/100
+                        local perdictedDamage = Bar.xScale - barDamage
+
+                        if(player.level == 1)then
+                            if(perdictedDamage <0.11)then-- its here to stop bar going - on scale
+                                Bar.xScale = .09
+                            else
+                                Bar.xScale = Bar.xScale -barDamage
+                            end
+                        elseif (player.level== 2)then
+                            Bar.xScale = Bar.xScale -barDamage
+                        
+                        elseif (player.level==3)then
+                            Bar.xScale = Bar.xScale -barDamage
+                        end
                     end
 
                 else
@@ -191,19 +205,56 @@
             end
         turn_decider = turn_decider + 1
     else
+        player.disableHealth = true
         print("Game over for now")
 
+        local died = display.newText("Game over", 610, 420, native.systemFont, 135)
+                        died:setFillColor(1, 0, 0)
+
     end
+    if(enemy.health <= 0)then
+        playerLevelUp()
     end
+    end -- end of attack function
+
+
+    --player levelup method
+    function playerLevelUp()
+        player.level = player.level + 1
+        player.health = player.health + 50
+        player.weapon = player.weapon + 10
+        player.attributePoints = player.attributePoints + 5
+        player.gold = player.gold + 1000
+        player.TotalHealth = player.TotalHealth + 50
+    end-- end of playerlevelup
+
+
+    -- health potion method
+    function healthPotion()
+        if(player.disableHealth==false)then
+            local potion = 20
+            local perdictedHealth = player.health + potion
+            if( perdictedHealth <= player.TotalHealth)then
+
+                if (player.healthPotions > 1) then
+                    player.health = player.health + potion
+                    Bar.xScale = Bar.xScale +.2
+                    player.healthPotions = player.healthPotions - 1
+                else
+                    --do nothing
+                end
+            end
+        end
+    end-- end of health potion
 
 
     -- Create attack button
     local button1 = widget.newButton(
         { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
 
-            left = 500,
-            top = 650,
-            fontSize = 50,
+            left = 450,
+            top = 600,
+            fontSize = 40,
             id = "button1",
             label = "Attack",
             onEvent = AttackTurn
@@ -211,6 +262,19 @@
     )
 
 
+    -- Create attack button
+    local button2 = widget.newButton(
+        { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
+
+            left = 450,
+            top = 650,
+            fontSize = 40,
+            id = "button2",
+            label = "Health potions",
+            isEnabled = true,
+            onEvent = healthPotion
+        }
+    )
 
 
 
