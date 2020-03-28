@@ -1,10 +1,19 @@
 local composer = require("composer")
 local scene = composer.newScene()
+local menuMusic
+local audioClick
 
 -- create()
 function scene:create(event)
     -- Code here runs when the scene is first created but has not yet appeared on screen
     local sceneGroup = self.view
+
+    -- Background Music
+    menuMusic = audio.loadStream("audio/bgmenumusic.wav")
+
+    -- Audio FX
+    audioClick = audio.loadSound("audio/click.wav")
+    
 end
 
 -- show()
@@ -76,6 +85,11 @@ function scene:show(event)
         )
     elseif (phase == "did") then
     -- Code here runs when the scene is entirely on screen
+    
+    --play bg music
+    audio.play (menuMusic, {channel = 1, loops=-1})
+
+
     end
 end
 

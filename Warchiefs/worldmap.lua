@@ -4,6 +4,9 @@ local composer = require("composer")
 local player  = require("playerData")
 local scene = composer.newScene()
 local screenW, screenH, halfW = display.actualContentWidth, display.actualContentHeight, display.contentCenterX
+local mainMusic
+local bgNoise
+
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -17,6 +20,13 @@ local screenW, screenH, halfW = display.actualContentWidth, display.actualConten
 function scene:create(event)
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
+
+    --load music
+    mainMusic = audio.loadStream("audio/mainmusic.wav")
+
+    --load bg noise
+    bgNoise = audio.loadStream("audio/bgnoise.wav")
+
 end
 
 -- show()
@@ -110,6 +120,13 @@ function scene:show(event)
     elseif (phase == "did") then
         Runtime:addEventListener("key", onKeyEvent)
     -- Code here runs when the scene is entirely on screen
+
+    --play music
+    audio.play(mainMusic, {channel = 2, loops = -1})
+
+    --play bg noise
+    audio.play(bgNoise, {channel = 3, loops = -1})
+    
     end
 end
 

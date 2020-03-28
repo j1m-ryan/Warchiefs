@@ -381,6 +381,9 @@ function scene:hide(event)
         -- Code here runs when the scene is on screen (but is about to go off screen)
     elseif (phase == "did") then
     -- Code here runs immediately after the scene goes entirely off screen
+
+    --fade audio out
+    audio.fadeOut( { channel=1, time=3000})
     end
 end
 
@@ -388,6 +391,9 @@ end
 function scene:destroy(event)
     local sceneGroup = self.view
     -- Code here runs prior to the removal of scene's view
+
+    --dispose audio
+    audio.dispose(bgmenumusic)
 end
 
 -- -----------------------------------------------------------------------------------
