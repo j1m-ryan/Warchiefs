@@ -69,7 +69,7 @@
    		local Bar = require("healthBar")
     
     	local health_bar_outter3 = display.newImageRect("images/heart.png", 55, 60)
-        health_bar_outter3.x = 120   
+        health_bar_outter3.x = 110   
         health_bar_outter3.y = 660
 
 
@@ -80,8 +80,19 @@
 
     -- single attack is done on pressing attack button untill player or enemy is dead
     local turn_decider = 1
+
+
+
+    -- initializing hit text boxes
+    local playerhit = display.newText( "", 200, 200, native.systemFont, 40 )
+    playerhit:setFillColor( 1, 0, 0 )
+
+    local enemyhit = display.newText( "", 1000, 200, native.systemFont, 40 )
+    enemyhit:setFillColor( 1, 0, 0 )
+
     
 
+    --Atack function
     function AttackTurn()
         
         if (player.health > 0 and enemy.health > 0) then
@@ -95,13 +106,15 @@
             local hitRangeMin = 0
             local hitRangeMax = 0
             if (math.mod(turn_decider,2)==0) then
+                    print("player turn")
                     id = player.id
-                    health = player.health
-                    level = player.level
-                    damage = enemy.weapon
-            else 
-                    id = enemy.id
                     health = enemy.health
+                    level = player.level
+                    damage = player.weapon
+            else 
+                    print("enemy turn")
+                    id = enemy.id
+                    health = player.health
                     level = enemy.level
                     damage= enemy.weapon         
             end
@@ -141,45 +154,40 @@
 
         -- Confirm if hit or miss
 
-        print("below is hitRange")
-        print(hitRange)
+       -- print("below is hitRange")
+        --print(hitRange)
 
-        print("below is hitChance")
-        print(hitChance)
+        --print("below is hitChance")
+        --print(hitChance)
 
 
 
-        print("below is hitRangeMin")
-        print(hitRangeMin)
+        --print("below is hitRangeMin")
+        --print(hitRangeMin)
 
-        print("below is hitRangeMax")
+        --print("below is hitRangeMax")
         print(hitRangeMax)
             if(hitChance >= hitRangeMin and hitChance <=hitRangeMax) then
                 health = health - damage
                 --below decides whose health should be deducted by damage
-                if(id == "player")then
+                if(id == "enemy")then
                     player.health = health
                     if (player.health == 0)then
                         local Died = display.newText("Game over", 610, 420, native.systemFont, 135)
                         Died:setFillColor(1, 0, 0)
                     end
-                    if (Bar.xScale < 0.11)then
-                        -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
-                    else
-                        local barDamage = damage/100
-                        local perdictedDamage = Bar.xScale - barDamage
-
-                        if(player.level == 1)then
-                            if(perdictedDamage <0.11)then-- its here to stop bar going - on scale
-                                Bar.xScale = .09
-                            else
-                                Bar.xScale = Bar.xScale -barDamage
-                            end
-                        elseif (player.level== 2)then
-                            Bar.xScale = Bar.xScale -barDamage
                         
-                        elseif (player.level==3)then
-                            Bar.xScale = Bar.xScale -barDamage
+                    if(Bar.xScale > 0.015) then -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
+                        local barDamage = damage/player.totalHealth
+                        local perdictedDamage = Bar.xScale - barDamage
+                        print("below is perdictedDamage")
+                        print(perdictedDamage)
+                        if(player.level == 1)then
+                            if(perdictedDamage >= 0.015)then-- its here to stop bar going - on scale
+                                Bar.xScale = perdictedDamage
+                            else
+                                Bar.xScale = 0.01
+                            end
                         end
                     end
 
@@ -189,20 +197,32 @@
                         local died = display.newText("Game over", 610, 420, native.systemFont, 135)
                         died:setFillColor(1, 0, 0)
                     end
-                    if (enemy_health_Bar.xScale < 0.11)then
-                        -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
-                    else
-                        enemy_health_Bar.xScale = enemy_health_Bar.xScale -0.009
+
+                    if(enemy_health_Bar.xScale > 0.015) then -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
+                        local barDamage = damage/enemy.totalHealth
+                        local perdictedDamage = enemy_health_Bar.xScale - barDamage
+                        print("below is perdictedDamage")
+                        print(perdictedDamage)
+                        if(enemy.level == 1)then
+                            if(perdictedDamage >= 0.015)then-- its here to stop bar going - on scale
+                                enemy_health_Bar.xScale = perdictedDamage
+                            else
+                                enemy_health_Bar.xScale = 0.01
+                            end
+                        end
                     end
                 end
                 
-                print(id)
                 print(health)
                 print("hit ")
+
+                hitText(id,damage,false)
             else
+                hitText(id, 0 , true)
                 print("missed")
 
             end
+
         turn_decider = turn_decider + 1
     else
         player.disableHealth = true
@@ -213,19 +233,58 @@
 
     end
     if(enemy.health <= 0)then
+         enemyhit.text = ""
+         playerhit.text = ""
         playerLevelUp()
     end
+
+
     end -- end of attack function
+
+    --hit text boxes method
+
+    function hitText(id, damage, miss)   
+        print(id .. " in hittext")
+        
+
+        if(id == "player" and miss ==false)then
+            enemyhit.text = ""
+            playerhit.text = "Player did " .. damage .. "damage"
+        elseif(id == "player" and miss ==true) then
+            enemyhit.text = ""
+            playerhit.text = "Player missed !"
+        end    
+
+        if(id == "enemy" and miss ==false)then
+            playerhit.text = ""
+            enemyhit.text = "enemy did " .. damage .. "damage"
+        elseif(id == "enemy" and miss ==true) then
+            playerhit.text = ""
+            enemyhit.text = "enemy missed !"
+        end    
+
+    end --hitText end
 
 
     --player levelup method
     function playerLevelUp()
+        --Storing old stats if need to be printed to show progress
+        local temp = {player.level,player.health,player.weapon,player.attributePoints,player.gold,player.totalHealth}
+
+        --updating player stats
         player.level = player.level + 1
         player.health = player.health + 50
         player.weapon = player.weapon + 10
         player.attributePoints = player.attributePoints + 5
         player.gold = player.gold + 1000
-        player.TotalHealth = player.TotalHealth + 50
+        player.totalHealth = player.totalHealth + 50    
+        
+        --print player stats on screen 
+
+        local header = display.newText( "         LEVEL UP     " , 500, 200, native.systemFont, 140 )
+        header:setFillColor( 1, 0, 0 )
+
+
     end-- end of playerlevelup
 
 
@@ -234,7 +293,7 @@
         if(player.disableHealth==false)then
             local potion = 20
             local perdictedHealth = player.health + potion
-            if( perdictedHealth <= player.TotalHealth)then
+            if( perdictedHealth <= player.totalHealth)then
 
                 if (player.healthPotions > 1) then
                     player.health = player.health + potion
@@ -257,7 +316,7 @@
             fontSize = 40,
             id = "button1",
             label = "Attack",
-            onEvent = AttackTurn
+            onEvent =  AttackTurn
         }
     )
 

@@ -16,13 +16,13 @@ player.healthPotions = 2
 player.x = 30
 player.y = 30
 player.location = ""
-player.health = 100 --default
-player.weapon = 500
+player.health = 300 --default
+player.weapon = 150
 player.level = 1
 player.evade = 3
 
 
-player.TotalHealth = 100 
+player.totalHealth = 300 
 
 player.disableHealth = false
 return player
