@@ -28,7 +28,7 @@ function scene:show(event)
     if (phase == "will") then
         -- Create the widget
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/ryantown.jpg", 1280, 720)
+        local background = display.newImageRect("images/ryantown1.png", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
@@ -53,27 +53,27 @@ function scene:show(event)
         local exitRyansTown =
             widget.newButton(
             {
-                labelColor = {default = {255, 255, 255,}, over = {0, 0, 0, 0.5}},
-                left = 1045,
-                top = 550,
+                
+                left = 1030,
+                top = 500,
+                width=200,
+                height=190,
                 id = "exitRyansTown",
-                label = "EXIT",
                 onEvent = goToWorldMap,
-                font = "Castellar",
-                fontSize = 40
+                defaultFile = "images/door.png",
             }
         )
         local lvlScreen =
             widget.newButton(
             {
-                labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 920,
-                top = 650,
+                defaultFile = "images/market.png",
+                left = 130,
+                top = 350,
+                width=250,
+                height=200,
                 id = "lvlScreen",
-                label = "LVL",
                 onEvent = goToLvl,
-                font = "Castellar",
-                fontSize = 40
+                               
             }
         )
 
@@ -83,14 +83,14 @@ function scene:show(event)
             widget.newButton(
             {
 
-                labelColor = {default = {255, 255, 255}, over = {0, 0, 0, 0.5}},
-                left = 770,
-                top = 150,
+                width=100,
+                height=300,
+                left = 785,
+                top = 30,
                 id = "magebtn",
-                label = "MAGE",
+                defaultFile = "images/tower.png",
                 onEvent = goToMage,
-                font = "Castellar",
-                fontSize = 35
+                                
             }
         )
     elseif (phase == "did") then
