@@ -19,6 +19,7 @@ audio.reserveChannels( 3 )
 audio.setVolume( 1, { channel=1 } )
 audio.setVolume( 1, { channel=2 } )
 audio.setVolume( 1, { channel=3 } )
+audio.setMinVolume(0)
 
 -- Go to the menu screen
 composer.gotoScene("menu")

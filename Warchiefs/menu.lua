@@ -36,6 +36,12 @@ function scene:show(event)
                 composer.gotoScene("origin", {effect = "crossFade", time = 500})
             end
         end
+        --Function go to options scene
+        local function goToOptions(event)
+            if ("ended" == event.phase) then
+                composer.gotoScene("options", {effect = "crossFade", time = 500})
+            end
+        end
 
         -- Create the Buttons
         local newGame =
@@ -78,9 +84,8 @@ function scene:show(event)
                 id = "options",
                 defaultFile = "images/btnoptions.png",
                 overFile = "images/btn2hover.png",
-                onEvent = handleButtonEvent,
-                font = "Castellar",
-                fontSize = 70
+                onEvent = goToOptions
+                
             }
         )
     elseif (phase == "did") then
