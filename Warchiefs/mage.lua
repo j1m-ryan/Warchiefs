@@ -10,16 +10,41 @@ end
 function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
+    print(player.gold)
     local background = display.newImageRect("images/mage.png", 1280, 720)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
     local widget = require("widget")
+    goldlabel = display.newText(player.gold, 1100, 45, "Castellar", 50)
+    largelabel = display.newText(player.largehealthPotions, 750, 150, "Castellar", 50)
+    smalllabel = display.newText(player.smallhealthPotions, 750, 450, "Castellar", 50)
     local function goBack(event)
         if ("ended" == event.phase) then
             composer.hideOverlay("level")
             composer.gotoScene(player.location)
         end
     end
+    local function buyLargePotion(event)
+        if ("ended" == event.phase) then
+            if player.gold >= 1000 then
+                player.largehealthPotions = player.largehealthPotions + 1
+                player.gold = player.gold - 1000
+                goldlabel.text = player.gold
+                largelabel.text = player.largehealthPotions
+            end
+        end
+    end
+    local function buySmallPotion(event)
+        if ("ended" == event.phase) then
+            if player.gold >= 250 then
+                player.smallhealthPotions = player.smallhealthPotions + 1
+                player.gold = player.gold - 250
+                goldlabel.text = player.gold
+                smalllabel.text = player.smallhealthPotions
+            end
+        end
+    end
+
     local backBTN =
         widget.newButton(
         {
@@ -51,7 +76,7 @@ function scene:show(event)
         {
             labelColor = {default = {.4, .6, .4}, over = {0, 0, 0, 0.5}},
             left = 370,
-            top = 650,
+            top = 500,
             id = "buySmall",
             label = "BUY",
             onEvent = buySmallPotion,

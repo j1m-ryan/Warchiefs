@@ -1,6 +1,5 @@
 local player = {}
 
-
 player.name = ""
 player.clan = ""
 player.gender = ""
@@ -12,7 +11,8 @@ player.dexterity = 8
 player.spirit = 5
 player.attributePoints = 10
 player.gold = 10000
-player.healthPotions = 2
+player.largehealthPotions = 2
+player.smallhealthPotions = 2
 player.x = 30
 player.y = 30
 player.location = ""
@@ -21,9 +21,7 @@ player.damage = 150
 player.level = 1
 player.evade = 3
 
-
-player.totalHealth = 300 
+player.totalHealth = 300
 
 player.disableHealth = false
 return player
-
