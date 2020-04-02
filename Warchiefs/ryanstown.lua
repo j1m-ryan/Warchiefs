@@ -50,17 +50,21 @@ function scene:show(event)
                 composer.showOverlay("mage")
             end
         end
+        local function goToCastle(event)
+            if ("ended" == event.phase) then
+                composer.showOverlay("tempCastle")
+            end
+        end
         local exitRyansTown =
             widget.newButton(
             {
-                
                 left = 1030,
                 top = 500,
-                width=200,
-                height=190,
+                width = 200,
+                height = 190,
                 id = "exitRyansTown",
                 onEvent = goToWorldMap,
-                defaultFile = "images/door.png",
+                defaultFile = "images/door.png"
             }
         )
         local lvlScreen =
@@ -69,28 +73,35 @@ function scene:show(event)
                 defaultFile = "images/market.png",
                 left = 130,
                 top = 350,
-                width=250,
-                height=200,
+                width = 250,
+                height = 200,
                 id = "lvlScreen",
-                onEvent = goToLvl,
-                               
+                onEvent = goToLvl
             }
         )
-
-        
 
         local mageBtn =
             widget.newButton(
             {
-
-                width=100,
-                height=300,
+                width = 100,
+                height = 300,
                 left = 785,
                 top = 30,
                 id = "magebtn",
                 defaultFile = "images/tower.png",
-                onEvent = goToMage,
-                                
+                onEvent = goToMage
+            }
+        )
+        local castleBtn =
+            widget.newButton(
+            {
+                width = 160,
+                height = 160,
+                left = 485,
+                top = 30,
+                id = "castleBtn",
+                defaultFile = "images/temporaryCastle.png",
+                onEvent = goToCastle
             }
         )
     elseif (phase == "did") then
