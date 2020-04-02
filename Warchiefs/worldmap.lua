@@ -1,7 +1,7 @@
 --copy above
 
 local composer = require("composer")
-local player  = require("playerData")
+local player = require("playerData")
 local scene = composer.newScene()
 local screenW, screenH, halfW = display.actualContentWidth, display.actualContentHeight, display.contentCenterX
 local mainMusic
@@ -26,7 +26,6 @@ function scene:create(event)
 
     --load bg noise
     bgNoise = audio.loadStream("audio/bgnoise.wav")
-
 end
 
 -- show()
@@ -36,7 +35,7 @@ function scene:show(event)
     local obriensCastle = display.newImageRect("images/obriencity.png", 180, 180)
     obriensCastle.x = 300
     obriensCastle.y = 130
-    
+
     --local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
     local ryanstown = display.newImageRect("images/ryancity.png", 180, 180)
     ryanstown.x = 970
@@ -52,6 +51,7 @@ function scene:show(event)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
         local character = display.newImageRect("images/hero1.png", 130, 130)
+        local characterDirection = "right"
         character.x = player.x
         character.y = player.y
         physics.addBody(character, {radius = 30, isSensor = true})
@@ -69,6 +69,10 @@ function scene:show(event)
             print("Y")
             print(character.y)
             if event.keyName == "a" then
+                if characterDirection == "right" then
+                    characterDirection = "left"
+                    character.xScale = -1
+                end
                 if event.phase == "down" then
                     transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
                 elseif event.phase == "up" then
@@ -90,6 +94,10 @@ function scene:show(event)
                 end
             end
             if event.keyName == "d" then
+                if characterDirection == "left" then
+                    characterDirection = "right"
+                    character.xScale = 1
+                end
                 if event.phase == "down" then
                     transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
                 elseif event.phase == "up" then
@@ -119,14 +127,13 @@ function scene:show(event)
         character:addEventListener("collision")
     elseif (phase == "did") then
         Runtime:addEventListener("key", onKeyEvent)
-    -- Code here runs when the scene is entirely on screen
+        -- Code here runs when the scene is entirely on screen
 
-    --play music
-    audio.play(mainMusic, {channel = 2, loops = -1})
+        --play music
+        audio.play(mainMusic, {channel = 2, loops = -1})
 
-    --play bg noise
-    audio.play(bgNoise, {channel = 3, loops = -1})
-    
+        --play bg noise
+        audio.play(bgNoise, {channel = 3, loops = -1})
     end
 end
 

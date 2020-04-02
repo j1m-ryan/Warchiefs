@@ -1,6 +1,6 @@
 local composer = require("composer")
 local scene = composer.newScene()
-local player  = require("playerData")
+local player = require("playerData")
 
 -- create()
 function scene:create(event)
@@ -189,6 +189,7 @@ function scene:show(event)
                     return
                 end
                 nameInput:removeSelf()
+                display.remove(nameInput)
                 composer.gotoScene("worldmap")
             end
         end
@@ -380,10 +381,10 @@ function scene:hide(event)
     if (phase == "will") then
         -- Code here runs when the scene is on screen (but is about to go off screen)
     elseif (phase == "did") then
-    -- Code here runs immediately after the scene goes entirely off screen
+        -- Code here runs immediately after the scene goes entirely off screen
 
-    --fade audio out
-    audio.fadeOut( { channel=1, time=3000})
+        --fade audio out
+        audio.fadeOut({channel = 1, time = 3000})
     end
 end
 
