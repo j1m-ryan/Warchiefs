@@ -19,7 +19,7 @@ function scene:show(event)
     local widget = require("widget")
     local characterDirection = "right"
     character.x = 200
-    character.y = 500
+    character.y = 460
     physics.start()
     physics.setGravity(0, 0)
     physics.addBody(character, {radius = 30, isSensor = true})
@@ -35,20 +35,6 @@ function scene:show(event)
             end
             if event.phase == "down" then
                 transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
-            elseif event.phase == "up" then
-                transition.cancel()
-            end
-        end
-        if event.keyName == "w" then
-            if event.phase == "down" then
-                transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
-            elseif event.phase == "up" then
-                transition.cancel()
-            end
-        end
-        if event.keyName == "s" then
-            if event.phase == "down" then
-                transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
             elseif event.phase == "up" then
                 transition.cancel()
             end
