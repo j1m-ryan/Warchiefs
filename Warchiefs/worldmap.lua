@@ -74,21 +74,27 @@ function scene:show(event)
                     character.xScale = -1
                 end
                 if event.phase == "down" then
-                    transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
+                    if (character.x > 20) then
+                        transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
+                    end
                 elseif event.phase == "up" then
                     transition.cancel()
                 end
             end
             if event.keyName == "w" then
                 if event.phase == "down" then
-                    transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
+                    if (character.y > 20) then
+                        transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
+                    end
                 elseif event.phase == "up" then
                     transition.cancel()
                 end
             end
             if event.keyName == "s" then
                 if event.phase == "down" then
-                    transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
+                    if (character.y < 700) then
+                        transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
+                    end
                 elseif event.phase == "up" then
                     transition.cancel()
                 end
@@ -99,7 +105,9 @@ function scene:show(event)
                     character.xScale = 1
                 end
                 if event.phase == "down" then
-                    transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
+                    if (character.x < 1260) then
+                        transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
+                    end
                 elseif event.phase == "up" then
                     transition.cancel()
                 end

@@ -54,4 +54,31 @@ settings =
 		all = { "Icon.png", "Icon-*dpi.png", "Images.xcassets", },
 		android = { "LaunchScreen.storyboardc", },
 	},
+	 win32 =
+    {
+            preferenceStorage = "sqlite",
+    },
+    window =
+    {
+
+    titleText =
+    {
+    default = "Warchiefs",
+    ["en-us"] = "Warchiefs",
+        ["en-gb"] = "Warchiefs",
+            ["en"] = "Warchiefs",
+                ["fr"] = "Warchiefs",
+                    ["es"] = "Warchiefs",
+    },
+        defaultMode = "maximized",
+        defaultViewWidth = 1280,
+        defaultViewHeight = 720,
+        resizable = false,
+        minViewWidth = 480,
+        minViewHeight = 320,
+        enableCloseButton = true,
+        enableMinimizeButton = true,
+        enableMaximizeButton = true,
+        suspendWhenMinimized= true,
+    },
 }
