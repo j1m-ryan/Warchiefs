@@ -64,6 +64,18 @@ function scene:show(event)
         local widget = require("widget")
 
         function onKeyEvent(event)
+            if character.x < 20 then
+                character.x = 20
+            end
+            if character.x > 1260 then
+                character.x = 1260
+            end
+            if character.y < 20 then
+                character.y = 20
+            end
+            if character.y > 740 then
+                character.y = 740
+            end
             print("x")
             print(character.x)
             print("Y")
