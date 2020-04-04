@@ -17,6 +17,7 @@ function scene:show(event)
         -- Code here runs when the scene is still off screen (but is about to come on screen)
         local widget = require("widget")
         local warningText = display.newText("", 1010, 95, native.systemFont, 35)
+        local genderImage
 
         -- Initialize variables, note that these should read from the SQL database
 
@@ -50,12 +51,22 @@ function scene:show(event)
 
         --Function to choose Male character
         local function chooseMale()
+            display.remove(genderImage)
+
             player.gender = "Male"
+            genderImage = display.newImageRect("images/hero1.png", 400, 400)
+            genderImage.x = 950
+            genderImage.y = 400
         end
 
         --Function to choose Female character
         local function chooseFemale()
+            display.remove(genderImage)
+
             player.gender = "Female"
+            genderImage = display.newImageRect("images/hero2.png", 400, 400)
+            genderImage.x = 950
+            genderImage.y = 400
         end
 
         -- Function to not allow attribute points go below zero
