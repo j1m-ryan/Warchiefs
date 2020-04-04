@@ -36,7 +36,7 @@ function scene:show(event)
     obriensCastle.x = 300
     obriensCastle.y = 130
 
-    --city 3 
+    --city 3
 
     local city3 = display.newImageRect("images/city3.png", 180, 180)
     city3.x = 400
@@ -56,7 +56,14 @@ function scene:show(event)
         local background = display.newImageRect("images/worldmap.jpg", 1280, 720)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
-        local character = display.newImageRect("images/hero1.png", 130, 130)
+
+        local character
+        if player.gender == "male" then
+            character = display.newImageRect("images/hero1.png", 130, 130)
+        else
+            character = display.newImageRect("images/hero2.png", 130, 130)
+        end
+
         local characterDirection = "right"
         character.x = player.x
         character.y = player.y
@@ -72,6 +79,18 @@ function scene:show(event)
         local widget = require("widget")
 
         function onKeyEvent(event)
+            if character.x < 20 then
+                character.x = 20
+            end
+            if character.x > 1260 then
+                character.x = 1260
+            end
+            if character.y < 20 then
+                character.y = 20
+            end
+            if character.y > 740 then
+                character.y = 740
+            end
             print("x")
             print(character.x)
             print("Y")
@@ -134,7 +153,7 @@ function scene:show(event)
                     player.x = 774
                     player.y = 190
                     composer.gotoScene("ryanstown")
-                elseif(event.other.myName == "city3") then
+                elseif (event.other.myName == "city3") then
                     character:removeEventListener("collision", character)
                     player.x = 400
                     player.y = 630
