@@ -1,6 +1,6 @@
 local composer = require("composer")
 local scene = composer.newScene()
-local player  = require("playerData")
+local player = require("playerData")
 
 -- create()
 function scene:create(event)
@@ -40,7 +40,7 @@ function scene:show(event)
             if (clanInfo == "") then
                 clanWarningText = display.newText("You must pick a clan", 1010, 95, native.systemFont, 35)
                 clanWarningText:setFillColor(1, 0, 0)
-                transition.fadeOut( clanWarningText, { time=3000 } )
+                transition.fadeOut(clanWarningText, {time = 3000})
             end
         end
         -- Update the clan information for the Ryan clan
@@ -194,7 +194,7 @@ function scene:show(event)
                 left = 160,
                 top = 585,
                 id = "oConnellMcGrath",
-                label = "O'Connell Mc Grath",
+                label = "McGrath",
                 onEvent = oConnellMcGrathText,
                 font = "Castellar",
                 fontSize = 70
