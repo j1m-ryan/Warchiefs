@@ -75,10 +75,10 @@
             sheetContentHeight = 300
         }
 
-        local attack_sheet = graphics.newImageSheet( "images/attackanimation3.png", sheetOptions )
+        local attack_sheet = graphics.newImageSheet( "images/attackanimation2.png", sheetOptions )
         
         local sequenceData = {
-        {name="attack", start =1, count =4, time=800, loopCount =1}
+        {name="attack", frames={1,2,3,4,1}, time=800, loopCount =1,loopDirection = "forward"}
         }
 
  --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
@@ -368,12 +368,60 @@
     local button2 = widget.newButton(
         { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
 
-            left = 450,
+            left = 850,
             top = 250,
             fontSize = 40,
             id = "exit",
             label = "Exit to World",
             onRelease = goToWorldMap
+        }
+    )
+    -- ANIMATION TESTS 
+
+
+
+        local attack_sheet1 = graphics.newImageSheet( "images/attackAnimation1.png", sheetOptions )
+        
+ --       local animation = display.newSprite(attack_sheet, sequenceData )
+        local animation1 = display.newSprite( attack_sheet1, sequenceData )        
+        animation1.x = 110
+        animation1.y = 180
+        animation1.xScale = 1
+        animation1.yScale = 1
+
+        local attack_sheet2 = graphics.newImageSheet( "images/attackAnimation2.png", sheetOptions )
+        
+ --       local animation = display.newSprite(attack_sheet, sequenceData )
+        local animation2 = display.newSprite( attack_sheet2, sequenceData )        
+        animation2.x = 350
+        animation2.y = 180
+        animation2.xScale = 1
+        animation2.yScale = 1
+
+        local attack_sheet3 = graphics.newImageSheet( "images/attackAnimation3Test.png", sheetOptions )
+        
+ --       local animation = display.newSprite(attack_sheet, sequenceData )
+        local animation3 = display.newSprite( attack_sheet3, sequenceData )        
+        animation3.x = 660
+        animation3.y = 180
+        animation3.xScale = 1
+        animation3.yScale = 1
+
+    local function playAnimations()
+        animation1:play()
+        animation2:play()
+        animation3:play()
+    end
+
+    local button3 = widget.newButton(
+        { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
+
+            left = 150,
+            top = 350,
+            fontSize = 40,
+            id = "exit",
+            label = "ANIMATIONS",
+            onRelease = playAnimations
         }
     )
 
