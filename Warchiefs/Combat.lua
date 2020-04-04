@@ -3,7 +3,6 @@
     local player = require("playerData")
     local widget = require("widget")
     local scene = composer.newScene()
-        
     -- -----------------------------------------------------------------------------------
     -- Code outside of the scene event functions below will only be executed ONCE unless
     -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -27,6 +26,7 @@
 
         if (phase == "will") then
             -- Code here runs when the scene is still off screen (but is about to come on screen)
+
 
 
     -- background castle view
@@ -310,31 +310,32 @@
 --Set button enable after enemy turn
     local function activateAttactButton( )
         print("i was called activateAttactButton")
-        button1:setEnabled(true)
+        button22:setEnabled(true)
     end
 --enemyAttack Event
     local function enemyTurn()
         AttackTurn(enemy.id, player.health, enemy.level, enemy.damage)
         timer.performWithDelay( 2000, activateAttactButton )
-    end
 
+        
+    end
 --playerAttack Event
     local function PlayerTurn()
         
         AttackTurn(player.id, enemy.health, player.level, player.damage)
-        button1:setEnabled(false)
+        button22:setEnabled(false)
          timer.performWithDelay( 2000, enemyTurn )
-
     end
 
 
-    
+
 -- Create attack button
-     button1 = widget.newButton(
+
+    button22 = widget.newButton(
         { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
 
-            left = 450,
-            top = 600,
+            left = 250,
+            top = 500,
             fontSize = 40,
             id = "button1",
             label = "Attack",
@@ -358,6 +359,7 @@
         }
     )
 
+
 --exit to world map func
     local function goToWorldMap(event)
             if ("ended" == event.phase) then
@@ -376,6 +378,129 @@
             onRelease = goToWorldMap
         }
     )
+
+
+-- Create attack button
+
+        local options = {
+            width = 150,
+            height = 150,
+            numFrames = 2,
+            sheetContentWidth = 300,
+            sheetContentHeight = 150
+        }
+        local buttonSheet = graphics.newImageSheet( "images/attackbuttonAnimate.png", options )
+         
+        -- Create the widget
+        button1 = widget.newButton(
+            {
+                sheet = buttonSheet,
+                defaultFrame = 1,
+                overFrame = 2,
+                onEvent = PlayerTurn,
+                isEnabled = true
+            }
+        )
+         
+        -- Center the button
+        button1.x = 390
+        button1.y = 650
+        button1.xScale = .7
+        button1.yScale = .7
+    
+
+
+
+
+-- Create Health potion button
+
+        local options = {
+            width = 150,
+            height = 150,
+            numFrames = 2,
+            sheetContentWidth = 300,
+            sheetContentHeight = 150
+        }
+
+        local buttonSheet2 = graphics.newImageSheet( "images/smallhealthpotion.png", options )
+         
+        -- Create the widget
+        local button2 = widget.newButton(
+            {
+                sheet = buttonSheet2,
+                defaultFrame = 1,
+                overFrame = 2,
+                label = "button",
+                onRelease = healthPotion
+
+            }
+        )
+         
+        -- Center the button
+        button2.x = 490
+        button2.y = 650
+        button2.xScale = .7
+        button2.yScale = .7
+    
+-- Create Health potion button
+    
+        local options = {
+            width = 150,
+            height = 150,
+            numFrames = 2,
+            sheetContentWidth = 300,
+            sheetContentHeight = 150
+        }
+        local buttonSheet3 = graphics.newImageSheet( "images/bighealthpotion.png", options )
+         
+        -- Create the widget
+        local button3 = widget.newButton(
+            {
+                sheet = buttonSheet3,
+                defaultFrame = 1,
+                overFrame = 2,
+                label = "button",
+                onRelease = healthPotion
+
+            }
+        )
+         
+        -- Center the button
+        button3.x = 590
+        button3.y = 650
+        button3.xScale = .7
+        button3.yScale = .7
+    
+-- Create Evade button
+        local options = {
+            width = 150,
+            height = 150,
+            numFrames = 2,
+            sheetContentWidth = 300,
+            sheetContentHeight = 150
+        }    
+         local buttonSheet4 = graphics.newImageSheet( "images/evadebutton.png", options )
+         
+        -- Create the widget
+        local button4 = widget.newButton(
+            {
+                sheet = buttonSheet4,
+                defaultFrame = 1,
+                overFrame = 2,
+                label = "button",
+                onRelease = doNothing
+
+            }
+        )
+         
+        -- Center the button
+        button4.x = 690
+        button4.y = 650
+        button4.xScale = .7
+        button4.yScale = .7
+    
+
+
     -- ANIMATION TESTS 
 
 
@@ -427,6 +552,9 @@
 
         elseif (phase == "did") then
         -- Code here runs when the scene is entirely on screen
+
+
+
         end
     end
 
