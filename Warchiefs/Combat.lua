@@ -36,15 +36,12 @@
 
         --player and enemy
 
-        local player_pic = display.newImageRect("images/hero1.png", 180, 120)
-        player_pic.x = 350
-        player_pic.y = 518
-
 
         local enemy_pic = display.newImageRect("images/lvl3.png", 390, 290)
-        enemy_pic.x = 1000
+        enemy_pic.x = 700
         enemy_pic.y = 470
-        enemy_pic.xScale = -1
+        enemy_pic.xScale = -.8
+
 
         --health bars
 
@@ -69,7 +66,27 @@
         health_bar_outter4.x = 1200   
         health_bar_outter4.y = 660
 
+        local sheetOptions =
+        {
+            width = 300,
+            height = 300,
+            numFrames = 4,
+            sheetContentWidth = 1200,
+            sheetContentHeight = 300
+        }
 
+        local attack_sheet = graphics.newImageSheet( "images/attackanimation3.png", sheetOptions )
+        
+        local sequenceData = {
+        {name="attack", start =1, count =4, time=800, loopCount =1}
+        }
+
+ --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
+        local attack_animation = display.newSprite( attack_sheet, sequenceData )        
+        attack_animation.x = 510
+        attack_animation.y = 480
+        attack_animation.xScale = .7
+        attack_animation.yScale = .7
 -- Condition for Attack function if false then do nothing
     local bothAlive = true
     
@@ -184,7 +201,8 @@
         
 
         if(id == "player" and miss ==false)then
-
+            -- testing animation
+            attack_animation:play()
             -- initializing hit text boxes
             local playerhit = display.newText( "", 200, 200, native.systemFont, 40 )
             playerhit:setFillColor( 1, 0, 0 )
@@ -243,14 +261,14 @@
     -- health potion method
     function healthPotion()
         if(player.health >0)then
-            local potion = 40
-            local heath_bar_add = potion/player.totalHealth
-            local perdictedHealth = player.health + potion
+            local smallHealthPotions = 40
+            local heath_bar_add = smallHealthPotions/player.totalHealth
+            local perdictedHealth = player.health + smallHealthPotions
             if( perdictedHealth <= player.totalHealth)then
 
                 if (player.healthPotions > 0) then
                     
-                    player.health = player.health + potion
+                    player.health = player.health + smallHealthPotions
                     playerHealthBar.xScale = playerHealthBar.xScale + heath_bar_add
                     player.healthPotions = player.healthPotions - 1
                 else
@@ -340,6 +358,24 @@
         }
     )
 
+--exit to world map func
+    local function goToWorldMap(event)
+            if ("ended" == event.phase) then
+                composer.gotoScene("worldmap")
+            end
+        end
+-- exit combat screen button
+    local button2 = widget.newButton(
+        { labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
+
+            left = 450,
+            top = 250,
+            fontSize = 40,
+            id = "exit",
+            label = "Exit to World",
+            onRelease = goToWorldMap
+        }
+    )
 
         elseif (phase == "did") then
         -- Code here runs when the scene is entirely on screen

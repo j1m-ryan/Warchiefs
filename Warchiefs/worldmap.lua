@@ -36,6 +36,12 @@ function scene:show(event)
     obriensCastle.x = 300
     obriensCastle.y = 130
 
+    --city 3 
+
+    local city3 = display.newImageRect("images/city3.png", 180, 180)
+    city3.x = 400
+    city3.y = 630
+
     --local ryanstown = display.newText("Ryanstown", 780, 130, "Castellar", 20)
     local ryanstown = display.newImageRect("images/ryancity.png", 180, 180)
     ryanstown.x = 970
@@ -57,25 +63,15 @@ function scene:show(event)
         physics.addBody(character, {radius = 30, isSensor = true})
         physics.addBody(obriensCastle, {radius = 30, isSensor = true})
         physics.addBody(ryanstown, {radius = 30, isSensor = true})
+        physics.addBody(city3, {radius = 30, isSensor = true})
         character.myName = player.name
         obriensCastle.myName = "obriensCastle"
         ryanstown.myName = "ryanstown"
+        city3.myName = "city3"
 
         local widget = require("widget")
 
         function onKeyEvent(event)
-            if character.x < 20 then
-                character.x = 20
-            end
-            if character.x > 1260 then
-                character.x = 1260
-            end
-            if character.y < 20 then
-                character.y = 20
-            end
-            if character.y > 740 then
-                character.y = 740
-            end
             print("x")
             print(character.x)
             print("Y")
@@ -138,6 +134,11 @@ function scene:show(event)
                     player.x = 774
                     player.y = 190
                     composer.gotoScene("ryanstown")
+                elseif(event.other.myName == "city3") then
+                    character:removeEventListener("collision", character)
+                    player.x = 400
+                    player.y = 630
+                    composer.gotoScene("city3")
                 end
             elseif (event.phase == "ended") then
                 print(self.myName .. ": collision ended with " .. event.other.myName)
