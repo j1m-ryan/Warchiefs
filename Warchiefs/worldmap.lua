@@ -58,7 +58,7 @@ function scene:show(event)
         background.y = display.contentCenterY
 
         local character
-        if player.gender == "male" then
+        if player.gender == "Male" then
             character = display.newImageRect("images/hero1.png", 130, 130)
         else
             character = display.newImageRect("images/hero2.png", 130, 130)
