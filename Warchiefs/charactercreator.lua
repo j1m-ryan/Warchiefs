@@ -222,26 +222,28 @@ function scene:show(event)
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 100,
+                left = 160,
                 top = 150,
                 id = "male",
                 label = "male",
                 onEvent = chooseMale,
                 font = "Castellar",
-                fontSize = 20
+                fontSize = 20,
+                width = 50
             }
         )
         local female =
             widget.newButton(
             {
                 labelColor = {default = {0, 0, 0}, over = {0, 0, 0, 0.5}},
-                left = 200,
+                left = 240,
                 top = 150,
                 id = "female",
                 label = "female",
                 onEvent = chooseFemale,
                 font = "Castellar",
-                fontSize = 20
+                fontSize = 20,
+                width = 50
             }
         )
 
