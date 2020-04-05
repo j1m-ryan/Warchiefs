@@ -38,7 +38,7 @@ function scene:show(event)
         --ask player to choose a clan
         function clanWarning()
             if (clanInfo == "") then
-                clanWarningText = display.newText("You must pick a clan", 1010, 95, native.systemFont, 35)
+                clanWarningText = display.newText("You must pick a clan", 1070, 130, native.systemFont, 35)
                 clanWarningText:setFillColor(1, 0, 0)
                 transition.fadeOut(clanWarningText, {time = 3000})
             end
@@ -55,8 +55,9 @@ function scene:show(event)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
                 shazad._view._label:setFillColor(0.3, 0.3, 0.3)
                 oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
-                clanText.text =
-                    "The Ryans are a strong and \nagile people originitating \nfrom the mid-west of the land \nStrength +1\nAgility +1\n"
+                clanText.x = 900
+                clanText.y = 270
+                clanText.text = "Strength +1\nAgility +1\n"
             end
         end
 
@@ -72,7 +73,7 @@ function scene:show(event)
                 shazad._view._label:setFillColor(0.3, 0.3, 0.3)
                 oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
 
-                clanText.text = "Info about O'Brien's"
+                clanText.text = "Charisma +1\nDexterity +1\n"
             end
         end
 
@@ -87,7 +88,7 @@ function scene:show(event)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
                 shazad._view._label:setFillColor(1, 0, 0, 0.5)
                 oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
-                clanText.text = "Info about Shazads"
+                clanText.text = "Strength +1\nCharisma +1\n"
             end
         end
 
@@ -102,7 +103,7 @@ function scene:show(event)
                 singh._view._label:setFillColor(1, 0, 0, 0.5)
                 shazad._view._label:setFillColor(0.3, 0.3, 0.3)
                 oConnellMcGrath._view._label:setFillColor(0.3, 0.3, 0.3)
-                clanText.text = "Info about Singh's"
+                clanText.text = "Dexterity +1\nAgility +1\n"
             end
         end
 
@@ -117,7 +118,7 @@ function scene:show(event)
                 singh._view._label:setFillColor(0.3, 0.3, 0.3)
                 shazad._view._label:setFillColor(0.3, 0.3, 0.3)
                 oConnellMcGrath._view._label:setFillColor(1, 0, 0, 0.5)
-                clanText.text = "Info about O'Connell McGraths"
+                clanText.text = "Charisma +1\nAgility +1\n"
             end
         end
 
@@ -203,14 +204,14 @@ function scene:show(event)
         local createCharacter =
             widget.newButton(
             {
-                labelColor = {default = {0.3, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
-                left = 740,
-                top = 30,
+                labelColor = {default = {0.9, 0.3, 0.3}, over = {0, 0, 0, 0.5}},
+                left = 1000,
+                top = 40,
                 id = "createCharacter",
-                label = "Create Character",
+                label = "Next",
                 onEvent = createCharFunc,
                 font = "Castellar",
-                fontSize = 45
+                fontSize = 55
             }
         )
     elseif (phase == "did") then
