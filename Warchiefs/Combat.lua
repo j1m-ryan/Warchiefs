@@ -253,16 +253,30 @@ function scene:show(event)
         -- end of playerlevelup
 
         -- health potion method
-        function healthPotion()
+        function healthPotionFunc(size, quantity)
+            local healthPotionsQuantity = quantity
+            print("healthPotionsQuantity" .. healthPotionsQuantity)
+            local smallPotion = 15
+            local largePotion = 30
+            if(size == "large")then
+                healthPotion = largePotion
+            elseif(size == "small")then
+                healthPotion = smallPotion
+            end
+
             if (player.health > 0) then
                 local smallHealthPotions = 40
-                local heath_bar_add = smallHealthPotions / player.totalHealth
-                local perdictedHealth = player.health + smallHealthPotions
+                local heath_bar_add = healthPotion / player.totalHealth
+                local perdictedHealth = player.health + healthPotion
                 if (perdictedHealth <= player.totalHealth) then
-                    if (player.healthPotions > 0) then
-                        player.health = player.health + smallHealthPotions
+                    if (healthPotionsQuantity > 0) then
+                        player.health = player.health + healthPotion
                         playerHealthBar.xScale = playerHealthBar.xScale + heath_bar_add
-                        player.healthPotions = player.healthPotions - 1
+                        if(size =="large") then
+                            player.largehealthpotions = player.largehealthpotions - 1
+                        elseif(size =="small") then
+                            player.smallhealthpotions = player.smallhealthpotions - 1
+                        end
                     else
                         --do nothing
                     end
@@ -318,36 +332,17 @@ function scene:show(event)
             end
         end
 
-        -- Create attack button
+--small Health potion event
+        local function smallHealthPotion(event)
+            local small = "small"
+            healthPotionFunc(small,player.smallhealthpotions)
+        end
 
-        local button22 =
-            widget.newButton(
-            {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 250,
-                top = 500,
-                fontSize = 40,
-                id = "button1",
-                label = "Attack",
-                onRelease = PlayerTurn,
-                isEnabled = true
-            }
-        )
+--large Health potion event
+        local function largeHealthPotion(event)
+            healthPotionFunc("large",player.largehealthpotions)
+        end
 
-        -- Create Health potion button
-        local button2 =
-            widget.newButton(
-            {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-                left = 450,
-                top = 650,
-                fontSize = 40,
-                id = "button2",
-                label = "Health potions",
-                isEnabled = true,
-                onRelease = healthPotion
-            }
-        )
 
         --exit to world map func
         local function goToWorldMap(event)
@@ -418,7 +413,7 @@ function scene:show(event)
                 defaultFrame = 1,
                 overFrame = 2,
                 label = "button",
-                onRelease = healthPotion
+                onRelease = smallHealthPotion
             }
         )
 
@@ -447,7 +442,7 @@ function scene:show(event)
                 defaultFrame = 1,
                 overFrame = 2,
                 label = "button",
-                onRelease = healthPotion
+                onRelease = largeHealthPotion
             }
         )
 
