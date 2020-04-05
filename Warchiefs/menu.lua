@@ -43,6 +43,13 @@ function scene:show(event)
             end
         end
 
+        --Function go to options scene
+        local function goToCombat(event)
+            if ("ended" == event.phase) then
+                composer.gotoScene("Combat", {effect = "crossFade", time = 500})
+            end
+        end
+
         -- Create the Buttons
         local newGame =
             widget.newButton(
@@ -88,6 +95,22 @@ function scene:show(event)
                 
             }
         )
+
+        local combat =
+            widget.newButton(
+            {
+                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
+                width = 400,
+                height = 200,
+                left = 800,
+                top = 320,
+                id = "combat",
+                fontSize = 40,
+                label = "Combat prototype shortcut",
+                onEvent = goToCombat
+                
+            }
+        )    
     elseif (phase == "did") then
     -- Code here runs when the scene is entirely on screen
     
