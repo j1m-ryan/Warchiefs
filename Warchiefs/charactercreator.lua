@@ -37,16 +37,23 @@ function scene:show(event)
 
         --Functions to make warning texts
         local function warningName()
-            warningText.text = display.newText("You must pick a name", 1010, 120, native.systemFont, 35)
+            display.remove(warningText)
+            warningText = display.newText("You must pick a name", 1010, 120, native.systemFont, 35)
+            warningText:setTextColor(1, 0, 0)
+            transition.fadeOut(warningText, {time = 3000})
         end
 
         local function warningGender()
-            warningText.text = display.newText("You must pick a gender", 1010, 120, native.systemFont, 35)
-            warningText:setFillColor(1, 0, 0)
+            display.remove(warningText)
+            warningText = display.newText("You must pick a gender", 1010, 120, native.systemFont, 35)
+            warningText:setTextColor(1, 0, 0)
+            transition.fadeOut(warningText, {time = 3000})
         end
         local function warningAttribute()
-            warningText.text = display.newText("You must spend all attribute points", 1010, 120, native.systemFont, 35)
-            warningText:setFillColor(1, 0, 0)
+            display.remove(warningText)
+            warningText = display.newText("You must spend all attribute points", 1010, 120, native.systemFont, 35)
+            warningText:setTextColor(1, 0, 0)
+            transition.fadeOut(warningText, {time = 3000})
         end
 
         --Function to choose Male character
