@@ -399,6 +399,7 @@ function scene:create(event)
     sceneGroup:insert(minusCharisma)
     sceneGroup:insert(addCharisma)
     sceneGroup:insert(nameInput)
+    sceneGroup:insert(startGame)
 
     -- Code here runs when the scene is first created but has not yet appeared on screen
 end
