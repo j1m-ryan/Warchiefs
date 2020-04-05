@@ -12,7 +12,7 @@ end
 function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
-
+    composer.removeHidden()
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
         local widget = require("widget")
