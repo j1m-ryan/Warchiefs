@@ -27,7 +27,7 @@ function scene:show(event)
         -- Code here runs when the scene is still off screen (but is about to come on screen)
 
         -- background castle view
-        local background = display.newImageRect("images/combatBackground.png", 1280, 620)
+        local background = display.newImageRect("images/combatBackground2.png", 1280, 620)
         background.x = display.contentCenterX
         background.y = display.contentCenterY
 
@@ -59,6 +59,43 @@ function scene:show(event)
         health_bar_outter4.x = 1200
         health_bar_outter4.y = 660
 
+
+--background fire animation intialize
+        local sheetOptions3 = {
+            width = 60.3 ,
+            height = 60,
+            numFrames = 3,
+            sheetContentWidth = 182,
+            sheetContentHeight = 60
+        }
+
+        local fire_sheet = graphics.newImageSheet("images/fire3.png", sheetOptions3)
+
+        local sequenceData3 = {
+            {name = "fire", frames = {1, 2, 3}, time = 500, loopCount = 0, loopDirection = "forward"}
+        }
+
+        --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
+        local fire = display.newSprite(fire_sheet, sequenceData3)
+        fire.x = 540
+        fire.y = 335    
+        fire.xScale = 1.3
+        fire.yScale = 1.2
+        fire:play()
+
+
+        local sequenceData4 = {
+            {name = "fire", frames = {3, 1,2}, time = 500, loopCount = 0, loopDirection = "forward"}
+        }
+
+        local fire2 = display.newSprite(fire_sheet, sequenceData4)
+        fire2.x = 815
+        fire2.y = 335    
+        fire2.xScale = 1.3
+        fire2.yScale = 1.2
+        fire2:play()
+
+--Attack aniamtion
         local sheetOptions = {
             width = 300,
             height = 300,
@@ -100,7 +137,7 @@ function scene:show(event)
         local blood_sheet = graphics.newImageSheet("images/blood.png", sheetOptions)
 
         local sequenceData2 = {
-            {name = "bloody", frames = {1, 2, 3, 4, 1}, time = 800, loopCount = 1, loopDirection = "forward"}
+            {name = "bloody", frames = {1, 2, 3}, time = 800, loopCount = 1, loopDirection = "forward"}
         }
 
         --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
