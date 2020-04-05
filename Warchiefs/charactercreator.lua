@@ -215,9 +215,9 @@ function scene:show(event)
         local startGame =
             widget.newButton(
             {
-                labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
+                labelColor = {default = {1, 0, 0}, over = {0, 0, 0, 0.5}},
                 left = 900,
-                top = 50,
+                top = 40,
                 id = "startGame",
                 label = "Start Game",
                 onEvent = goToWorldMap,
