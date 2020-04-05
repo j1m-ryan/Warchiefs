@@ -88,6 +88,27 @@ function scene:show(event)
         attack_animation.xScale = .7
         attack_animation.yScale = .7
 
+--blood animation intialize
+        local sheetOptions2 = {
+            width = 50,
+            height = 50,
+            numFrames = 4,
+            sheetContentWidth = 150,
+            sheetContentHeight = 50
+        }
+
+        local blood_sheet = graphics.newImageSheet("images/blood.png", sheetOptions)
+
+        local sequenceData2 = {
+            {name = "bloody", frames = {1, 2, 3, 4, 1}, time = 800, loopCount = 1, loopDirection = "forward"}
+        }
+
+        --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
+        local blood = display.newSprite(blood_sheet, sequenceData2)
+        blood.x = 800
+        blood.y = 500
+        blood.xScale = .3
+        blood.yScale = .3
 
 
 -- Condition for Attack function if false then do nothing
@@ -188,6 +209,7 @@ function scene:show(event)
                 health_bar_scale = playerHealthBar.xScale
                 totalHealth = player.totalHealth
             elseif (id == "player") then
+                blood:play() -- player blood animation on player
                 health_bar_scale = enemyHealthBar.xScale
                 totalHealth = enemy.totalHealth
             end
