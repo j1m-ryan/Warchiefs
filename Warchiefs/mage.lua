@@ -1,13 +1,9 @@
 local composer = require("composer")
 local player = require("playerData")
 local scene = composer.newScene()
+composer.removeHidden()
 
 function scene:create(event)
-    local sceneGroup = self.view
-end
-
--- show()
-function scene:show(event)
     local sceneGroup = self.view
     local phase = event.phase
     print(player.gold)
@@ -84,6 +80,18 @@ function scene:show(event)
             fontSize = 40
         }
     )
+    sceneGroup:insert(background)
+    sceneGroup:insert(buySmall)
+    sceneGroup:insert(buyLarge)
+    sceneGroup:insert(backBTN)
+    sceneGroup:insert(goldlabel)
+    sceneGroup:insert(largelabel)
+    sceneGroup:insert(smalllabel)
+end
+
+-- show()
+function scene:show(event)
+    local sceneGroup = self.view
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)

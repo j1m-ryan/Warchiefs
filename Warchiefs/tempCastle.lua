@@ -4,11 +4,7 @@ local scene = composer.newScene()
 local screenW, screenH, halfW = display.actualContentWidth, display.actualContentHeight, display.contentCenterX
 
 function scene:create(event)
-    local sceneGroup = self.view
-end
-
--- show()
-function scene:show(event)
+    composer.removeHidden()
     local sceneGroup = self.view
     local phase = event.phase
     print(player.gold)
@@ -58,6 +54,13 @@ function scene:show(event)
         Runtime:addEventListener("key", onKeyEvent)
     -- Code here runs when the scene is entirely on screen
     end
+    sceneGroup:insert(background)
+    sceneGroup:insert(character)
+end
+
+-- show()
+function scene:show(event)
+    local sceneGroup = self.view
 end
 
 -- hide()

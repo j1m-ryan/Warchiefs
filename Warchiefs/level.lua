@@ -14,12 +14,7 @@ local scene = composer.newScene()
 -- create()
 function scene:create(event)
     local sceneGroup = self.view
-    -- Code here runs when the scene is first created but has not yet appeared on screen
-end
-
--- show()
-function scene:show(event)
-    local sceneGroup = self.view
+    composer.removeHidden()
     local phase = event.phase
     local background = display.newImageRect("images/skill.png", 1280, 720)
     background.x = display.contentCenterX
@@ -46,6 +41,16 @@ function scene:show(event)
     )
     local myName = display.newText(player.name, 1010, 75, native.systemFont, 35)
     local myClan = display.newText(player.clan, 1010, 100, native.systemFont, 35)
+    sceneGroup:insert(background)
+    sceneGroup:insert(backBTN)
+    sceneGroup:insert(myName)
+
+    sceneGroup:insert(myClan)
+end
+
+-- show()
+function scene:show(event)
+    local sceneGroup = self.view
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)

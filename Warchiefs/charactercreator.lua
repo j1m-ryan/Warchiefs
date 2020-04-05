@@ -1,6 +1,7 @@
 local composer = require("composer")
 local scene = composer.newScene()
 local player = require("playerData")
+local genderImage
 
 -- create()
 function scene:create(event)
@@ -9,7 +10,6 @@ function scene:create(event)
     -- Code here runs when the scene is still off screen (but is about to come on screen)
     local widget = require("widget")
     local warningText = display.newText("", 1010, 95, native.systemFont, 35)
-    local genderImage
 
     -- Initialize variables, note that these should read from the SQL database
 
@@ -200,6 +200,7 @@ function scene:create(event)
             end
             nameInput:removeSelf()
             display.remove(nameInput)
+            display.remove(genderImage)
             composer.gotoScene("worldmap")
         end
     end
@@ -382,7 +383,7 @@ function scene:create(event)
     nameInput:addEventListener("userInput", textListener)
     sceneGroup:insert(background)
     sceneGroup:insert(warningText)
-    --  sceneGroup:insert(genderImage)
+
     sceneGroup:insert(attributeLabel)
     sceneGroup:insert(strengthLabel)
     sceneGroup:insert(dexterityLabel)

@@ -6,6 +6,7 @@ local scene = composer.newScene()
 local screenW, screenH, halfW = display.actualContentWidth, display.actualContentHeight, display.contentCenterX
 local mainMusic
 local bgNoise
+composer.removeHidden()
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -26,11 +27,6 @@ function scene:create(event)
 
     --load bg noise
     bgNoise = audio.loadStream("audio/bgnoise.wav")
-end
-
--- show()
-function scene:show(event)
-    local sceneGroup = self.view
     local phase = event.phase
     local obriensCastle = display.newImageRect("images/obriencity.png", 180, 180)
     obriensCastle.x = 300
@@ -47,134 +43,146 @@ function scene:show(event)
     ryanstown.x = 970
     ryanstown.y = 200
 
-    if (phase == "will") then
-        local physics = require("physics")
-        physics.start()
-        physics.setGravity(0, 0)
-        -- Create the widget
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
-        local background = display.newImageRect("images/worldmap.jpg", 1280, 720)
-        background.x = display.contentCenterX
-        background.y = display.contentCenterY
+    local physics = require("physics")
+    physics.start()
+    physics.setGravity(0, 0)
+    -- Create the widget
+    -- Code here runs when the scene is still off screen (but is about to come on screen)
+    local background = display.newImageRect("images/worldmap.jpg", 1280, 720)
+    background.x = display.contentCenterX
+    background.y = display.contentCenterY
 
-        local character
-        if player.gender == "Male" then
-            character = display.newImageRect("images/hero1.png", 130, 130)
-        else
-            character = display.newImageRect("images/hero2.png", 130, 130)
-        end
-
-        local characterDirection = "right"
-        character.x = player.x
-        character.y = player.y
-        physics.addBody(character, {radius = 30, isSensor = true})
-        physics.addBody(obriensCastle, {radius = 30, isSensor = true})
-        physics.addBody(ryanstown, {radius = 30, isSensor = true})
-        physics.addBody(city3, {radius = 30, isSensor = true})
-        character.myName = player.name
-        obriensCastle.myName = "obriensCastle"
-        ryanstown.myName = "ryanstown"
-        city3.myName = "city3"
-
-        local widget = require("widget")
-
-        function onKeyEvent(event)
-            if character.x < 20 then
-                character.x = 20
-            end
-            if character.x > 1260 then
-                character.x = 1260
-            end
-            if character.y < 20 then
-                character.y = 20
-            end
-            if character.y > 740 then
-                character.y = 740
-            end
-            print("x")
-            print(character.x)
-            print("Y")
-            print(character.y)
-            if event.keyName == "a" then
-                if characterDirection == "right" then
-                    characterDirection = "left"
-                    character.xScale = -1
-                end
-                if event.phase == "down" then
-                    if (character.x > 20) then
-                        transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
-                    end
-                elseif event.phase == "up" then
-                    transition.cancel()
-                end
-            end
-            if event.keyName == "w" then
-                if event.phase == "down" then
-                    if (character.y > 20) then
-                        transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
-                    end
-                elseif event.phase == "up" then
-                    transition.cancel()
-                end
-            end
-            if event.keyName == "s" then
-                if event.phase == "down" then
-                    if (character.y < 700) then
-                        transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
-                    end
-                elseif event.phase == "up" then
-                    transition.cancel()
-                end
-            end
-            if event.keyName == "d" then
-                if characterDirection == "left" then
-                    characterDirection = "right"
-                    character.xScale = 1
-                end
-                if event.phase == "down" then
-                    if (character.x < 1260) then
-                        transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
-                    end
-                elseif event.phase == "up" then
-                    transition.cancel()
-                end
-            end
-        end
-        local function onLocalCollision(self, event)
-            if (event.phase == "began") then
-                print(self.myName .. ": collision began with " .. event.other.myName)
-                if (event.other.myName == "obriensCastle") then
-                    character:removeEventListener("collision", character)
-                    player.x = 196
-                    player.y = 250
-                    composer.gotoScene("obriensCastle")
-                elseif (event.other.myName == "ryanstown") then
-                    character:removeEventListener("collision", character)
-                    player.x = 774
-                    player.y = 190
-                    composer.gotoScene("ryanstown")
-                elseif (event.other.myName == "city3") then
-                    character:removeEventListener("collision", character)
-                    player.x = 400
-                    player.y = 630
-                    composer.gotoScene("city3")
-                end
-            elseif (event.phase == "ended") then
-                print(self.myName .. ": collision ended with " .. event.other.myName)
-            end
-        end
-        character.collision = onLocalCollision
-        character:addEventListener("collision")
-    elseif (phase == "did") then
-        Runtime:addEventListener("key", onKeyEvent)
-        -- Code here runs when the scene is entirely on screen
-
-        --play music
-        audio.play(mainMusic, {channel = 2, loops = -1})
-
-        --play bg noise
-        audio.play(bgNoise, {channel = 3, loops = -1})
+    local character
+    if player.gender == "Male" then
+        character = display.newImageRect("images/hero1.png", 130, 130)
+    else
+        character = display.newImageRect("images/hero2.png", 130, 130)
     end
+
+    local characterDirection = "right"
+    character.x = player.x
+    character.y = player.y
+    physics.addBody(character, {radius = 30, isSensor = true})
+    physics.addBody(obriensCastle, {radius = 30, isSensor = true})
+    physics.addBody(ryanstown, {radius = 30, isSensor = true})
+    physics.addBody(city3, {radius = 30, isSensor = true})
+    character.myName = player.name
+    obriensCastle.myName = "obriensCastle"
+    ryanstown.myName = "ryanstown"
+    city3.myName = "city3"
+
+    local widget = require("widget")
+
+    function onKeyEvent(event)
+        if (character.x == nil or character.y == nil) then
+            return
+        end
+        if character.x < 20 then
+            character.x = 20
+        end
+        if character.x > 1260 then
+            character.x = 1260
+        end
+        if character.y < 20 then
+            character.y = 20
+        end
+        if character.y > 740 then
+            character.y = 740
+        end
+        print("x")
+        print(character.x)
+        print("Y")
+        print(character.y)
+        if event.keyName == "a" then
+            if characterDirection == "right" then
+                characterDirection = "left"
+                character.xScale = -1
+            end
+            if event.phase == "down" then
+                if (character.x > 20) then
+                    transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
+                end
+            elseif event.phase == "up" then
+                transition.cancel()
+            end
+        end
+        if event.keyName == "w" then
+            if event.phase == "down" then
+                if (character.y > 20) then
+                    transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
+                end
+            elseif event.phase == "up" then
+                transition.cancel()
+            end
+        end
+        if event.keyName == "s" then
+            if event.phase == "down" then
+                if (character.y < 700) then
+                    transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
+                end
+            elseif event.phase == "up" then
+                transition.cancel()
+            end
+        end
+        if event.keyName == "d" then
+            if characterDirection == "left" then
+                characterDirection = "right"
+                character.xScale = 1
+            end
+            if event.phase == "down" then
+                if (character.x < 1260) then
+                    transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
+                end
+            elseif event.phase == "up" then
+                transition.cancel()
+            end
+        end
+    end
+    local function onLocalCollision(self, event)
+        if (event.phase == "began") then
+            print(self.myName .. ": collision began with " .. event.other.myName)
+            if (event.other.myName == "obriensCastle") then
+                character:removeEventListener("collision", character)
+                player.x = 196
+                player.y = 250
+                composer.gotoScene("ryanstown")
+            elseif (event.other.myName == "ryanstown") then
+                character:removeEventListener("collision", character)
+                player.x = 774
+                player.y = 190
+                composer.gotoScene("ryanstown")
+            elseif (event.other.myName == "city3") then
+                character:removeEventListener("collision", character)
+                player.x = 400
+                player.y = 630
+                composer.gotoScene("city3")
+            end
+        elseif (event.phase == "ended") then
+            print(self.myName .. ": collision ended with " .. event.other.myName)
+        end
+    end
+    character.collision = onLocalCollision
+    character:addEventListener("collision")
+
+    Runtime:addEventListener("key", onKeyEvent)
+    -- Code here runs when the scene is entirely on screen
+
+    --play music
+    audio.play(mainMusic, {channel = 2, loops = -1})
+
+    --play bg noise
+    audio.play(bgNoise, {channel = 3, loops = -1})
+
+    sceneGroup:insert(background)
+    sceneGroup:insert(character)
+    sceneGroup:insert(obriensCastle)
+    sceneGroup:insert(ryanstown)
+    sceneGroup:insert(city3)
+end
+
+-- show()
+function scene:show(event)
+    local sceneGroup = self.view
 end
 
 -- hide()
