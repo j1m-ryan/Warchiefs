@@ -87,10 +87,40 @@ function scene:show(event)
         attack_animation.y = 480
         attack_animation.xScale = .7
         attack_animation.yScale = .7
-        -- Condition for Attack function if false then do nothing
+
+
+
+-- Condition for Attack function if false then do nothing
         local bothAlive = true
 
-        -- getting max and min for probabilty of hit chance depending on player/enemy Level
+--stopping multiple misses in rows
+        local playerMissCount = 0
+        local enemyMissCount = 0
+        --if someone scores a hit then reset their counter
+        local function resetMissCounter(id)
+            if(id == "player") then
+                print("hit so reset" .. id)
+                playerMissCount = 0
+            elseif(id == "enemy") then
+
+                print("hit so reset" .. id)
+                enemyMissCount = 0
+            end
+        end
+
+        local function hitIfManyMissInRow(id)
+            if(id == "player" and playerMissCount >= 3) then
+                playerMissCount = 0
+                return true
+            elseif(id == "enemy" and enemyMissCount >= 3) then
+                enemyMissCount = 0
+                return true
+            else
+                return false
+            end
+        end
+
+-- getting max and min for probabilty of hit chance depending on player/enemy Level
 
         local function generateHitChance(level)
             local hitChance = 0
@@ -107,7 +137,7 @@ function scene:show(event)
             return hitChance
         end
 
-        local function hitOrMiss(hitChance)
+        local function hitOrMiss(id, hitChance)
             local hitRange = 0
             local hitRangeMax = 0
             local hitRangeMin = 0
@@ -125,16 +155,16 @@ function scene:show(event)
             else
                 print("hit range else")
             end
-            print(hitRange)
-            print(hitRangeMin)
-            print(hitRangeMax)
-
             if (hitChance >= hitRangeMin and hitChance <= hitRangeMax) then
                 print("hit landed")
                 hit = true
                 return hit
             else
-                hitText(id, 0, true)
+                if(id =="player")then
+                    playerMissCount=playerMissCount + 1
+                elseif(id == "enemy")then
+                    enemyMissCount = enemyMissCount + 1
+                end
                 print("missed")
                 return hit
             end
@@ -164,14 +194,9 @@ function scene:show(event)
 
             if (health_bar_scale > 0.015) then -- do nothing, this code is here to stop crashing as if scaler cant be brought to zero
                 local barDamage = damage / totalHealth
-                print(barDamage .. "barDamage")
 
-                print("below is perdictedDamage before")
-                print(health_bar_scale)
                 local perdictedDamage = health_bar_scale - barDamage
 
-                print("below is perdictedDamage")
-                print(perdictedDamage)
 
                 if (perdictedDamage >= 0.015) then -- its here to stop bar going - on scale
                     if (id == "player") then
@@ -255,7 +280,6 @@ function scene:show(event)
         -- health potion method
         function healthPotionFunc(size, quantity)
             local healthPotionsQuantity = quantity
-            print("healthPotionsQuantity" .. healthPotionsQuantity)
             local smallPotion = 15
             local largePotion = 30
             if(size == "large")then
@@ -294,11 +318,23 @@ function scene:show(event)
             if (bothAlive == true) then
                 local hitChance = 0
                 hitChance = generateHitChance(level)
-                print(hitChance)
                 local hit = false
-                hit = hitOrMiss(hitChance)
-                print(hit)
-                if (hit == true) then
+                hit = hitOrMiss(id,hitChance)
+                
+                --below we testing if its a hit then reset player or enemy misscounter
+                if(hit == true)then
+                    resetMissCounter(id)
+                end
+                --check if id object have missCounter above or equal to 3 then make it a hit instead of miss// to break miss cycle
+                if(hit== false)then
+                    local confirm = false
+                    confirm = hitIfManyMissInRow(id)
+                    print("player misses " .. playerMissCount)
+                    print("enemy misses " .. enemyMissCount)
+                    print(confirm)
+                    hit = confirm
+                end
+                if (hit == true ) then
                     applyDamage(id, health, damage)
                     applyDamageHealthBar(id, damage)
                     hitText(id, damage, false)
@@ -311,16 +347,12 @@ function scene:show(event)
             end
         end -- end of attack function
 
-        --Set button enable after enemy turn
-        local function activateAttactButton()
-            print("i was called activateAttactButton")
-        end
-        --enemyAttack Event
+--enemyAttack Event
         local function enemyTurn()
             AttackTurn(enemy.id, player.health, enemy.level, enemy.damage)
-            timer.performWithDelay(2000, activateAttactButton)
+            
         end
-        --playerAttack Event
+--playerAttack Event
         local function PlayerTurn(event)
             if (wasRecentlyClicked) then
                 return
