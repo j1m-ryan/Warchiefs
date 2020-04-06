@@ -19,6 +19,8 @@ composer.removeHidden()
 
 -- create()
 function scene:create(event)
+    composer.removeHidden()
+
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
 
