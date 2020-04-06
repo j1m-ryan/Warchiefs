@@ -141,6 +141,11 @@ function scene:create(event)
         end
     end
     local function onClick(event)
+        local differenceInX = character.x - event.x
+        local differenceInY = character.y - event.y
+        local distanceOfWalk = math.sqrt((differenceInX * differenceInX) + (differenceInY * differenceInY))
+        local timeForWalk = distanceOfWalk * 5
+
         if (event.phase == "ended") then
             if (event.x > character.x) then
                 characterDirection = "right"
@@ -150,7 +155,7 @@ function scene:create(event)
                 character.xScale = -1
             end
 
-            transition.to(character, {time = 3000, x = event.x, y = event.y})
+            transition.to(character, {time = timeForWalk, x = event.x, y = event.y})
         end
     end
     local function onLocalCollision(self, event)
