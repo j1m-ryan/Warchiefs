@@ -140,6 +140,19 @@ function scene:create(event)
             end
         end
     end
+    local function onClick(event)
+        if (event.phase == "ended") then
+            if (event.x > character.x) then
+                characterDirection = "right"
+                character.xScale = 1
+            else
+                characterDirection = "right"
+                character.xScale = -1
+            end
+
+            transition.to(character, {time = 3000, x = event.x, y = event.y})
+        end
+    end
     local function onLocalCollision(self, event)
         if (event.phase == "began") then
             print(self.myName .. ": collision began with " .. event.other.myName)
@@ -167,6 +180,7 @@ function scene:create(event)
     character:addEventListener("collision")
 
     Runtime:addEventListener("key", onKeyEvent)
+    Runtime:addEventListener("touch", onClick)
     -- Code here runs when the scene is entirely on screen
 
     --play music
