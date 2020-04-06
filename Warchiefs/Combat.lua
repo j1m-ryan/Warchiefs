@@ -491,7 +491,7 @@ function scene:create(event)
             sheet = buttonSheet2,
             defaultFrame = 1,
             overFrame = 2,
-            label = "button",
+            label = "buttons",
             onRelease = smallHealthPotion
         }
     )
@@ -504,13 +504,6 @@ function scene:create(event)
 
     -- Create Health potion button
 
-    local options = {
-        width = 150,
-        height = 150,
-        numFrames = 2,
-        sheetContentWidth = 300,
-        sheetContentHeight = 150
-    }
     local buttonSheet3 = graphics.newImageSheet("images/bigHealthPotion.png", options)
 
     -- Create the widget
@@ -520,7 +513,7 @@ function scene:create(event)
             sheet = buttonSheet3,
             defaultFrame = 1,
             overFrame = 2,
-            label = "button",
+            label = "buttonl",
             onRelease = largeHealthPotion
         }
     )
@@ -594,7 +587,7 @@ function scene:create(event)
         animation3:play()
     end
 
-    local button3 =
+    local button5 =
         widget.newButton(
         {
             labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
@@ -620,6 +613,7 @@ function scene:create(event)
     sceneGroup:insert(button2)
     sceneGroup:insert(button3)
     sceneGroup:insert(button4)
+    sceneGroup:insert(button5)
     sceneGroup:insert(playerhit)
     sceneGroup:insert(enemyhit)
     sceneGroup:insert(attack_animation)
@@ -628,7 +622,6 @@ function scene:create(event)
     sceneGroup:insert(button)
     sceneGroup:insert(playerHealthBar)
     sceneGroup:insert(enemyHealthBar)
-    sceneGroup:insert(button3)
 end
 
 -- show()
