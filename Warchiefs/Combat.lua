@@ -105,10 +105,10 @@ function scene:create(event)
         timer.performWithDelay(3000, setRecentlyClickedFalse)
     end
 
-    local attack_sheet = graphics.newImageSheet("images/attackanimation2.png", sheetOptions)
+    local attack_sheet = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
 
     local sequenceData = {
-        {name = "attack", frames = {1, 2, 3, 4, 1}, time = 800, loopCount = 1, loopDirection = "forward"}
+        {name = "attack", frames = {1, 2, 3, 1}, time = 800, loopCount = 1, loopDirection = "forward"}
     }
 
     --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
@@ -572,7 +572,7 @@ function scene:create(event)
     animation2.xScale = 1
     animation2.yScale = 1
 
-    local attack_sheet3 = graphics.newImageSheet("images/attackAnimation3Test.png", sheetOptions)
+    local attack_sheet3 = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
 
     --       local animation = display.newSprite(attack_sheet, sequenceData )
     local animation3 = display.newSprite(attack_sheet3, sequenceData)
