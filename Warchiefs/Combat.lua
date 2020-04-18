@@ -28,11 +28,24 @@ function scene:create(event)
 
     --player and enemy
 
-    local enemy_pic = display.newImageRect("images/lvl3.png", 390, 290)
-    enemy_pic.x = 700
-    enemy_pic.y = 470
-    enemy_pic.xScale = -.8
+    local sheetOptionsEnemy = {
+        width = 200,
+        height = 400,
+        numFrames = 6,
+        sheetContentWidth = 1200,
+        sheetContentHeight = 400
+    }
 
+    local attack_sheetEnemy = graphics.newImageSheet("images/enemyanim.png", sheetOptionsEnemy)
+    local sequenceDataEnemy = {
+        {name = "enemy", frames = {1, 2, 3, 4, 5, 6, 1}, time = 500, loopCount = 1, loopDirection = "reverse"}
+    }
+
+    local enemyAnimation = display.newSprite(attack_sheetEnemy, sequenceDataEnemy)
+
+    enemyAnimation.x = 700
+    enemyAnimation.y = 430
+    enemyAnimation.xScale = -1
     --health bars
 
     local health_bar_outter = display.newImageRect("images/healthbar.png", 225, 35)
@@ -267,13 +280,13 @@ function scene:create(event)
     local playerhit = display.newText("", 200, 200, native.systemFont, 40)
     local enemyhit = display.newText("", 1000, 200, native.systemFont, 40)
     function hitText(id, damage, miss)
-        if (id == "player" and miss == false) then
-            -- testing animation
+        if (id == "player") then
             attack_animation:play()
-            -- initializing hit text boxes
-
-            playerhit:setFillColor(1, 0, 0)
-            playerhit.text = "Player did " .. damage .. "damage"
+        end
+        if (id == "player" and miss == false) then
+            playerhit = display.newText("", 200, 200, native.systemFont, 40)
+            playerhit:setFillColor(0, 1, 0)
+            playerhit.text = "Player did " .. damage .. " damage"
             transition.moveTo(playerhit, {x = 300, y = 400, time = 2000})
             transition.fadeOut(playerhit, {time = 2300})
         elseif (id == "player" and miss == true) then
@@ -287,13 +300,13 @@ function scene:create(event)
 
         if (id == "enemy" and miss == false) then
             enemyhit:setFillColor(1, 0, 0)
-            enemyhit.text = "enemy did " .. damage .. "damage"
+            enemyhit.text = "enemy did " .. damage .. " damage"
             transition.moveTo(enemyhit, {x = 1200, y = 400, time = 2000})
             transition.fadeOut(enemyhit, {time = 2300})
         elseif (id == "enemy" and miss == true) then
             enemyhit = display.newText("", 1000, 200, native.systemFont, 40)
-            enemyhit:setFillColor(1, 0, 0)
-            enemyhit.text = "enemy missed !"
+            enemyhit:setFillColor(0, 0, 1)
+            enemyhit.text = "Enemy missed !"
             transition.moveTo(enemyhit, {x = 1200, y = 400, time = 2000})
             transition.fadeOut(enemyhit, {time = 2300})
         end
@@ -398,6 +411,7 @@ function scene:create(event)
 
     --enemyAttack Event
     local function enemyTurn()
+        enemyAnimation:play()
         AttackTurn(enemy.id, player.health, enemy.level, enemy.damage)
     end
     --playerAttack Event
@@ -581,6 +595,13 @@ function scene:create(event)
     animation3.xScale = 1
     animation3.yScale = 1
 
+    --       local animation = display.newSprite(attack_sheet, sequenceData )
+    local animation1 = display.newSprite(attack_sheet1, sequenceData)
+    animation1.x = 110
+    animation1.y = 180
+    animation1.xScale = 1
+    animation1.yScale = 1
+
     local function playAnimations()
         animation1:play()
         animation2:play()
@@ -600,7 +621,7 @@ function scene:create(event)
         }
     )
     sceneGroup:insert(background)
-    sceneGroup:insert(enemy_pic)
+
     sceneGroup:insert(health_bar_outter)
     sceneGroup:insert(health_bar_outter2)
     sceneGroup:insert(health_bar_outter3)
