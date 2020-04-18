@@ -20,6 +20,9 @@ player.health = 300 --default
 player.damage = 550
 player.level = 1
 player.evade = 3
+player.ownsRyansTown = false
+player.ownsCity2 = false
+player.ownsCity3 = false
 
 player.totalHealth = 300
 

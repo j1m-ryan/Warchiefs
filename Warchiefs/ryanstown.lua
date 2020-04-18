@@ -17,7 +17,7 @@ composer.removeHidden()
 -- create()
 function scene:create(event)
     local sceneGroup = self.view
-
+    player.location = "ryanstown"
     -- Code here runs when the scene is first created but has not yet appeared on screen
     -- Create the widget
     -- Code here runs when the scene is still off screen (but is about to come on screen)
@@ -45,7 +45,11 @@ function scene:create(event)
     end
     local function goToCastle(event)
         if ("ended" == event.phase) then
-            composer.gotoScene("Combat")
+            if (player.ownsRyansTown == true) then
+                composer.gotoScene("tempCastle")
+            else
+                composer.gotoScene("Combat")
+            end
         end
     end
     local exitRyansTown =
@@ -109,7 +113,6 @@ end
 
 -- show()
 function scene:show(event)
-    player.location = "ryanstown"
     local sceneGroup = self.view
     local phase = event.phase
 

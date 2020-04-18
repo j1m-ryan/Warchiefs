@@ -14,6 +14,22 @@ function scene:create(event)
     local character = display.newImageRect("images/hero1.png", 300, 300)
     local widget = require("widget")
     local characterDirection = "right"
+    local function leaveCastle()
+        composer.gotoScene("worldmap")
+    end
+
+    local exit =
+        widget.newButton(
+        {
+            left = 1030,
+            top = 500,
+            width = 200,
+            height = 190,
+            id = "exit",
+            onEvent = leaveCastle,
+            defaultFile = "images/door.png"
+        }
+    )
     character.x = 200
     character.y = 460
     physics.start()
@@ -51,11 +67,13 @@ function scene:create(event)
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
     elseif (phase == "did") then
-        Runtime:addEventListener("key", onKeyEvent)
+
     -- Code here runs when the scene is entirely on screen
     end
+    Runtime:addEventListener("key", onKeyEvent)
     sceneGroup:insert(background)
     sceneGroup:insert(character)
+    sceneGroup:insert(exit)
 end
 
 -- show()

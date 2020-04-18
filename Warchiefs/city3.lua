@@ -46,7 +46,7 @@ function scene:create(event)
     end
     local function goToCastle(event)
         if ("ended" == event.phase) then
-            composer.gotoScene("combat")
+            composer.gotoScene("Combat")
         end
     end
     local exitRyansTown =

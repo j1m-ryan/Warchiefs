@@ -16,29 +16,24 @@ function scene:create(event)
     player.gold = player.gold + 5000
     player.level = player.level + 1
     local sceneGroup = self.view
-    local background = display.newImageRect("images/victory.png", 1280, 720)
+    local background = display.newImageRect("images/end.png", 1280, 720)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    victoryString = player.name .. " " .. player.clan .. " has defeated the boss at " .. player.location
+    victoryString = player.name .. " " .. player.clan .. " controls all the cities!"
     local victoryText = display.newText(victoryString, 600, 200, native.systemFont, 35)
-    goldString = "You have earned 5000 gold!"
+    local goldString = "You finished the game with " .. player.gold .. " gold!"
     local goldText = display.newText(goldString, 600, 300, native.systemFont, 35)
-    levelString = "You have leveled up! You are now level " .. player.level
-    local levelText = display.newText(levelString, 600, 400, native.systemFont, 35)
+
     local widget = require("widget")
     local function goToWorldMap(event)
         if ("ended" == event.phase) then
-            if (player.ownsCity2 and player.ownsCity3 and player.ownsRyansTown) then
-                composer.gotoScene("end")
-            else
-                composer.gotoScene("worldmap")
-            end
+            composer.gotoScene("menu")
         end
     end
 
     victoryText:setFillColor(0, 0, 0)
     goldText:setFillColor(0, 0, 0)
-    levelText:setFillColor(0, 0, 0)
+
     local exitRyansTown =
         widget.newButton(
         {
@@ -55,7 +50,6 @@ function scene:create(event)
     sceneGroup:insert(victoryText)
     sceneGroup:insert(exitRyansTown)
     sceneGroup:insert(goldText)
-    sceneGroup:insert(levelText)
 
     -- Code here runs when the scene is first created but has not yet appeared on screen
 end

@@ -1,18 +1,18 @@
 local composer = require("composer")
-local enemy = require("TestData2")
+local enemy
+
 local player = require("playerData")
+
+if player.location == "ryanstown" then
+    enemy = require("TestData2")
+elseif player.location == "city2" then
+    enemy = require("TestData3")
+else
+    enemy = require("TestData4")
+end
 local widget = require("widget")
 local scene = composer.newScene()
--- -----------------------------------------------------------------------------------
--- Code outside of the scene event functions below will only be executed ONCE unless
--- the scene is removed entirely (not recycled) via "composer.removeScene()"
--- -----------------------------------------------------------------------------------
 
--- -----------------------------------------------------------------------------------
--- Scene event functions
--- -----------------------------------------------------------------------------------
-
--- create()
 function scene:create(event)
     composer.removeHidden()
     local sceneGroup = self.view
@@ -58,6 +58,17 @@ function scene:create(event)
 
     local enemyHealthBar = require("enemyHealthBar")
     local playerHealthBar = require("healthBar")
+
+    if player.location == "ryanstown" then
+        enemyHealthBar = require("enemyHealthBar")
+        playerHealthBar = require("healthBar")
+    elseif player.location == "city2" then
+        enemyHealthBar = require("enemyHealthBar2")
+        playerHealthBar = require("healthBar2")
+    else
+        enemyHealthBar = require("enemyHealthBar3")
+        playerHealthBar = require("healthBar3")
+    end
 
     local health_bar_outter3 = display.newImageRect("images/heart.png", 55, 60)
     health_bar_outter3.x = 110
@@ -118,7 +129,14 @@ function scene:create(event)
         timer.performWithDelay(3000, setRecentlyClickedFalse)
     end
 
-    local attack_sheet = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
+    local attack_sheet
+    if player.level == 1 then
+        attack_sheet = graphics.newImageSheet("images/attackAnimation1.png", sheetOptions)
+    elseif player.level == 2 then
+        attack_sheet = graphics.newImageSheet("images/attackAnimation2.png", sheetOptions)
+    else
+        attack_sheet = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
+    end
 
     local sequenceData = {
         {name = "attack", frames = {1, 2, 3, 1}, time = 800, loopCount = 1, loopDirection = "forward"}
@@ -243,6 +261,14 @@ function scene:create(event)
         elseif (id == "player") then
             enemy.health = health - damage
             if enemy.health <= 0 then
+                if (player.location == "ryanstown") then
+                    player.ownsRyansTown = true
+                elseif player.location == "city3" then
+                    player.ownsCity3 = true
+                elseif player.location == "city2" then
+                    player.ownsCity2 = true
+                end
+
                 timer.performWithDelay(3500, composer.gotoScene("winBattle", {effect = "crossFade", time = 500}))
             end
             print(enemy.health .. "enemy health")
@@ -597,36 +623,6 @@ function scene:create(event)
     sceneGroup:insert(enemyHealthBar)
 end
 
--- show()
-function scene:show(event)
-    local sceneGroup = self.view
-end
-
--- hide()
-function scene:hide(event)
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if (phase == "will") then
-        -- Code here runs when the scene is on screen (but is about to go off screen)
-    elseif (phase == "did") then
-    -- Code here runs immediately after the scene goes entirely off screen
-    end
-end
-
--- destroy()
-function scene:destroy(event)
-    local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
-end
-
--- -----------------------------------------------------------------------------------
--- Scene event function listeners
--- -----------------------------------------------------------------------------------
 scene:addEventListener("create", scene)
-scene:addEventListener("show", scene)
-scene:addEventListener("hide", scene)
-scene:addEventListener("destroy", scene)
--- -----------------------------------------------------------------------------------
 
 return scene

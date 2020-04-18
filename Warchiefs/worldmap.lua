@@ -174,7 +174,7 @@ function scene:create(event)
                 Runtime:removeEventListener("touch", onClick)
                 player.x = 774
                 player.y = 190
-                composer.gotoScene("ryanstown")
+                composer.gotoScene("city2")
             elseif (event.other.myName == "city3") then
                 character:removeEventListener("collision", character)
                 Runtime:removeEventListener("key", onKeyEvent)

@@ -1,6 +1,9 @@
+--copy above
+
 local composer = require("composer")
 local player = require("playerData")
 local scene = composer.newScene()
+composer.removeHidden()
 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
@@ -13,37 +16,47 @@ local scene = composer.newScene()
 
 -- create()
 function scene:create(event)
-    player.gold = player.gold + 5000
-    player.level = player.level + 1
     local sceneGroup = self.view
-    local background = display.newImageRect("images/victory.png", 1280, 720)
+    player.location = "city2"
+    -- Code here runs when the scene is first created but has not yet appeared on screen
+    -- Create the widget
+    -- Code here runs when the scene is still off screen (but is about to come on screen)
+    local background = display.newImageRect("images/city2.png", 1280, 720)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    victoryString = player.name .. " " .. player.clan .. " has defeated the boss at " .. player.location
-    local victoryText = display.newText(victoryString, 600, 200, native.systemFont, 35)
-    goldString = "You have earned 5000 gold!"
-    local goldText = display.newText(goldString, 600, 300, native.systemFont, 35)
-    levelString = "You have leveled up! You are now level " .. player.level
-    local levelText = display.newText(levelString, 600, 400, native.systemFont, 35)
+
     local widget = require("widget")
+
+    -- Function to handle button events
     local function goToWorldMap(event)
         if ("ended" == event.phase) then
-            if (player.ownsCity2 and player.ownsCity3 and player.ownsRyansTown) then
-                composer.gotoScene("end")
+            composer.gotoScene("worldmap")
+        end
+    end
+    local function goToLvl(event)
+        if ("ended" == event.phase) then
+            composer.gotoScene("level")
+        end
+    end
+    local function goToMage(event)
+        if ("ended" == event.phase) then
+            composer.gotoScene("mage")
+        end
+    end
+    local function goToCastle(event)
+        if ("ended" == event.phase) then
+            if (player.ownsCity2 == true) then
+                composer.gotoScene("tempCastle")
             else
-                composer.gotoScene("worldmap")
+                composer.gotoScene("Combat")
             end
         end
     end
-
-    victoryText:setFillColor(0, 0, 0)
-    goldText:setFillColor(0, 0, 0)
-    levelText:setFillColor(0, 0, 0)
     local exitRyansTown =
         widget.newButton(
         {
-            left = 1030,
-            top = 500,
+            left = 850,
+            top = 550,
             width = 200,
             height = 190,
             id = "exitRyansTown",
@@ -51,13 +64,51 @@ function scene:create(event)
             defaultFile = "images/door.png"
         }
     )
-    sceneGroup:insert(background)
-    sceneGroup:insert(victoryText)
-    sceneGroup:insert(exitRyansTown)
-    sceneGroup:insert(goldText)
-    sceneGroup:insert(levelText)
+    local lvlScreen =
+        widget.newButton(
+        {
+            defaultFile = "images/market.png",
+            left = 130,
+            top = 350,
+            width = 250,
+            height = 200,
+            id = "lvlScreen",
+            onEvent = goToLvl
+        }
+    )
 
-    -- Code here runs when the scene is first created but has not yet appeared on screen
+    local mageBtn =
+        widget.newButton(
+        {
+            width = 100,
+            height = 300,
+            left = 785,
+            top = 30,
+            id = "magebtn",
+            defaultFile = "images/tower.png",
+            onEvent = goToMage
+        }
+    )
+    local castleBtn =
+        widget.newButton(
+        {
+            width = 160,
+            height = 160,
+            left = 485,
+            top = 30,
+            id = "castleBtn",
+            defaultFile = "images/temporaryCastle.png",
+            onEvent = goToCastle
+        }
+    )
+    castleBtn.xScale = 1.5
+    castleBtn.yScale = 1.5
+
+    sceneGroup:insert(background)
+    sceneGroup:insert(castleBtn)
+    sceneGroup:insert(mageBtn)
+    sceneGroup:insert(lvlScreen)
+    sceneGroup:insert(exitRyansTown)
 end
 
 -- show()
@@ -66,7 +117,6 @@ function scene:show(event)
     local phase = event.phase
 
     if (phase == "will") then
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
     elseif (phase == "did") then
     -- Code here runs when the scene is entirely on screen
     end
@@ -87,12 +137,8 @@ end
 -- destroy()
 function scene:destroy(event)
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
 end
-
--- -----------------------------------------------------------------------------------
--- Scene event function listeners
--- -----------------------------------------------------------------------------------
+----
 scene:addEventListener("create", scene)
 scene:addEventListener("show", scene)
 scene:addEventListener("hide", scene)
