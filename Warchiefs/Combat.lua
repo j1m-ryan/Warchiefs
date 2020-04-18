@@ -237,8 +237,14 @@ function scene:create(event)
         print("appkydamage" .. id)
         if (id == "enemy") then
             player.health = health - damage
+            if player.health <= 0 then
+                composer.gotoScene("loseBattle", {effect = "crossFade", time = 500})
+            end
         elseif (id == "player") then
             enemy.health = health - damage
+            if enemy.health <= 0 then
+                timer.performWithDelay(3500, composer.gotoScene("winBattle", {effect = "crossFade", time = 500}))
+            end
             print(enemy.health .. "enemy health")
         end
     end
@@ -422,6 +428,9 @@ function scene:create(event)
         if event.phase == "ended" then
             AttackTurn(player.id, enemy.health, player.level, player.damage)
             attackeButtonTimer()
+            if (enemy.health <= 0) then
+                return
+            end
             timer.performWithDelay(2000, enemyTurn)
         end
     end
