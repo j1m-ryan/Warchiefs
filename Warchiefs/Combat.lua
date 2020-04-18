@@ -347,6 +347,8 @@ function scene:create(event)
 
     -- health potion method
     function healthPotionFunc(size, quantity)
+        print("quanty is" .. quantity)
+
         local healthPotionsQuantity = quantity
         local smallPotion = 15
         local largePotion = 30
@@ -357,20 +359,29 @@ function scene:create(event)
         end
 
         if (player.health > 0) then
-            local smallHealthPotions = 40
             local heath_bar_add = healthPotion / player.totalHealth
             local perdictedHealth = player.health + healthPotion
             if (perdictedHealth <= player.totalHealth) then
+                print("this happened" .. quantity)
                 if (healthPotionsQuantity > 0) then
                     player.health = player.health + healthPotion
                     playerHealthBar.xScale = playerHealthBar.xScale + heath_bar_add
                     if (size == "large") then
-                        player.largehealthpotions = player.largehealthpotions - 1
+                        player.largehealthPotions = player.largehealthPotions - 1
                     elseif (size == "small") then
-                        player.smallhealthpotions = player.smallhealthpotions - 1
+                        player.smallhealthPotions = player.smallhealthPotions - 1
                     end
                 else
                     --do nothing
+                end
+            else
+                print("other thing happened" .. quantity)
+                player.health = player.totalHealth
+                playerHealthBar.xScale = 1
+                if (size == "large") then
+                    player.largehealthPotions = player.largehealthPotions - 1
+                elseif (size == "small") then
+                    player.smallhealthPotions = player.smallhealthPotions - 1
                 end
             end
         end
@@ -438,12 +449,12 @@ function scene:create(event)
     --small Health potion event
     local function smallHealthPotion(event)
         local small = "small"
-        healthPotionFunc(small, player.smallhealthpotions)
+        healthPotionFunc(small, player.smallhealthPotions)
     end
 
     --large Health potion event
     local function largeHealthPotion(event)
-        healthPotionFunc("large", player.largehealthpotions)
+        healthPotionFunc("large", player.largehealthPotions)
     end
 
     --exit to world map func
@@ -452,19 +463,6 @@ function scene:create(event)
             composer.gotoScene("worldmap")
         end
     end
-    -- exit combat screen button
-    local button =
-        widget.newButton(
-        {
-            labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-            left = 850,
-            top = 250,
-            fontSize = 40,
-            id = "exit",
-            label = "Exit to World",
-            onRelease = goToWorldMap
-        }
-    )
 
     -- Create attack button
 
@@ -575,53 +573,6 @@ function scene:create(event)
     button4.xScale = .7
     button4.yScale = .7
 
-    -- ANIMATION TESTS
-
-    local attack_sheet1 = graphics.newImageSheet("images/attackAnimation1.png", sheetOptions)
-
-    --       local animation = display.newSprite(attack_sheet, sequenceData )
-    local animation1 = display.newSprite(attack_sheet1, sequenceData)
-    animation1.x = 110
-    animation1.y = 180
-    animation1.xScale = 1
-    animation1.yScale = 1
-
-    local attack_sheet2 = graphics.newImageSheet("images/attackAnimation2.png", sheetOptions)
-
-    --       local animation = display.newSprite(attack_sheet, sequenceData )
-    local animation2 = display.newSprite(attack_sheet2, sequenceData)
-    animation2.x = 350
-    animation2.y = 180
-    animation2.xScale = 1
-    animation2.yScale = 1
-
-    local attack_sheet3 = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
-
-    --       local animation = display.newSprite(attack_sheet, sequenceData )
-    local animation3 = display.newSprite(attack_sheet3, sequenceData)
-    animation3.x = 660
-    animation3.y = 180
-    animation3.xScale = 1
-    animation3.yScale = 1
-
-    local function playAnimations()
-        animation1:play()
-        animation2:play()
-        animation3:play()
-    end
-
-    local button5 =
-        widget.newButton(
-        {
-            labelColor = {default = {1, 1, 1}, over = {0, 0, 0, 0.5}},
-            left = 150,
-            top = 350,
-            fontSize = 40,
-            id = "exit",
-            label = "ANIMATIONS",
-            onRelease = playAnimations
-        }
-    )
     sceneGroup:insert(background)
 
     sceneGroup:insert(health_bar_outter)
@@ -630,20 +581,18 @@ function scene:create(event)
     sceneGroup:insert(health_bar_outter4)
     sceneGroup:insert(fire)
     sceneGroup:insert(fire2)
-    sceneGroup:insert(animation1)
-    sceneGroup:insert(animation2)
-    sceneGroup:insert(animation3)
+
     sceneGroup:insert(enemyAnimation)
     sceneGroup:insert(button2)
     sceneGroup:insert(button3)
     sceneGroup:insert(button4)
-    sceneGroup:insert(button5)
+
     sceneGroup:insert(playerhit)
     sceneGroup:insert(enemyhit)
     sceneGroup:insert(attack_animation)
     sceneGroup:insert(blood)
     sceneGroup:insert(button1)
-    sceneGroup:insert(button)
+
     sceneGroup:insert(playerHealthBar)
     sceneGroup:insert(enemyHealthBar)
 end

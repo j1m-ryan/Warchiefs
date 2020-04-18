@@ -45,7 +45,7 @@ function scene:create(event)
     end
     local function goToCastle(event)
         if ("ended" == event.phase) then
-            composer.gotoScene("tempCastle")
+            composer.gotoScene("Combat")
         end
     end
     local exitRyansTown =
@@ -97,6 +97,9 @@ function scene:create(event)
             onEvent = goToCastle
         }
     )
+    castleBtn.xScale = 1.5
+    castleBtn.yScale = 1.5
+
     sceneGroup:insert(background)
     sceneGroup:insert(castleBtn)
     sceneGroup:insert(mageBtn)
