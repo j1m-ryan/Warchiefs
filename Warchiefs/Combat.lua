@@ -22,7 +22,7 @@ function scene:create(event)
     -- Code here runs when the scene is still off screen (but is about to come on screen)
 
     -- background castle view
-    local background = display.newImageRect("images/combatBackground.png", 1280, 620)
+    local background = display.newImageRect("images/combatback.png", 1280, 720)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
 
@@ -44,7 +44,7 @@ function scene:create(event)
     local enemyAnimation = display.newSprite(attack_sheetEnemy, sequenceDataEnemy)
 
     enemyAnimation.x = 700
-    enemyAnimation.y = 430
+    enemyAnimation.y = 460
     enemyAnimation.xScale = -1
     --health bars
 
@@ -84,10 +84,10 @@ function scene:create(event)
 
     --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
     local fire = display.newSprite(fire_sheet, sequenceData3)
-    fire.x = 540
+    fire.x = 545
     fire.y = 335
-    fire.xScale = 1.3
-    fire.yScale = 1.2
+    fire.xScale = 1.4
+    fire.yScale = 2
     fire:play()
 
     local sequenceData4 = {
@@ -95,10 +95,10 @@ function scene:create(event)
     }
 
     local fire2 = display.newSprite(fire_sheet, sequenceData4)
-    fire2.x = 815
+    fire2.x = 830
     fire2.y = 335
-    fire2.xScale = 1.3
-    fire2.yScale = 1.2
+    fire2.xScale = 1.4
+    fire2.yScale = 2
     fire2:play()
 
     --Attack aniamtion
@@ -127,7 +127,7 @@ function scene:create(event)
     --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
     local attack_animation = display.newSprite(attack_sheet, sequenceData)
     attack_animation.x = 510
-    attack_animation.y = 480
+    attack_animation.y = 510
     attack_animation.xScale = .7
     attack_animation.yScale = .7
 
@@ -595,13 +595,6 @@ function scene:create(event)
     animation3.xScale = 1
     animation3.yScale = 1
 
-    --       local animation = display.newSprite(attack_sheet, sequenceData )
-    local animation1 = display.newSprite(attack_sheet1, sequenceData)
-    animation1.x = 110
-    animation1.y = 180
-    animation1.xScale = 1
-    animation1.yScale = 1
-
     local function playAnimations()
         animation1:play()
         animation2:play()
@@ -631,6 +624,7 @@ function scene:create(event)
     sceneGroup:insert(animation1)
     sceneGroup:insert(animation2)
     sceneGroup:insert(animation3)
+    sceneGroup:insert(enemyAnimation)
     sceneGroup:insert(button2)
     sceneGroup:insert(button3)
     sceneGroup:insert(button4)
