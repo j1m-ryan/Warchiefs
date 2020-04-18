@@ -163,16 +163,22 @@ function scene:create(event)
             print(self.myName .. ": collision began with " .. event.other.myName)
             if (event.other.myName == "obriensCastle") then
                 character:removeEventListener("collision", character)
+                Runtime:removeEventListener("key", onKeyEvent)
+                Runtime:removeEventListener("touch", onClick)
                 player.x = 196
                 player.y = 250
                 composer.gotoScene("ryanstown")
             elseif (event.other.myName == "ryanstown") then
                 character:removeEventListener("collision", character)
+                Runtime:removeEventListener("key", onKeyEvent)
+                Runtime:removeEventListener("touch", onClick)
                 player.x = 774
                 player.y = 190
                 composer.gotoScene("ryanstown")
             elseif (event.other.myName == "city3") then
                 character:removeEventListener("collision", character)
+                Runtime:removeEventListener("key", onKeyEvent)
+                Runtime:removeEventListener("touch", onClick)
                 player.x = 400
                 player.y = 630
                 composer.gotoScene("city3")
@@ -186,6 +192,7 @@ function scene:create(event)
 
     Runtime:addEventListener("key", onKeyEvent)
     Runtime:addEventListener("touch", onClick)
+
     -- Code here runs when the scene is entirely on screen
 
     --play music

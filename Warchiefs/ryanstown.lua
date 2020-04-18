@@ -35,17 +35,17 @@ function scene:create(event)
     end
     local function goToLvl(event)
         if ("ended" == event.phase) then
-            composer.showOverlay("level")
+            composer.gotoScene("level")
         end
     end
     local function goToMage(event)
         if ("ended" == event.phase) then
-            composer.showOverlay("mage")
+            composer.gotoScene("mage")
         end
     end
     local function goToCastle(event)
         if ("ended" == event.phase) then
-            composer.showOverlay("tempCastle")
+            composer.gotoScene("tempCastle")
         end
     end
     local exitRyansTown =
