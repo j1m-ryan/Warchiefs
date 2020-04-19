@@ -194,7 +194,7 @@ function scene:create(event)
             end
 
             transition.to(character, {time = timeForWalk, x = event.x, y = event.y})
-            timerID = timer.performWithDelay(timeForWalk, pauseAnimation)
+            timerID = timer.performWithDelay(timeForWalk / 1.4, pauseAnimation)
         end
     end
     local function onLocalCollision(self, event)
