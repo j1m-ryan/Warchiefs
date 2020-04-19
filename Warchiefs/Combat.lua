@@ -56,8 +56,8 @@ function scene:create(event)
     health_bar_outter2.x = 995
     health_bar_outter2.y = 663
 
-    local enemyHealthBar = require("enemyHealthBar")
-    local playerHealthBar = require("healthBar")
+    local enemyHealthBar
+    local playerHealthBar
 
     if player.location == "ryanstown" then
         enemyHealthBar = require("enemyHealthBar")

@@ -22,7 +22,9 @@ function scene:create(event)
     local function pauseAnimation()
         return
     end
+
     local timerID
+
     composer.removeHidden()
     local timeToWait = 0
 
@@ -194,11 +196,13 @@ function scene:create(event)
             end
 
             transition.to(character, {time = timeForWalk, x = event.x, y = event.y})
-            timerID = timer.performWithDelay(timeForWalk / 1.4, pauseAnimation)
+            timerID = timer.performWithDelay(1, pauseAnimation)
         end
     end
     local function onLocalCollision(self, event)
-        timer.cancel(timerID)
+        if timerID ~= nil then
+            timer.cancel(timerID)
+        end
         if (event.phase == "began") then
             print(self.myName .. ": collision began with " .. event.other.myName)
             if (event.other.myName == "obriensCastle") then
@@ -219,7 +223,7 @@ function scene:create(event)
                 character:removeEventListener("collision", character)
                 Runtime:removeEventListener("key", onKeyEvent)
                 Runtime:removeEventListener("touch", onClick)
-                player.x = 400
+                player.x = 200
                 player.y = 630
                 composer.gotoScene("city3")
             end
