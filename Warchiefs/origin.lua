@@ -42,7 +42,8 @@ function scene:create(event)
             display.remove(clanWarningText)
 
             player.clan = "Ryan"
-            player.strength = 6
+            player.strength = 7
+            player.agility = 9
             ryan._view._label:setFillColor(1, 0, 0, 0.5)
             obrien._view._label:setFillColor(0.3, 0.3, 0.3)
             singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -60,6 +61,8 @@ function scene:create(event)
         if ("ended" == event.phase) then
             clanWarningText.text = ""
             player.strength = 6
+            player.charisma = 11
+            player.dexterity = 9
             ryan._view._label:setFillColor(0.3, 0.3, 0.3)
             obrien._view._label:setFillColor(1, 0, 0, 0.5)
             singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -75,7 +78,8 @@ function scene:create(event)
         if ("ended" == event.phase) then
             clanWarningText.text = ""
             player.clan = "Shazad"
-            player.strength = 6
+            player.strength = 7
+            player.charisma = 11
             ryan._view._label:setFillColor(0.3, 0.3, 0.3)
             obrien._view._label:setFillColor(0.3, 0.3, 0.3)
             singh._view._label:setFillColor(0.3, 0.3, 0.3)
@@ -91,6 +95,8 @@ function scene:create(event)
             clanWarningText.text = ""
             player.clan = "Singh"
             player.strength = 6
+            player.dexterity = 9
+            player.agility = 9
             ryan._view._label:setFillColor(0.3, 0.3, 0.3)
             obrien._view._label:setFillColor(0.3, 0.3, 0.3)
             singh._view._label:setFillColor(1, 0, 0, 0.5)
@@ -106,6 +112,8 @@ function scene:create(event)
             clanWarningText.text = ""
             player.clan = "O'Connell McGrath"
             player.strength = 6
+            player.charisma = 11
+            player.agility = 9
             ryan._view._label:setFillColor(0.3, 0.3, 0.3)
             obrien._view._label:setFillColor(0.3, 0.3, 0.3)
             singh._view._label:setFillColor(0.3, 0.3, 0.3)
