@@ -19,7 +19,12 @@ composer.removeHidden()
 
 -- create()
 function scene:create(event)
+    local function pauseAnimation()
+        return
+    end
+    local timerID
     composer.removeHidden()
+    local timeToWait = 0
 
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
@@ -164,7 +169,7 @@ function scene:create(event)
             end
         end
     end
-    local function pauseAnimation()
+    function pauseAnimation()
         character:pause()
     end
 
@@ -174,7 +179,7 @@ function scene:create(event)
         local differenceInY = character.y - event.y
         local distanceOfWalk = math.sqrt((differenceInX * differenceInX) + (differenceInY * differenceInY))
         local timeForWalk = distanceOfWalk * 5
-
+        timeToWait = timeForWalk
         if (event.phase == "began") then
             if (event.x > character.x) then
                 characterDirection = "right"
@@ -189,10 +194,11 @@ function scene:create(event)
             end
 
             transition.to(character, {time = timeForWalk, x = event.x, y = event.y})
-            timer.performWithDelay(timeForWalk, pauseAnimation)
+            timerID = timer.performWithDelay(timeForWalk, pauseAnimation)
         end
     end
     local function onLocalCollision(self, event)
+        timer.cancel(timerID)
         if (event.phase == "began") then
             print(self.myName .. ": collision began with " .. event.other.myName)
             if (event.other.myName == "obriensCastle") then
