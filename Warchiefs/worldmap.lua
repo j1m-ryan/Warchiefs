@@ -54,12 +54,28 @@ function scene:create(event)
     background.x = display.contentCenterX
     background.y = display.contentCenterY
 
+    local sheetOptionsWalk = {
+        width = 300,
+        height = 300,
+        numFrames = 4,
+        sheetContentWidth = 1200,
+        sheetContentHeight = 300
+    }
+
+    local walkSheet
+    local sequenceDataWalk = {
+        {name = "attack", frames = {1, 2, 3, 1}, time = 200, loopCount = 0, loopDirection = "forward"}
+    }
+
     local character
     if player.gender == "Male" then
-        character = display.newImageRect("images/hero1.png", 130, 130)
+        walkSheet = graphics.newImageSheet("images/walkAnimationM.png", sheetOptionsWalk)
     else
-        character = display.newImageRect("images/hero2.png", 130, 130)
+        walkSheet = graphics.newImageSheet("images/walkAnimationF.png", sheetOptionsWalk)
     end
+    character = display.newSprite(walkSheet, sequenceDataWalk)
+    character.xScale = .5 * character.xScale
+    character.yScale = .5 * character.yScale
 
     local characterDirection = "right"
     character.x = player.x
@@ -98,64 +114,82 @@ function scene:create(event)
         if event.keyName == "a" then
             if characterDirection == "right" then
                 characterDirection = "left"
-                character.xScale = -1
+                character.xScale = -1 * character.xScale
             end
             if event.phase == "down" then
+                character:play()
                 if (character.x > 20) then
                     transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
                 end
             elseif event.phase == "up" then
+                character:pause()
                 transition.cancel()
             end
         end
         if event.keyName == "w" then
             if event.phase == "down" then
+                character:play()
                 if (character.y > 20) then
                     transition.to(character, {time = 3000, y = character.y - (screenH / 2) - 10})
                 end
             elseif event.phase == "up" then
+                character:pause()
                 transition.cancel()
             end
         end
         if event.keyName == "s" then
             if event.phase == "down" then
+                character:play()
                 if (character.y < 700) then
                     transition.to(character, {time = 3000, y = character.y + (screenH / 2) - 10})
                 end
             elseif event.phase == "up" then
+                character:pause()
                 transition.cancel()
             end
         end
         if event.keyName == "d" then
             if characterDirection == "left" then
                 characterDirection = "right"
-                character.xScale = 1
+                character.xScale = -1 * character.xScale
             end
             if event.phase == "down" then
+                character:play()
                 if (character.x < 1260) then
                     transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
                 end
             elseif event.phase == "up" then
+                character:pause()
                 transition.cancel()
             end
         end
     end
+    local function pauseAnimation()
+        character:pause()
+    end
+
     local function onClick(event)
+        character:play()
         local differenceInX = character.x - event.x
         local differenceInY = character.y - event.y
         local distanceOfWalk = math.sqrt((differenceInX * differenceInX) + (differenceInY * differenceInY))
         local timeForWalk = distanceOfWalk * 5
 
-        if (event.phase == "ended") then
+        if (event.phase == "began") then
             if (event.x > character.x) then
                 characterDirection = "right"
-                character.xScale = 1
+                if (character.xScale < 0) then
+                    character.xScale = -1 * character.xScale
+                end
             else
                 characterDirection = "right"
-                character.xScale = -1
+                if (character.xScale > 0) then
+                    character.xScale = -1 * character.xScale
+                end
             end
 
             transition.to(character, {time = timeForWalk, x = event.x, y = event.y})
+            timer.performWithDelay(timeForWalk, pauseAnimation)
         end
     end
     local function onLocalCollision(self, event)
