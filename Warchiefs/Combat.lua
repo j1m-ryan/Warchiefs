@@ -131,9 +131,17 @@ function scene:create(event)
 
     local attack_sheet
     if player.level == 1 then
-        attack_sheet = graphics.newImageSheet("images/attackAnimation1.png", sheetOptions)
+        if player.gender == "Female" then
+            attack_sheet = graphics.newImageSheet("images/attackAnimation1f.png", sheetOptions)
+        else
+            attack_sheet = graphics.newImageSheet("images/attackAnimation1.png", sheetOptions)
+        end
     elseif player.level == 2 then
-        attack_sheet = graphics.newImageSheet("images/attackAnimation2.png", sheetOptions)
+        if player.gender == "Female" then
+            attack_sheet = graphics.newImageSheet("images/attackAnimation2f.png", sheetOptions)
+        else
+            attack_sheet = graphics.newImageSheet("images/attackAnimation2.png", sheetOptions)
+        end
     else
         attack_sheet = graphics.newImageSheet("images/attackAnimation3.png", sheetOptions)
     end
