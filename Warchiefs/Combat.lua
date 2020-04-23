@@ -22,7 +22,14 @@ function scene:create(event)
     -- Code here runs when the scene is still off screen (but is about to come on screen)
 
     -- background castle view
-    local background = display.newImageRect("images/combatback.png", 1280, 720)
+    local background
+    if player.location == "ryanstown" then
+        background = display.newImageRect("images/combatback.png", 1280, 720)
+    elseif player.location == "city2" then
+        background = display.newImageRect("images/combatback2.png", 1280, 720)
+    else
+        background = display.newImageRect("images/combatback3.png", 1280, 720)
+    end
     background.x = display.contentCenterX
     background.y = display.contentCenterY
 
@@ -36,7 +43,14 @@ function scene:create(event)
         sheetContentHeight = 400
     }
 
-    local attack_sheetEnemy = graphics.newImageSheet("images/enemyanim.png", sheetOptionsEnemy)
+    local attack_sheetEnemy
+    if player.location == "ryanstown" then
+        attack_sheetEnemy = graphics.newImageSheet("images/enemyanim.png", sheetOptionsEnemy)
+    elseif player.location == "city2" then
+        attack_sheetEnemy = graphics.newImageSheet("images/enemyanim2.png", sheetOptionsEnemy)
+    else
+        attack_sheetEnemy = graphics.newImageSheet("images/enemyanim3.png", sheetOptionsEnemy)
+    end
     local sequenceDataEnemy = {
         {name = "enemy", frames = {1, 2, 3, 4, 5, 6, 1}, time = 500, loopCount = 1, loopDirection = "reverse"}
     }
@@ -44,8 +58,20 @@ function scene:create(event)
     local enemyAnimation = display.newSprite(attack_sheetEnemy, sequenceDataEnemy)
 
     enemyAnimation.x = 700
-    enemyAnimation.y = 460
+
+    enemyAnimation.y = 260
+    enemyAnimation.anchorY = 0
     enemyAnimation.xScale = -1
+    if player.location == "ryanstown" then
+    elseif player.location == "city2" then
+        enemyAnimation.xScale = enemyAnimation.xScale * 1.2
+        enemyAnimation.yScale = enemyAnimation.yScale * 1.2
+        enemyAnimation.y = 200
+    else
+        enemyAnimation.xScale = enemyAnimation.xScale * 1.5
+        enemyAnimation.yScale = enemyAnimation.yScale * 1.5
+        enemyAnimation.y = 100
+    end
     --health bars
 
     local health_bar_outter = display.newImageRect("images/healthbar.png", 225, 35)
