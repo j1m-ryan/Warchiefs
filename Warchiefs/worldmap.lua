@@ -75,10 +75,16 @@ function scene:create(event)
     }
 
     local character
-    if player.gender == "Male" then
+    if player.gender == "Male" and player.level == 1 then
         walkSheet = graphics.newImageSheet("images/walkAnimationM.png", sheetOptionsWalk)
-    else
+    elseif player.gender == "Male" and player.level == 2 then
+        walkSheet = graphics.newImageSheet("images/walkAnimationM2.png", sheetOptionsWalk)
+    elseif player.gender == "Female" and player.level == 1 then
         walkSheet = graphics.newImageSheet("images/walkAnimationF.png", sheetOptionsWalk)
+    elseif player.gender == "Female" and player.level == 2 then
+        walkSheet = graphics.newImageSheet("images/walkAnimationF2.png", sheetOptionsWalk)
+    else
+        walkSheet = graphics.newImageSheet("images/walkAnimation3.png", sheetOptionsWalk)
     end
     character = display.newSprite(walkSheet, sequenceDataWalk)
     character.xScale = .5 * character.xScale

@@ -18,6 +18,8 @@ function scene:create(event)
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     local phase = event.phase
+    player.damage = 5 * player.strength
+    player.health = 300
 
     -- Code here runs when the scene is still off screen (but is about to come on screen)
 
@@ -47,9 +49,9 @@ function scene:create(event)
     if player.location == "ryanstown" then
         attack_sheetEnemy = graphics.newImageSheet("images/enemyanim.png", sheetOptionsEnemy)
     elseif player.location == "city2" then
-        attack_sheetEnemy = graphics.newImageSheet("images/enemyanim2.png", sheetOptionsEnemy)
+        attack_sheetEnemy = graphics.newImageSheet("images/enemy2.png", sheetOptionsEnemy)
     else
-        attack_sheetEnemy = graphics.newImageSheet("images/enemyanim3.png", sheetOptionsEnemy)
+        attack_sheetEnemy = graphics.newImageSheet("images/enemy3.png", sheetOptionsEnemy)
     end
     local sequenceDataEnemy = {
         {name = "enemy", frames = {1, 2, 3, 4, 5, 6, 1}, time = 500, loopCount = 1, loopDirection = "reverse"}
@@ -82,19 +84,33 @@ function scene:create(event)
     health_bar_outter2.x = 995
     health_bar_outter2.y = 663
 
-    local enemyHealthBar
-    local playerHealthBar
+    local Bar = display.newRect(20, 160, 218, 22)
+    Bar.x = 115
+    Bar.y = 652
+    Bar:setFillColor(250, 0, 0)
+    Bar.anchorX = 0
+    Bar.anchorY = 0
 
-    if player.location == "ryanstown" then
-        enemyHealthBar = require("enemyHealthBar")
-        playerHealthBar = require("healthBar")
-    elseif player.location == "city2" then
-        enemyHealthBar = require("enemyHealthBar2")
-        playerHealthBar = require("healthBar2")
-    else
-        enemyHealthBar = require("enemyHealthBar3")
-        playerHealthBar = require("healthBar3")
-    end
+    local EnemyBar = display.newRect(20, 160, 400, 22)
+    EnemyBar.x = 1187
+    EnemyBar.y = 652
+    EnemyBar:setFillColor(250, 0, 0)
+    EnemyBar.anchorX = 1
+    EnemyBar.anchorY = 0
+
+    local enemyHealthBar = EnemyBar
+    local playerHealthBar = Bar
+
+    -- if player.location == "ryanstown" then
+    --   enemyHealthBar = require("enemyHealthBar")
+    -- playerHealthBar = require("healthBar")
+    -- elseif player.location == "city2" then
+    --   enemyHealthBar = require("enemyHealthBar2")
+    -- playerHealthBar = require("healthBar2")
+    --else
+    --  enemyHealthBar = require("enemyHealthBar3")
+    -- playerHealthBar = require("healthBar3")
+    --end
 
     local health_bar_outter3 = display.newImageRect("images/heart.png", 55, 60)
     health_bar_outter3.x = 110
@@ -345,6 +361,52 @@ function scene:create(event)
     --hit text boxes method
     local playerhit = display.newText("", 200, 200, native.systemFont, 40)
     local enemyhit = display.newText("", 1000, 200, native.systemFont, 40)
+    local charismaTextPlayer = display.newText("", 200, 200, native.systemFont, 40)
+    local charismaTextEnemy = display.newText("", 1000, 200, native.systemFont, 40)
+    function leave()
+        attackeButtonTimer()
+        composer.gotoScene("worldmap")
+    end
+
+    function enemyTalk()
+        attackeButtonTimer()
+        print "enemy is talking"
+        charismaTextEnemy = display.newText("", 1000, 200, native.systemFont, 40)
+
+        charismaTextEnemy.text = "Ok " .. player.name .. ", nice to meet you!"
+        transition.moveTo(charismaTextEnemy, {x = 1200, y = 400, time = 2000})
+        transition.fadeOut(charismaTextEnemy, {time = 2300})
+        timer.performWithDelay(2000, leave)
+    end
+
+    function enemyTalk2()
+        attackeButtonTimer()
+        print "enemy is talking"
+        charismaTextEnemy = display.newText("", 1000, 200, native.systemFont, 40)
+
+        charismaTextEnemy.text = "Pfft you do not charm me!"
+        transition.moveTo(charismaTextEnemy, {x = 1200, y = 400, time = 2000})
+        transition.fadeOut(charismaTextEnemy, {time = 2300})
+    end
+
+    function talk()
+        attackeButtonTimer()
+        print "hello"
+        if (player.charisma > 10) then
+            charismaTextPlayer = display.newText("", 200, 200, native.systemFont, 40)
+            charismaTextPlayer.text = "Hey, lets be friends"
+            transition.moveTo(charismaTextPlayer, {x = 300, y = 400, time = 2000})
+            transition.fadeOut(charismaTextPlayer, {time = 2300})
+        else
+            charismaTextPlayer = display.newText("", 200, 200, native.systemFont, 40)
+            charismaTextPlayer.text = "Erm, eh whats up man?"
+            transition.moveTo(charismaTextPlayer, {x = 300, y = 400, time = 2000})
+            transition.fadeOut(charismaTextPlayer, {time = 2300})
+
+            timer.performWithDelay(2000, enemyTalk2)
+        end
+    end
+
     function hitText(id, damage, miss)
         if (id == "player") then
             attack_animation:play()
@@ -408,7 +470,9 @@ function scene:create(event)
     -- health potion method
     function healthPotionFunc(size, quantity)
         print("quanty is" .. quantity)
-
+        if (quantity <= 0) then
+            return
+        end
         local healthPotionsQuantity = quantity
         local smallPotion = 15
         local largePotion = 30
@@ -497,7 +561,7 @@ function scene:create(event)
             return
         end
         if event.phase == "ended" then
-            AttackTurn(player.id, enemy.health, player.level, player.damage)
+            AttackTurn(player.id, enemy.health, player.level, math.random(player.damage * 0.5, player.damage * 1.5))
             attackeButtonTimer()
             if (enemy.health <= 0) then
                 return
@@ -572,7 +636,6 @@ function scene:create(event)
             sheet = buttonSheet2,
             defaultFrame = 1,
             overFrame = 2,
-            label = "buttons",
             onRelease = smallHealthPotion
         }
     )
@@ -594,7 +657,6 @@ function scene:create(event)
             sheet = buttonSheet3,
             defaultFrame = 1,
             overFrame = 2,
-            label = "buttonl",
             onRelease = largeHealthPotion
         }
     )
@@ -622,8 +684,7 @@ function scene:create(event)
             sheet = buttonSheet4,
             defaultFrame = 1,
             overFrame = 2,
-            label = "button",
-            onRelease = doNothing
+            onRelease = talk
         }
     )
 
@@ -655,6 +716,8 @@ function scene:create(event)
 
     sceneGroup:insert(playerHealthBar)
     sceneGroup:insert(enemyHealthBar)
+    sceneGroup:insert(charismaTextPlayer)
+    sceneGroup:insert(charismaTextEnemy)
 end
 
 scene:addEventListener("create", scene)

@@ -1,4 +1,7 @@
-local player = {}
+local player = require("playerData")
+local enemy1 = require("TestData2")
+local enemy2 = require("TestData3")
+local enemy3 = require("TestData4")
 
 player.name = ""
 player.clan = ""
@@ -27,4 +30,7 @@ player.ownsCity3 = false
 player.totalHealth = 300
 
 player.disableHealth = false
-return player
+
+enemy1.health = 1000
+enemy2.health = 1000
+enemy3.health = 1000

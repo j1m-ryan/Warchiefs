@@ -27,6 +27,7 @@ function scene:create(event)
     local widget = require("widget")
     local function goToWorldMap(event)
         if ("ended" == event.phase) then
+            local reset = require("reset")
             composer.gotoScene("menu")
         end
     end
