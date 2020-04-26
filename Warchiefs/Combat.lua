@@ -397,6 +397,7 @@ function scene:create(event)
             charismaTextPlayer.text = "Hey, lets be friends"
             transition.moveTo(charismaTextPlayer, {x = 300, y = 400, time = 2000})
             transition.fadeOut(charismaTextPlayer, {time = 2300})
+            timer.performWithDelay(2000, enemyTalk)
         else
             charismaTextPlayer = display.newText("", 200, 200, native.systemFont, 40)
             charismaTextPlayer.text = "Erm, eh whats up man?"

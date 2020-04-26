@@ -1,0 +1,32 @@
+warchief combat prototype
+
+to test this download latest files of warchief
+
+then open main.lua and change last line(line 15) 
+
+from
+
+composer.gotoScene("menu")
+
+
+to
+
+composer.gotoScene("Combat")
+
+
+
+and run, it should run combat scene straight away
+
+test by pressing attack key on screen
+
+you will see health bars working
+
+also if any of them dies , it just prints game over
+
+so you have to relaunch to test again.
+
+you can change enemy and player stats around to change
+the tide ;D
+
+keep in mind this is a prototype not a finished product.
+thanks
