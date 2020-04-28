@@ -215,7 +215,6 @@ function scene:create(event)
     largePotions:setFillColor(0, 1, 0)
     largePotions.text = player.largehealthPotions
 
-
     -- Condition for Attack function if false then do nothing
     local bothAlive = true
 
@@ -439,7 +438,6 @@ function scene:create(event)
         end
     end --hitText end
 
-
     -- health potion method
     function healthPotionFunc(size, quantity)
         print("quanty is" .. quantity)
@@ -474,8 +472,8 @@ function scene:create(event)
                 end
             else
                 print("other thing happened" .. quantity)
-                  player.health = player.totalHealth
-                  playerHealthNum.text = player.totalHealth
+                player.health = player.totalHealth
+                playerHealthNum.text = player.totalHealth
                 playerHealthBar.xScale = 1
 
                 if (size == "large") then
@@ -697,6 +695,8 @@ function scene:create(event)
     sceneGroup:insert(charismaTextEnemy)
     sceneGroup:insert(playerHealthNum)
     sceneGroup:insert(enemyHealthNum)
+    sceneGroup:insert(smallPotions)
+    sceneGroup:insert(largePotions)
 end
 
 scene:addEventListener("create", scene)
