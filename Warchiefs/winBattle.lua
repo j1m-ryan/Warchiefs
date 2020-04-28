@@ -15,6 +15,10 @@ local scene = composer.newScene()
 function scene:create(event)
     player.gold = player.gold + 5000
     player.level = player.level + 1
+    player.health = player.totalHealth
+    player.health = player.health + 50
+    player.damage = player.damage * 2
+    player.totalHealth = player.totalHealth + 50
     local sceneGroup = self.view
     local background = display.newImageRect("images/victory.png", 1280, 720)
     background.x = display.contentCenterX

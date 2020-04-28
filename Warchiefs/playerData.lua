@@ -16,15 +16,15 @@ player.smallhealthPotions = 2
 player.x = 30
 player.y = 30
 player.location = ""
-player.health = 300 --default
-player.damage = 5 * player.strength
+player.health = 100 --default
+player.damage = 10 + (player.strength/10 + player.dexterity/10)
 player.level = 1
 player.evade = 3
 player.ownsRyansTown = false
 player.ownsCity2 = false
 player.ownsCity3 = false
 
-player.totalHealth = 300
+player.totalHealth = 100
 
 player.disableHealth = false
 return player

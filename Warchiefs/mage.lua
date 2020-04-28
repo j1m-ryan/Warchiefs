@@ -22,21 +22,25 @@ function scene:create(event)
     end
     local function buyLargePotion(event)
         if ("ended" == event.phase) then
-            if player.gold >= 1000 then
-                player.largehealthPotions = player.largehealthPotions + 1
-                player.gold = player.gold - 1000
-                goldlabel.text = player.gold
-                largelabel.text = player.largehealthPotions
+           if player.largehealthPotions < 2 then
+              if player.gold >= 1000 then
+                  player.largehealthPotions = player.largehealthPotions + 1
+                  player.gold = player.gold - 1000
+                  goldlabel.text = player.gold
+                  largelabel.text = player.largehealthPotions
+                end
             end
         end
     end
     local function buySmallPotion(event)
         if ("ended" == event.phase) then
-            if player.gold >= 250 then
-                player.smallhealthPotions = player.smallhealthPotions + 1
-                player.gold = player.gold - 250
-                goldlabel.text = player.gold
-                smalllabel.text = player.smallhealthPotions
+           if player.smallhealthPotions <4 then
+               if player.gold >= 250 then
+                  player.smallhealthPotions = player.smallhealthPotions + 1
+                  player.gold = player.gold - 250
+                  goldlabel.text = player.gold
+                  smalllabel.text = player.smallhealthPotions
+                end
             end
         end
     end

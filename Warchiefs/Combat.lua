@@ -18,8 +18,6 @@ function scene:create(event)
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     local phase = event.phase
-    player.damage = 5 * player.strength
-    player.health = 300
 
     -- Code here runs when the scene is still off screen (but is about to come on screen)
 
@@ -49,9 +47,9 @@ function scene:create(event)
     if player.location == "ryanstown" then
         attack_sheetEnemy = graphics.newImageSheet("images/enemyanim.png", sheetOptionsEnemy)
     elseif player.location == "city2" then
-        attack_sheetEnemy = graphics.newImageSheet("images/enemy2.png", sheetOptionsEnemy)
+        attack_sheetEnemy = graphics.newImageSheet("images/test.png", sheetOptionsEnemy)
     else
-        attack_sheetEnemy = graphics.newImageSheet("images/enemy3.png", sheetOptionsEnemy)
+        attack_sheetEnemy = graphics.newImageSheet("images/test2.png", sheetOptionsEnemy)
     end
     local sequenceDataEnemy = {
         {name = "enemy", frames = {1, 2, 3, 4, 5, 6, 1}, time = 500, loopCount = 1, loopDirection = "reverse"}
@@ -199,27 +197,24 @@ function scene:create(event)
     attack_animation.xScale = .7
     attack_animation.yScale = .7
 
-    --blood animation intialize
-    local sheetOptions2 = {
-        width = 50,
-        height = 50,
-        numFrames = 4,
-        sheetContentWidth = 150,
-        sheetContentHeight = 50
-    }
+    --Health displayed in numbers
+    playerHealthNum = display.newText("", 150, 620, native.systemFont, 40)
+    playerHealthNum:setFillColor(1, 0, 0)
+    playerHealthNum.text = player.health
 
-    local blood_sheet = graphics.newImageSheet("images/blood.png", sheetOptions)
+    enemyHealthNum = display.newText("", 1150, 620, native.systemFont, 40)
+    enemyHealthNum:setFillColor(1, 0, 0)
+    enemyHealthNum.text = enemy.health
 
-    local sequenceData2 = {
-        {name = "bloody", frames = {1, 2, 3}, time = 800, loopCount = 1, loopDirection = "forward"}
-    }
+    --Health Potion displayed in numbers
+    smallPotions = display.newText("", 470, 625, native.systemFont, 30)
+    smallPotions:setFillColor(0, 1, 0)
+    smallPotions.text = player.smallhealthPotions
 
-    --       local attack_animation = display.newSprite(attack_sheet, sequenceData )
-    local blood = display.newSprite(blood_sheet, sequenceData2)
-    blood.x = 800
-    blood.y = 500
-    blood.xScale = .3
-    blood.yScale = .3
+    largePotions = display.newText("", 565, 625, native.systemFont, 30)
+    largePotions:setFillColor(0, 1, 0)
+    largePotions.text = player.largehealthPotions
+
 
     -- Condition for Attack function if false then do nothing
     local bothAlive = true
@@ -332,7 +327,6 @@ function scene:create(event)
             health_bar_scale = playerHealthBar.xScale
             totalHealth = player.totalHealth
         elseif (id == "player") then
-            blood:play() -- player blood animation on player
             health_bar_scale = enemyHealthBar.xScale
             totalHealth = enemy.totalHealth
         end
@@ -377,6 +371,8 @@ function scene:create(event)
         transition.moveTo(charismaTextEnemy, {x = 1200, y = 400, time = 2000})
         transition.fadeOut(charismaTextEnemy, {time = 2300})
         timer.performWithDelay(2000, leave)
+        player.health = player.totalHealth
+        enemy.health = enemy.totalHealth
     end
 
     function enemyTalk2()
@@ -418,6 +414,7 @@ function scene:create(event)
             playerhit.text = "Player did " .. damage .. " damage"
             transition.moveTo(playerhit, {x = 300, y = 400, time = 2000})
             transition.fadeOut(playerhit, {time = 2300})
+            enemyHealthNum.text = enemy.health
         elseif (id == "player" and miss == true) then
             -- initializing hit text boxes
             playerhit = display.newText("", 200, 200, native.systemFont, 40)
@@ -432,6 +429,7 @@ function scene:create(event)
             enemyhit.text = "enemy did " .. damage .. " damage"
             transition.moveTo(enemyhit, {x = 1200, y = 400, time = 2000})
             transition.fadeOut(enemyhit, {time = 2300})
+            playerHealthNum.text = player.health
         elseif (id == "enemy" and miss == true) then
             enemyhit = display.newText("", 1000, 200, native.systemFont, 40)
             enemyhit:setFillColor(0, 0, 1)
@@ -441,32 +439,6 @@ function scene:create(event)
         end
     end --hitText end
 
-    --player levelup method
-    function playerLevelUp()
-        --Storing old stats if need to be printed to show progress
-        local temp = {
-            player.level,
-            player.health,
-            player.weapon,
-            player.attributePoints,
-            player.gold,
-            player.totalHealth
-        }
-
-        --updating player stats
-        player.level = player.level + 1
-        player.health = player.health + 50
-        player.weapon = player.weapon + 10
-        player.attributePoints = player.attributePoints + 5
-        player.gold = player.gold + 1000
-        player.totalHealth = player.totalHealth + 50
-
-        --print player stats on screen
-
-        local header = display.newText("         LEVEL UP     ", 500, 200, native.systemFont, 140)
-        header:setFillColor(1, 0, 0)
-    end
-    -- end of playerlevelup
 
     -- health potion method
     function healthPotionFunc(size, quantity)
@@ -475,21 +447,22 @@ function scene:create(event)
             return
         end
         local healthPotionsQuantity = quantity
-        local smallPotion = 15
-        local largePotion = 30
+        local smallPotion = 25
+        local largePotion = 45
         if (size == "large") then
             healthPotion = largePotion
         elseif (size == "small") then
             healthPotion = smallPotion
         end
 
-        if (player.health > 0) then
+        if (player.health > 0 and player.health < player.totalHealth) then
             local heath_bar_add = healthPotion / player.totalHealth
             local perdictedHealth = player.health + healthPotion
             if (perdictedHealth <= player.totalHealth) then
                 print("this happened" .. quantity)
                 if (healthPotionsQuantity > 0) then
                     player.health = player.health + healthPotion
+                    playerHealthNum.text = player.health
                     playerHealthBar.xScale = playerHealthBar.xScale + heath_bar_add
                     if (size == "large") then
                         player.largehealthPotions = player.largehealthPotions - 1
@@ -501,14 +474,18 @@ function scene:create(event)
                 end
             else
                 print("other thing happened" .. quantity)
-                player.health = player.totalHealth
+                  player.health = player.totalHealth
+                  playerHealthNum.text = player.totalHealth
                 playerHealthBar.xScale = 1
+
                 if (size == "large") then
                     player.largehealthPotions = player.largehealthPotions - 1
                 elseif (size == "small") then
                     player.smallhealthPotions = player.smallhealthPotions - 1
                 end
             end
+            largePotions.text = player.largehealthPotions
+            smallPotions.text = player.smallhealthPotions
         end
     end
     -- end of health potion
@@ -562,7 +539,7 @@ function scene:create(event)
             return
         end
         if event.phase == "ended" then
-            AttackTurn(player.id, enemy.health, player.level, math.random(player.damage * 0.5, player.damage * 1.5))
+            AttackTurn(player.id, enemy.health, player.level, player.damage)
             attackeButtonTimer()
             if (enemy.health <= 0) then
                 return
@@ -712,13 +689,14 @@ function scene:create(event)
     sceneGroup:insert(playerhit)
     sceneGroup:insert(enemyhit)
     sceneGroup:insert(attack_animation)
-    sceneGroup:insert(blood)
     sceneGroup:insert(button1)
 
     sceneGroup:insert(playerHealthBar)
     sceneGroup:insert(enemyHealthBar)
     sceneGroup:insert(charismaTextPlayer)
     sceneGroup:insert(charismaTextEnemy)
+    sceneGroup:insert(playerHealthNum)
+    sceneGroup:insert(enemyHealthNum)
 end
 
 scene:addEventListener("create", scene)
