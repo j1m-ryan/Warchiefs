@@ -387,7 +387,13 @@ function scene:create(event)
     function talk()
         attackeButtonTimer()
         print "hello"
-        if (player.charisma > 10) then
+        local requiredChar = 10
+        if (player.level == 2) then
+            requiredChar = 14
+        elseif player.level == 3 then
+            requiredChar = 16
+        end
+        if (player.charisma > requiredChar) then
             charismaTextPlayer = display.newText("", 200, 200, native.systemFont, 40)
             charismaTextPlayer.text = "Hey, lets be friends"
             transition.moveTo(charismaTextPlayer, {x = 300, y = 400, time = 2000})

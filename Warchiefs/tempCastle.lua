@@ -7,15 +7,24 @@ function scene:create(event)
     composer.removeHidden()
     local sceneGroup = self.view
     local phase = event.phase
+    local widget = require("widget")
     print(player.gold)
-    local background = display.newImageRect("images/castleinterior.png", 1280, 720)
+    local background
+    if player.location == "ryanstown" then
+        background = display.newImageRect("images/combatback.png", 1280, 720)
+    elseif player.location == "city2" then
+        background = display.newImageRect("images/combatback2.png", 1280, 720)
+    else
+        background = display.newImageRect("images/combatback3.png", 1280, 720)
+    end
+
     background.x = display.contentCenterX
     background.y = display.contentCenterY
-    local character = display.newImageRect("images/hero1.png", 300, 300)
-    local widget = require("widget")
-    local characterDirection = "right"
-    local function leaveCastle()
-        composer.gotoScene("worldmap")
+
+    local function leaveCastle(event)
+        if ("ended" == event.phase) then
+            composer.gotoScene("worldmap")
+        end
     end
 
     local exit =
@@ -30,39 +39,6 @@ function scene:create(event)
             defaultFile = "images/door.png"
         }
     )
-    character.x = 200
-    character.y = 460
-    physics.start()
-    physics.setGravity(0, 0)
-    physics.addBody(character, {radius = 30, isSensor = true})
-    function onKeyEvent(event)
-        print("x")
-        print(character.x)
-        print("Y")
-        print(character.y)
-        if event.keyName == "a" then
-            if characterDirection == "right" then
-                characterDirection = "left"
-                character.xScale = -1
-            end
-            if event.phase == "down" then
-                transition.to(character, {time = 3000, x = character.x - (screenW / 2) - 10})
-            elseif event.phase == "up" then
-                transition.cancel()
-            end
-        end
-        if event.keyName == "d" then
-            if characterDirection == "left" then
-                characterDirection = "right"
-                character.xScale = 1
-            end
-            if event.phase == "down" then
-                transition.to(character, {time = 3000, x = character.x + (screenW / 2) + 10})
-            elseif event.phase == "up" then
-                transition.cancel()
-            end
-        end
-    end
 
     if (phase == "will") then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
@@ -70,9 +46,9 @@ function scene:create(event)
 
     -- Code here runs when the scene is entirely on screen
     end
-    Runtime:addEventListener("key", onKeyEvent)
+
     sceneGroup:insert(background)
-    sceneGroup:insert(character)
+
     sceneGroup:insert(exit)
 end
 

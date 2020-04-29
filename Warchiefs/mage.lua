@@ -12,8 +12,8 @@ function scene:create(event)
     background.y = display.contentCenterY
     local widget = require("widget")
     goldlabel = display.newText(player.gold, 1100, 45, "Castellar", 50)
-    largelabel = display.newText(player.largehealthPotions, 750, 150, "Castellar", 50)
-    smalllabel = display.newText(player.smallhealthPotions, 750, 450, "Castellar", 50)
+    largelabel = display.newText(player.largehealthPotions .. "/2", 750, 150, "Castellar", 50)
+    smalllabel = display.newText(player.smallhealthPotions .. "/4", 750, 450, "Castellar", 50)
     local function goBack(event)
         if ("ended" == event.phase) then
             composer.hideOverlay("level")
@@ -22,24 +22,24 @@ function scene:create(event)
     end
     local function buyLargePotion(event)
         if ("ended" == event.phase) then
-           if player.largehealthPotions < 2 then
-              if player.gold >= 1000 then
-                  player.largehealthPotions = player.largehealthPotions + 1
-                  player.gold = player.gold - 1000
-                  goldlabel.text = player.gold
-                  largelabel.text = player.largehealthPotions
+            if player.largehealthPotions < 2 then
+                if player.gold >= 1000 then
+                    player.largehealthPotions = player.largehealthPotions + 1
+                    player.gold = player.gold - 1000
+                    goldlabel.text = player.gold
+                    largelabel.text = player.largehealthPotions .. "/2"
                 end
             end
         end
     end
     local function buySmallPotion(event)
         if ("ended" == event.phase) then
-           if player.smallhealthPotions <4 then
-               if player.gold >= 250 then
-                  player.smallhealthPotions = player.smallhealthPotions + 1
-                  player.gold = player.gold - 250
-                  goldlabel.text = player.gold
-                  smalllabel.text = player.smallhealthPotions
+            if player.smallhealthPotions < 4 then
+                if player.gold >= 250 then
+                    player.smallhealthPotions = player.smallhealthPotions + 1
+                    player.gold = player.gold - 250
+                    goldlabel.text = player.gold
+                    smalllabel.text = player.smallhealthPotions .. "/4"
                 end
             end
         end
